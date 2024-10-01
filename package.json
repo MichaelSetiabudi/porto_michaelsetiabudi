@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "glob": "^11.0.0",
     "inflight": "^1.0.6",
     "next": "14.2.13",

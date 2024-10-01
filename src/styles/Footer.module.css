@@ -1,9 +1,13 @@
-.footerComponent{
-    display: flex;
-    position:fixed;
+.footerComponent {
+    position: fixed;
     width: 100%;
     bottom: 0;
-    background-color: #121212;
+    background-color: #0D0D0D;
     color: #C0C0C0;
     justify-content: center;
-}
+    height: 8vh; /* Tinggi tetap untuk footer */
+    display: flex;
+    align-items: center;
+    z-index: 100; /* Agar tetap di atas konten lain */
+  }
+  

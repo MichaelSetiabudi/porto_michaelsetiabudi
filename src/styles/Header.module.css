@@ -1,25 +1,44 @@
-.headerComponent{
-    background-color: #2F4F4F; /* Dark Slate Gray */
-    display: flex;
-    height: 8vh;
-    padding: 1vh 1vw;
-    justify-content: flex-end;
-    color: #FFFFFF;
-    border-bottom: 4px solid #D4AF37; /* Gold accent as bottom border */
+.headerComponent {
+  background-color: #1a1a1d;
+  display: flex;
+  height: 8vh;
+  padding: 1vh 1vw;
+  justify-content: flex-end;
+  color: #ffffff;
+  border-bottom: 4px solid #d4af37;
+  align-items: center;
 }
 
-.headerButton{
-    width: 5vw;
-    border: none;
-    background-color: transparent;
-    color: #FFFFFF;
-    font-size: 1rem;
-    padding: 0.5vh 0.5vw;
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+/* Flexibly handle button sizes */
+.headerButton {
+  width: 5vw; /* Tetap dengan 5vw untuk tampilan PC */
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 0.5vh 0.5vw;
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+  text-align: center;
 }
 
-.headerButton:hover{
-    cursor: pointer;
-    color: #FFAA33; /* Warm accent color on hover */
-    border-bottom: 2px solid #D4AF37; /* Gold accent as bottom border on hover */
+.headerButton:hover {
+  cursor: pointer;
+  color: #ffaa33; /* Warm accent color on hover */
+  border-bottom: 2px solid #d4af37; /* Gold accent as bottom border on hover */
+}
+
+/* Minimal media query for responsiveness on smaller screens */
+@media (max-width: 768px) {
+  .headerComponent {
+    flex-direction: row; /* Stacks buttons vertically on small screens */
+    height: auto;
+    padding: 2vh 2vw; /* Adjusted padding for small screens */
+    justify-content: center; /* Posisikan tombol di tengah pada mobile */
+  }
+
+  .headerButton {
+    width: 100%; /* Buttons take full width on small screens */
+    margin-bottom: 10px; /* Adds space between buttons on mobile */
+    text-align: center;
+  }
 }

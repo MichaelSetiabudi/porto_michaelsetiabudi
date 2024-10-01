@@ -1,0 +1,18 @@
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Agar tinggi sesuai viewport */
+  padding-bottom: 8vh; /* Tambahkan padding di bawah untuk footer fixed */
+}
+/* Modifikasi untuk mainComponent */
+.mainComponent {
+  background-color: #2c2c2e;
+  color: #e5e5e5;
+  flex-grow: 1; /* Mengisi ruang antara header dan footer */
+  padding: 20px; /* Padding untuk konten */
+}
+
+/* Untuk menghindari tumpang tindih konten dengan footer */
+.footerSpacer {
+  height: 8vh; /* Tinggi yang sama dengan footer */
+}
