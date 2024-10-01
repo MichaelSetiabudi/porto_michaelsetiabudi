@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import style from "@/styles/Header.module.css"
 
 const Header: React.FC = () => {
-  const router = useRouter();
 
   return (
     <>

@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import style from "@/styles/Footer.module.css"
 
 const Footer: React.FC = () => {
-  const router = useRouter();
 
   return (
     <>
