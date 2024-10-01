@@ -1,6 +1,4 @@
-// Header.tsx
-
-import React from "react";
+// Heaimport React from "react";
 import {
   Container,
 } from "react-bootstrap";
