@@ -1,0 +1,9 @@
+.footerComponent{
+    display: flex;
+    position:fixed;
+    width: 100%;
+    bottom: 0;
+    background-color: #121212;
+    color: #C0C0C0;
+    justify-content: center;
+}

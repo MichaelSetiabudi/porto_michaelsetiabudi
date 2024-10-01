@@ -1,0 +1,25 @@
+.headerComponent{
+    background-color: #2F4F4F; /* Dark Slate Gray */
+    display: flex;
+    height: 8vh;
+    padding: 1vh 1vw;
+    justify-content: flex-end;
+    color: #FFFFFF;
+    border-bottom: 4px solid #D4AF37; /* Gold accent as bottom border */
+}
+
+.headerButton{
+    width: 5vw;
+    border: none;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 1rem;
+    padding: 0.5vh 0.5vw;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+.headerButton:hover{
+    cursor: pointer;
+    color: #FFAA33; /* Warm accent color on hover */
+    border-bottom: 2px solid #D4AF37; /* Gold accent as bottom border on hover */
+}
