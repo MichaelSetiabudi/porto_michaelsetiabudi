@@ -1,6 +1,3 @@
-import Head from "next/head";
-
-
 const Main: React.FC = () => {
   return (
     <>
