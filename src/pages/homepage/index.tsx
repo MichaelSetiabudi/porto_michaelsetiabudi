@@ -1,9 +1,9 @@
 // pages/homepage/index.tsx (Homepage)
 import Head from "next/head";
-import Header from "@/pages/components/Header"; // Perbaiki path import
-import Footer from "@/pages/components/Footer"; // Perbaiki path import
-import Main from "@/pages/homepage/Main"; // Asumsi Anda memiliki Main di folder homepage
-import style from "@/styles/landingpage/global.module.css"; // Atur sesuai kebutuhan
+import Header from "@/pages/components/Header"; // Sesuaikan path import
+import Footer from "@/pages/components/Footer"; // Sesuaikan path import
+import Main from "@/pages/homepage/Main"; // Sesuaikan path import
+import style from "@/styles/landingpage/global.module.css"; // Sesuaikan jika ada CSS khusus untuk homepage
 import { useEffect, useState } from "react";
 
 const HomePage: React.FC = () => {
