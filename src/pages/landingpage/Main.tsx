@@ -1,7 +1,7 @@
 const Main: React.FC = () => {
   return (
     <>
-      <h1>YOSUA KONTOl</h1>
+      <h1>ISA DI AKSES KAH?</h1>
     </>
   );
 };
