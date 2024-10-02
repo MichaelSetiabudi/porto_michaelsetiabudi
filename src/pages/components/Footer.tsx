@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
   return (
     <>
     <Container className={style.footerComponent}>
-        <h1>Ini Footer</h1>
+        <p>Copyright &copy; 2024</p>
     </Container>
     </>
   );
