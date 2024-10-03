@@ -1,3 +1,4 @@
+/* Style utama untuk container header */
 .headerComponent {
   background-color: #1a1a1d;
   display: flex;
@@ -7,38 +8,183 @@
   color: #ffffff;
   border-bottom: 4px solid #d4af37;
   align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Flexibly handle button sizes */
 .headerButton {
-  width: 5vw; /* Tetap dengan 5vw untuk tampilan PC */
+  width: 5vw;
   border: none;
   background-color: transparent;
   color: #ffffff;
   font-size: 1rem;
   padding: 0.5vh 0.5vw;
-  transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+  transition: all 0.3s ease-in-out;
   text-align: center;
+  box-shadow: inset 0 0 0 0 #d4af37;
 }
 
 .headerButton:hover {
   cursor: pointer;
-  color: #ffaa33; /* Warm accent color on hover */
-  border-bottom: 2px solid #d4af37; /* Gold accent as bottom border on hover */
+  color: #ffaa33;
+  border-bottom: 2px solid #d4af37;
+  box-shadow: inset 0 -2px 0 0 #ffaa33, 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Minimal media query for responsiveness on smaller screens */
+/* Responsive design untuk mobile screens */
 @media (max-width: 768px) {
   .headerComponent {
-    flex-direction: row; /* Stacks buttons vertically on small screens */
+    flex-direction: column;
     height: auto;
-    padding: 2vh 2vw; /* Adjusted padding for small screens */
-    justify-content: center; /* Posisikan tombol di tengah pada mobile */
+    padding: 2vh 2vw;
+    justify-content: center;
   }
 
   .headerButton {
-    width: 100%; /* Buttons take full width on small screens */
-    margin-bottom: 10px; /* Adds space between buttons on mobile */
+    width: 80%;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
     text-align: center;
+  }
+}
+
+/* Style untuk modal popup */
+.modalContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; /* Lebar modal yang lebih kecil */
+  max-width: 90%; /* Batas lebar modal agar tidak melampaui layar */
+  padding: 20px;
+  background-color: #2e2e2e;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow untuk efek modern */
+  overflow: hidden; /* Pastikan tidak ada elemen yang keluar */
+}
+
+/* Overlay yang menutupi layar */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style untuk header modal */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #333333;
+  border-bottom: 1px solid #555;
+}
+
+.modalTitle {
+  margin: 0;
+  color: #ffaa33;
+  font-size: 1.2rem;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.closeButton:hover {
+  color: #ffffff;
+}
+
+/* Style untuk body modal */
+.modalBody {
+  padding: 20px;
+  background-color: #2e2e2e;
+}
+
+/* Label untuk input di dalam modal */
+.modalLabel {
+  display: block;
+  color: #bbb;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Input styling di dalam modal */
+.modalInput {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #444;
+  border: 1px solid #555;
+  color: #ddd;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.modalInput:focus {
+  outline: none;
+  border-color: #ffaa33;
+}
+
+/* Style untuk pesan error */
+.errorMessage {
+  color: #e74c3c;
+  margin-top: 10px;
+}
+
+/* Style untuk footer modal */
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  background-color: #1a1a1a;
+  border-top: 1px solid #444;
+}
+
+/* Style untuk tombol di modal */
+.modalButton {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background-color: #555;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.modalButton:hover {
+  background-color: #777;
+}
+
+/* Responsive styling untuk modal */
+@media (max-width: 768px) {
+  .modalContainer {
+    width: 95%; 
+    padding: 10px;
+    border-radius: 8px; 
+  }
+
+  .modalTitle {
+    font-size: 1rem; 
+  }
+
+  .modalInput {
+    padding: 10px;
+  }
+
+  .modalButton {
+    padding: 8px 12px; /* Ukuran tombol lebih kecil */
+    font-size: 0.9rem;
   }
 }

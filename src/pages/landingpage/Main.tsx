@@ -15,22 +15,17 @@ const Main: React.FC = () => {
           <a href="#projects" className={styles.ctaButton}>Lihat Proyek Saya</a>
         </div>
       </section>
-
-      {/* Tentang Saya */}
       <section id="about" className={styles.about}>
         <div className={styles.container}>
           <h2>Tentang Saya</h2>
           <p>Saya seorang developer web dengan pengalaman dalam membangun aplikasi web modern dan berfokus pada desain UI/UX yang elegan dan fungsional.</p>
         </div>
       </section>
-
-      {/* Highlight Proyek */}
       <section id="projects" className={styles.projects}>
         <div className={styles.container}>
           <h2>Proyek Saya</h2>
           <div className={styles.projectList}>
             <div className={styles.projectItem}>
-              {/* Ganti <img> dengan <Image> */}
               <Image 
                 src="/path-to-project-image1.jpg" 
                 alt="Proyek 1" 
@@ -65,6 +60,7 @@ const Main: React.FC = () => {
             <li>JavaScript</li>
             <li>React</li>
             <li>Next.js</li>
+            <li>PHP</li>
           </ul>
         </div>
       </section>

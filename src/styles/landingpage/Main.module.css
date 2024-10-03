@@ -22,13 +22,12 @@
   animation: fadeInLeft 1.5s ease-out;
 }
 
-/* Pastikan teks tidak overflow */
 .hero h1 {
   font-size: 48px;
   margin-bottom: 10px;
   opacity: 0;
   animation: slideInLeft 1s ease forwards;
-  word-wrap: break-word; /* Membuat teks terpotong jika terlalu panjang */
+  word-wrap: break-word;
 }
 
 .hero p {
@@ -36,7 +35,7 @@
   margin-bottom: 20px;
   opacity: 0;
   animation: slideInRight 1.5s ease forwards;
-  word-wrap: break-word; /* Membuat teks terpotong jika terlalu panjang */
+  word-wrap: break-word;
 }
 
 /* CtaButton */
@@ -59,16 +58,16 @@
 
 /* About Section */
 .about {
-  padding: 80px 0;
+  padding: 60px 20px; /* Ubah padding */
   text-align: center;
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: #2e2e2e; /* Sesuaikan warna */
+  color: #e5e5e5;
   animation: slideInRight 1.5s ease forwards;
 }
 
 /* Projects Section */
 .projects {
-  padding: 80px 0;
+  padding: 60px 20px; /* Ubah padding */
   text-align: center;
   animation: zoomIn 1.5s ease forwards;
 }
@@ -77,11 +76,10 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  flex-direction: column; 
 }
 
 .projectItem {
-  width: 100%; 
+  width: 45%; /* Sesuaikan lebar di layar besar */
   margin-bottom: 40px;
   opacity: 0;
   transform: scale(0.8);
@@ -99,8 +97,9 @@
   transform: scale(1.05);
 }
 
+/* Skills Section */
 .skills {
-  padding: 80px 0;
+  padding: 60px 20px; /* Ubah padding */
   text-align: center;
   animation: rotateIn 1.5s ease forwards;
 }
@@ -114,12 +113,43 @@
 }
 
 .skills li {
-  font-size: 20px;
-  margin: 0 20px;
+  font-size: 18px;
+  margin: 10px 20px;
   color: whitesmoke;
   opacity: 0;
   animation: rotateInSkill 2s ease forwards;
 }
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .projectList {
+    flex-direction: column; /* Atur layout ke vertikal */
+  }
+
+  .projectItem {
+    width: 90%; /* Lebar menyesuaikan di mobile */
+    margin-bottom: 20px;
+  }
+
+  .skills ul {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .skills li {
+    margin: 15px 0; 
+    font-size: 16px;
+  }
+}
+  
 
 /* Media Queries */
 @media (max-width: 768px) {
