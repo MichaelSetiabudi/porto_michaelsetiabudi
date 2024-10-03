@@ -1,3 +1,4 @@
+// components/Header.tsx
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Modal from "react-modal"; // Gunakan react-modal
@@ -35,6 +36,9 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
       setErrorMessage("Invalid username or password"); // Tampilkan pesan error
     }
   };
+  const handleChabotClick=()=>{
+    router.push("chatbot");
+  }
 
   return (
     <div className={style.headerComponent}>
@@ -43,6 +47,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
         <>
           <button className={style.headerButton}>Nilai</button>
           <button className={style.headerButton}>Profil</button>
+          <button className={style.headerButton} onClick={handleChabotClick}>Chatbot</button>
         </>
       ) : (
         <button className={style.headerButton} onClick={handleLoginClick}>
@@ -80,7 +85,10 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
             className={style.modalInput}
           />
           {errorMessage && (
-            <p className={style.errorMessage}>{errorMessage}</p>
+            <p className={style.errorMessage}>
+              <span className={style.errorIcon}>⚠️</span>
+              {errorMessage}
+            </p>
           )}
         </div>
         <div className={style.modalFooter}>

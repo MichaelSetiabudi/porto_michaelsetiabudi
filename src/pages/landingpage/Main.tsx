@@ -59,7 +59,7 @@ const Main: React.FC = () => {
             <li>CSS</li>
             <li>JavaScript</li>
             <li>React</li>
-            <li>Next.js</li>
+            <li><a href="https://nextjs.org/docs">Next.js</a></li>
             <li>PHP</li>
           </ul>
         </div>

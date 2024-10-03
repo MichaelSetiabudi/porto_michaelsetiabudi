@@ -1,3 +1,5 @@
+/* styles/Header.module.css */
+
 /* Style utama untuk container header */
 .headerComponent {
   background-color: #1a1a1d;
@@ -9,16 +11,18 @@
   border-bottom: 4px solid #d4af37;
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
 /* Flexibly handle button sizes */
 .headerButton {
-  width: 5vw;
+  width: auto;
   border: none;
   background-color: transparent;
   color: #ffffff;
   font-size: 1rem;
-  padding: 0.5vh 0.5vw;
+  padding: 0.5vh 1vw;
+  margin: 0 10px;
   transition: all 0.3s ease-in-out;
   text-align: center;
   box-shadow: inset 0 0 0 0 #d4af37;
@@ -54,13 +58,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px; /* Lebar modal yang lebih kecil */
-  max-width: 90%; /* Batas lebar modal agar tidak melampaui layar */
+  width: 400px;
+  max-width: 90%;
   padding: 20px;
   background-color: #2e2e2e;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow untuk efek modern */
-  overflow: hidden; /* Pastikan tidak ada elemen yang keluar */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 
 /* Overlay yang menutupi layar */
@@ -138,8 +142,32 @@
 
 /* Style untuk pesan error */
 .errorMessage {
-  color: #e74c3c;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
   margin-top: 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.errorIcon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Style untuk footer modal */
@@ -184,7 +212,7 @@
   }
 
   .modalButton {
-    padding: 8px 12px; /* Ukuran tombol lebih kecil */
+    padding: 8px 12px;
     font-size: 0.9rem;
   }
 }
