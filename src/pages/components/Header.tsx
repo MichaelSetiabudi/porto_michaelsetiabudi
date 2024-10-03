@@ -1,5 +1,4 @@
-// components/Header.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Modal from "react-modal"; // Gunakan react-modal
 import style from "@/styles/Header.module.css";
@@ -10,10 +9,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
   const router = useRouter();
-  const [showLoginModal, setShowLoginModal] = useState(false); // State untuk menampilkan modal
-  const [username, setUsername] = useState(""); // State untuk username
-  const [password, setPassword] = useState(""); // State untuk password
-  const [errorMessage, setErrorMessage] = useState(""); // State untuk pesan error
+  const [showLoginModal, setShowLoginModal] = useState(false); 
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState(""); 
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn); // Simpan status login di state
+
+  // Periksa status login dari localStorage ketika komponen dimount
+  useEffect(() => {
+    const isUserLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setLoggedIn(isUserLoggedIn);
+  }, []);
 
   // Fungsi untuk menampilkan modal login
   const handleLoginClick = () => {
@@ -31,23 +37,41 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
     if (username === "admin" && password === "admin") {
       localStorage.setItem("isLoggedIn", "true"); 
       setShowLoginModal(false); 
+      setLoggedIn(true); // Update state setelah login berhasil
       router.push("/homepage"); 
     } else {
       setErrorMessage("Invalid username or password"); // Tampilkan pesan error
     }
   };
-  const handleChabotClick=()=>{
-    router.push("chatbot");
-  }
+
+  // Fungsi untuk menghandle tombol Home
+  const handleHomeClick = () => {
+    if (loggedIn) {
+      router.push("/homepage"); // Jika sudah login, arahkan ke homepage
+    } else {
+      router.push("/landingpage"); // Jika belum login, arahkan ke landingpage
+    }
+  };
+
+  // Fungsi untuk menghandle tombol Chatbot
+  const handleChabotClick = () => {
+    router.push("/chatbot");
+  };
 
   return (
     <div className={style.headerComponent}>
-      <button className={style.headerButton}>Home</button>
-      {isLoggedIn ? (
+      {/* Tombol Home akan mengecek login status dan mengarahkan sesuai */}
+      <button className={style.headerButton} onClick={handleHomeClick}>
+        Home
+      </button>
+
+      {loggedIn ? (
         <>
           <button className={style.headerButton}>Nilai</button>
           <button className={style.headerButton}>Profil</button>
-          <button className={style.headerButton} onClick={handleChabotClick}>Chatbot</button>
+          <button className={style.headerButton} onClick={handleChabotClick}>
+            Chatbot
+          </button>
         </>
       ) : (
         <button className={style.headerButton} onClick={handleLoginClick}>
