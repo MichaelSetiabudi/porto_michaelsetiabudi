@@ -4,15 +4,15 @@ import Header from "@/pages/components/Header"; // Sesuaikan path import
 import Footer from "@/pages/components/Footer"; // Sesuaikan path import
 import Main from "@/pages/landingpage/Main";
 import style from "@/styles/landingpage/global.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Cookies from 'js-cookie'; // Tambahkan ini untuk menangani cookie
 
 const Index: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
-    // Hapus status login dari localStorage saat kembali ke landing page
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false); // Atur status login menjadi false
+    // Cek apakah cookie status login ada
+    const isLoggedIn = Cookies.get("isLoggedIn");
+
+    Cookies.remove("isLoggedIn");
   }, []);
 
   return (
@@ -23,7 +23,7 @@ const Index: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={style.layoutContainer}>
-        <Header isLoggedIn={isLoggedIn} />
+        <Header />
         <Main />
         <Footer />
       </div>

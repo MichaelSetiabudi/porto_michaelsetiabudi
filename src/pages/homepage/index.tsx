@@ -4,18 +4,19 @@ import Header from "@/pages/components/Header"; // Sesuaikan path import
 import Footer from "@/pages/components/Footer"; // Sesuaikan path import
 import Main from "@/pages/homepage/Main"; // Sesuaikan path import
 import style from "@/styles/landingpage/global.module.css"; // Sesuaikan jika ada CSS khusus untuk homepage
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Cookies from 'js-cookie'; // Tambahkan ini untuk menangani cookie
 
 const HomePage: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const Router = useRouter();
   useEffect(() => {
-    const loggedInStatus = localStorage.getItem("isLoggedIn");
-    if (loggedInStatus === "true") {
-      setIsLoggedIn(true);
+    const isLoggedIn = Cookies.get("isLoggedIn");
+    if (!isLoggedIn) {
+      
+      Router.push("/landingpage");
     }
-  }, []);
-
+  });
   return (
     <>
       <Head>
@@ -24,7 +25,7 @@ const HomePage: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={style.layoutContainer}>
-        <Header isLoggedIn={isLoggedIn} />
+        <Header />
         <Main />
         <Footer />
       </div>

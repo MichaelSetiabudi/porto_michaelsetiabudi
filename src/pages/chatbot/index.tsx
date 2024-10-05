@@ -1,20 +1,21 @@
-// pages/index.tsx (Landing Page)
 import Head from "next/head";
-import Header from "@/pages/components/Header"; // Sesuaikan path import
-import Footer from "@/pages/components/Footer"; // Sesuaikan path import
+import Header from "@/pages/components/Header"; 
+import Footer from "@/pages/components/Footer"; 
 import Main from "@/pages/chatbot/Main";
+import { useRouter } from "next/router"; 
 import style from "@/styles/landingpage/global.module.css";
 import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 const Index: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const Router = useRouter();
   useEffect(() => {
-    // Hapus status login dari localStorage saat kembali ke landing page
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false); // Atur status login menjadi false
-  }, []);
-
+    const isLoggedIn = Cookies.get("isLoggedIn");
+    if (!isLoggedIn) {
+      Router.push("/landingpage");
+    }
+  });
   return (
     <>
       <Head>
@@ -23,7 +24,7 @@ const Index: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={style.layoutContainer}>
-        <Header isLoggedIn={isLoggedIn} />
+        <Header/>
         <Main />
         <Footer />
       </div>

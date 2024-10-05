@@ -1,13 +1,15 @@
-// homepage/Main.tsx
+// pages/homepage/Main.tsx
 import { Container } from "react-bootstrap";
 import style from "@/styles/homepage/Main.module.css";
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie'; 
+
 const Main: React.FC = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    localStorage.setItem("isLoggedIn", "false"); // Hapus status login
-    router.push('/'); // Arahkan kembali ke halaman landing
+    Cookies.remove("isLoggedIn"); 
+    router.push('/'); 
   };
 
   return (

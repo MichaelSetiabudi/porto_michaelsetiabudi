@@ -1,66 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Modal from "react-modal"; // Gunakan react-modal
+import Modal from "react-modal";
 import style from "@/styles/Header.module.css";
+import Cookies from "js-cookie"; // Tambahkan ini untuk menangani cookie
 
-interface HeaderProps {
-  isLoggedIn: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
+const Header: React.FC = () => {
   const router = useRouter();
   const [showLoginModal, setShowLoginModal] = useState(false); 
   const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState(""); 
   const [errorMessage, setErrorMessage] = useState(""); 
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn); // Simpan status login di state
+  const [loggedIn, setLoggedIn] = useState(false); // Defaultnya false
 
-  // Periksa status login dari localStorage ketika komponen dimount
+  // Cek status login dari cookie di browser
   useEffect(() => {
-    const isUserLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const isUserLoggedIn = Cookies.get("isLoggedIn") === "true";
     setLoggedIn(isUserLoggedIn);
   }, []);
 
-  // Fungsi untuk menampilkan modal login
   const handleLoginClick = () => {
     setShowLoginModal(true);
   };
 
-  // Fungsi untuk menyembunyikan modal login
   const handleClose = () => {
     setShowLoginModal(false);
-    setErrorMessage(""); // Reset pesan error jika ditutup
+    setErrorMessage(""); 
   };
 
-  // Fungsi untuk menangani proses login
   const handleLogin = () => {
     if (username === "admin" && password === "admin") {
-      localStorage.setItem("isLoggedIn", "true"); 
+      // Set cookie saat login berhasil
+      Cookies.set("isLoggedIn", "true", { path: "/" }); 
+
       setShowLoginModal(false); 
-      setLoggedIn(true); // Update state setelah login berhasil
+      setLoggedIn(true); 
       router.push("/homepage"); 
     } else {
-      setErrorMessage("Invalid username or password"); // Tampilkan pesan error
+      setErrorMessage("Invalid username or password");
     }
   };
 
-  // Fungsi untuk menghandle tombol Home
   const handleHomeClick = () => {
     if (loggedIn) {
-      router.push("/homepage"); // Jika sudah login, arahkan ke homepage
+      router.push("/homepage");
     } else {
-      router.push("/landingpage"); // Jika belum login, arahkan ke landingpage
+      router.push("/landingpage"); 
     }
   };
 
-  // Fungsi untuk menghandle tombol Chatbot
-  const handleChabotClick = () => {
+  const handleChatbotClick = () => {
     router.push("/chatbot");
   };
 
   return (
     <div className={style.headerComponent}>
-      {/* Tombol Home akan mengecek login status dan mengarahkan sesuai */}
       <button className={style.headerButton} onClick={handleHomeClick}>
         Home
       </button>
@@ -69,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
         <>
           <button className={style.headerButton}>Nilai</button>
           <button className={style.headerButton}>Profil</button>
-          <button className={style.headerButton} onClick={handleChabotClick}>
+          <button className={style.headerButton} onClick={handleChatbotClick}>
             Chatbot
           </button>
         </>
