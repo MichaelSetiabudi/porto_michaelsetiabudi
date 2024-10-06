@@ -47,6 +47,14 @@ const Chatbot: React.FC = () => {
     return data.response || "Sorry, I could not process your request.";
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Copied to clipboard!");
+    }).catch(err => {
+      alert("Failed to copy text.");
+    });
+  };
+
   return (
     <div className={styles.chatbotContainer}>
       <div className={styles.chatbotHeader}>Chatbot</div>
@@ -54,7 +62,15 @@ const Chatbot: React.FC = () => {
         {messages.map((msg, index) => (
           <div key={index} className={`${styles.message} ${styles[msg.sender]}`}>
             {msg.sender === "bot" ? (
-              <ReactMarkdown>{msg.text}</ReactMarkdown>
+              <div>
+                <ReactMarkdown skipHtml>{msg.text}</ReactMarkdown>
+                <button
+                  onClick={() => copyToClipboard(msg.text)}
+                  className={styles.copyButton}
+                >
+                  Copy
+                </button>
+              </div>
             ) : (
               msg.text
             )}

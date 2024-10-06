@@ -1,4 +1,3 @@
-// pages/homepage/Main.tsx
 import { Container } from "react-bootstrap";
 import style from "@/styles/homepage/Main.module.css";
 import { useRouter } from 'next/router';

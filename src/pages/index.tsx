@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // pages/index.tsx
 
 import { useEffect } from 'react';

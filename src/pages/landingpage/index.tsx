@@ -9,7 +9,6 @@ import Cookies from 'js-cookie'; // Tambahkan ini untuk menangani cookie
 
 const Index: React.FC = () => {
   useEffect(() => {
-    // Cek apakah cookie status login ada
     const isLoggedIn = Cookies.get("isLoggedIn");
 
     Cookies.remove("isLoggedIn");

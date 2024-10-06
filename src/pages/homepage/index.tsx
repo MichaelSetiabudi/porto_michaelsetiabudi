@@ -1,12 +1,11 @@
-// pages/homepage/index.tsx (Homepage)
 import Head from "next/head";
-import Header from "@/pages/components/Header"; // Sesuaikan path import
-import Footer from "@/pages/components/Footer"; // Sesuaikan path import
-import Main from "@/pages/homepage/Main"; // Sesuaikan path import
-import style from "@/styles/landingpage/global.module.css"; // Sesuaikan jika ada CSS khusus untuk homepage
+import Header from "@/pages/components/Header";
+import Footer from "@/pages/components/Footer"; 
+import Main from "@/pages/homepage/Main";
+import style from "@/styles/landingpage/global.module.css"; 
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Cookies from 'js-cookie'; // Tambahkan ini untuk menangani cookie
+import Cookies from 'js-cookie'; 
 
 const HomePage: React.FC = () => {
   const Router = useRouter();
