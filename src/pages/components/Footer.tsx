@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="flex items-center space-x-2">
             <span className="text-blue-400">©</span>
             <span className="font-light">{currentYear}</span>
-            <span className="font-medium ml-2">Your Company</span>
+            <span className="font-medium ml-2">Michael-Dev</span>
           </div>
           
           <div className="flex items-center mt-3 md:mt-0 space-x-6">
