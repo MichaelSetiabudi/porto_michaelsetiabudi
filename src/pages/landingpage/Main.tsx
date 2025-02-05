@@ -1,71 +1,136 @@
-import { Container } from "react-bootstrap";
-import styles from "@/styles/landingpage/Main.module.css";
-import Image from 'next/image'; // Import Image dari next/image
+/* eslint-disable react/no-unescaped-entities */
+import React from 'react';
+import Image from 'next/image';
 
-const Main: React.FC = () => {
+const customAnimations = `
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 1s ease forwards;
+  }
+  .animate-slideInLeft {
+    animation: slideInLeft 1s ease forwards;
+  }
+  .animate-slideInRight {
+    animation: slideInRight 1s ease forwards;
+  }
+`;
+
+const Main = () => {
   return (
     <>
-      <Container className={styles.mainComponent}>
-        <Container style={{padding:"3vh"}}>
-            {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.container}>
-          <h1>Hi, I&apos;m Michael Setiabudi</h1> {/* Escape karakter ' */}
-          <p>Web Developer | UI/UX Designer</p>
-          <a href="#projects" className={styles.ctaButton}>Lihat Proyek Saya</a>
-        </div>
-      </section>
-      <section id="about" className={styles.about}>
-        <div className={styles.container}>
-          <h2>Tentang Saya</h2>
-          <p>Saya seorang developer web dengan pengalaman dalam membangun aplikasi web modern dan berfokus pada desain UI/UX yang elegan dan fungsional.</p>
-        </div>
-      </section>
-      <section id="projects" className={styles.projects}>
-        <div className={styles.container}>
-          <h2>Proyek Saya</h2>
-          <div className={styles.projectList}>
-            <div className={styles.projectItem}>
-              <Image 
-                src="/path-to-project-image1.jpg" 
-                alt="Proyek 1" 
-                width={500} 
-                height={300} 
-              />
-              <h3>Proyek 1</h3>
-              <p>Deskripsi singkat tentang proyek.</p>
-            </div>
-            <div className={styles.projectItem}>
-              {/* Ganti <img> dengan <Image> */}
-              <Image 
-                src="/path-to-project-image2.jpg" 
-                alt="Proyek 2" 
-                width={500} 
-                height={300} 
-              />
-              <h3>Proyek 2</h3>
-              <p>Deskripsi singkat tentang proyek.</p>
+      <style jsx global>{customAnimations}</style>
+      
+      <div className="min-h-screen bg-gray-900 text-gray-100">
+        {/* Hero Section */}
+        <section className="py-20 px-4 bg-gray-800">
+          <div className="max-w-6xl mx-auto space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-center animate-slideInLeft">
+              Hi, I'm Michael Setiabudi
+            </h1>
+            <p className="text-xl md:text-2xl text-center animate-slideInRight">
+              Web Developer | UI/UX Designer
+            </p>
+            <div className="text-center">
+              <a
+                href="#projects"
+                className="inline-block px-8 py-4 bg-red-600 hover:bg-red-700 rounded-lg transition-all duration-300 animate-fadeIn"
+              >
+                Lihat Proyek Saya
+              </a>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Keterampilan */}
-      <section id="skills" className={styles.skills}>
-        <div className={styles.container}>
-          <h2 style={{ textAlign: "center",padding:"2vh"}}>Keterampilan</h2>
-          <ul>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>React</li>
-            <li><a href="https://nextjs.org/docs">Next.js</a></li>
-            <li>PHP</li>
-          </ul>
-        </div>
-      </section>
-        </Container>
-      </Container>
+        {/* About Section */}
+        <section id="about" className="py-20 px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 animate-fadeIn">
+              Tentang Saya
+            </h2>
+            <p className="text-lg text-center leading-relaxed animate-fadeIn">
+              Saya seorang developer web dengan pengalaman dalam membangun aplikasi web modern 
+              dan berfokus pada desain UI/UX yang elegan dan fungsional.
+            </p>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="py-20 px-4 bg-gray-800">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 animate-fadeIn">
+              Proyek Saya
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {[1, 2].map((num) => (
+                <div 
+                  key={num}
+                  className="bg-gray-700 rounded-xl overflow-hidden shadow-xl animate-fadeIn"
+                >
+                  <div className="relative h-64">
+                    <Image
+                      src={`/path-to-project-image${num}.jpg`}
+                      alt={`Proyek ${num}`}
+                      layout="fill"
+                      objectFit="cover"
+                      className="transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3">Proyek {num}</h3>
+                    <p className="text-gray-300">Deskripsi singkat tentang proyek.</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section id="skills" className="py-20 px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 animate-fadeIn">
+              Keterampilan
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-center">
+              {['HTML', 'CSS', 'JavaScript', 'React', 'Next.js', 'PHP'].map((skill) => (
+                <div
+                  key={skill}
+                  className="bg-gray-800 p-4 rounded-lg animate-fadeIn"
+                >
+                  <span className="text-lg md:text-xl">{skill}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 };
