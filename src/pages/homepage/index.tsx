@@ -7,14 +7,14 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
 const HomePage: React.FC = () => {
-  const Router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const isLoggedIn = Cookies.get("isLoggedIn");
     if (!isLoggedIn) {
-      Router.push("/landingpage");
+      router.push("/landingpage");
     }
-  }, []); // Added dependency array for useEffect
+  }, [router]); // Added router to dependency array
 
   return (
     <>

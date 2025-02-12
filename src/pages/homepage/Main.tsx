@@ -39,11 +39,11 @@ const Main: React.FC = () => {
               </h3>
               <p className="text-gray-300">
                 An innovative implementation of Javanese tradition board game
-                "Tiger-Macanan" is powered by AI using Minimax algorithm. Built
-                with React.js and Tailwind CSS, this the project combines
-                cultural heritage with the modern web technology. This project
-                was created to fulfill my final assignment in the Artificial
-                Intelligence course
+                &ldquo;Tiger-Macanan&rdquo; is powered by AI using Minimax
+                algorithm. Built with React.js and Tailwind CSS, this the
+                project combines cultural heritage with the modern web
+                technology. This project was created to fulfill my final
+                assignment in the Artificial Intelligence course
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <span className="px-3 py-1 bg-gray-600 rounded-full text-sm text-gray-200">
@@ -58,15 +58,9 @@ const Main: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* Skills Card */}
-
-          {/* Experience Card */}
           <div className="bg-[#1e1e1e] rounded-xl p-6 border border-gray-800 shadow-xl hover:shadow-2xl transition-all duration-300">
             <h3 className="text-xl font-semibold mb-4">Experience</h3>
-            <p className="text-gray-400">
-              Coming Soon
-            </p>
+            <p className="text-gray-400">Coming Soon</p>
           </div>
         </div>
       </div>
