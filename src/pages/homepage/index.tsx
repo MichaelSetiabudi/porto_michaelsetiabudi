@@ -4,7 +4,7 @@ import Footer from "@/pages/components/Footer";
 import Main from "@/pages/homepage/Main";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const HomePage: React.FC = () => {
   const Router = useRouter();
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
     if (!isLoggedIn) {
       Router.push("/landingpage");
     }
-  });
+  }, []); // Added dependency array for useEffect
 
   return (
     <>
@@ -25,12 +25,14 @@ const HomePage: React.FC = () => {
       </Head>
 
       <div className="flex flex-col min-h-screen bg-[#2c2c2e]">
-        <Header />
-        
-        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5] p-5">
+        <header className="">
+          <Header />
+        </header>
+
+        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5] pt-20 px-4 sm:px-6 lg:px-8">
           <Main />
         </main>
-        
+
         <Footer />
       </div>
     </>

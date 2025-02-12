@@ -19,19 +19,19 @@ const Index = () => {
       <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-gray-100">
         <div className="flex flex-col min-h-screen">
           {/* Header Section */}
-          <div className="sticky top-0 z-50">
+          <div className="sticky top-0 z-50 pb-20">
             <Header />
           </div>
 
           {/* Main Content */}
-          <main className="flex-grow container mx-auto px-4 py-9 relative">
+          <main className="flex-grow container mx-auto px-4 py-9 relative pt-20 pb-20">
             <div className="backdrop-blur-sm bg-gray-900/50 rounded-xl shadow-2xl border border-gray-800">
               <Main />
             </div>
           </main>
 
           {/* Footer Section */}
-          <div className="relative z-40">
+          <div className="relative z-40 ">
             <Footer />
           </div>
         </div>
