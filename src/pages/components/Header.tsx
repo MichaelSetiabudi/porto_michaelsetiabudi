@@ -40,7 +40,10 @@ const Header = () => {
     router.push(loggedIn ? "/homepage" : "/landingpage");
     setIsMenuOpen(false);
   };
-
+  const handlemyProfileClick = () => {
+    router.push("/aboutme");
+    setIsMenuOpen(false);
+  };
   const handleChatbotClick = () => {
     router.push("/chatbot");
     setIsMenuOpen(false);
@@ -103,6 +106,9 @@ const Header = () => {
           <button onClick={handleChatbotClick} className={navButtonClass}>
             Chatbot
           </button>
+          <button onClick={handlemyProfileClick} className={navButtonClass}>
+            My Profile
+          </button>
 
           {loggedIn ? (
             <>
@@ -153,7 +159,9 @@ const Header = () => {
           <button onClick={handleChatbotClick} className={navButtonClass}>
             Chatbot
           </button>
-
+          <button onClick={handlemyProfileClick} className={navButtonClass}>
+            My Profile
+          </button>
           {loggedIn ? (
             <>
               <button className={navButtonClass}>Nilai</button>
