@@ -50,7 +50,6 @@ const Main = () => {
       </style>
 
       <div className="min-h-screen bg-gray-900 text-gray-100">
-        {/* Hero Section */}
         <section className="py-20 px-4 bg-gray-800">
           <div className="max-w-6xl mx-auto space-y-6">
             <h1 className="text-4xl md:text-6xl font-bold text-center animate-slideInLeft">
@@ -69,8 +68,6 @@ const Main = () => {
             </div>
           </div>
         </section>
-
-        {/* Enhanced About Section */}
         <section id="about" className="py-20 px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 animate-fadeIn">
@@ -110,7 +107,6 @@ const Main = () => {
               My Projects
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Macan-Macanan AI Project */}
               <div className="bg-gray-700 rounded-xl overflow-hidden shadow-xl">
                 <a
                   href="https://macanmacananai-git-main-michaels-projects-958f3d39.vercel.app/"
@@ -158,7 +154,6 @@ const Main = () => {
                   </div>
                 </div>
               </div>
-              {/* Second Project (Placeholder) */}
               <div className="bg-gray-700 rounded-xl overflow-hidden shadow-xl animate-fadeIn">
                 <div className="relative h-64">
                   <Image
@@ -177,7 +172,6 @@ const Main = () => {
           </div>
         </section>
 
-        {/* Skills Section */}
         <section id="skills" className="py-20 px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 animate-fadeIn">
@@ -185,7 +179,6 @@ const Main = () => {
             </h2>
 
             <div className="space-y-12">
-              {/* Frontend Development Skills */}
               <div className="animate-fadeIn">
                 <h3 className="text-xl md:text-2xl font-semibold text-center mb-6 text-red-400">
                   Frontend Development
@@ -212,8 +205,6 @@ const Main = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Backend Development Skills */}
               <div className="animate-fadeIn delay-100">
                 <h3 className="text-xl md:text-2xl font-semibold text-center mb-6 text-blue-400">
                   Backend Development
@@ -238,8 +229,6 @@ const Main = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Additional Tools & Technologies */}
               <div className="animate-fadeIn delay-200">
                 <h3 className="text-xl md:text-2xl font-semibold text-center mb-6 text-purple-400">
                   Development Tools & Practices

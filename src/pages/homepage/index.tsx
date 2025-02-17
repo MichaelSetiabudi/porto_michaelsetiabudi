@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
     if (!isLoggedIn) {
       router.push("/landingpage");
     }
-  }, [router]); // Added router to dependency array
+  }, [router]); 
 
   return (
     <>

@@ -91,14 +91,12 @@ const Header = () => {
   return (
     <div className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-indigo-500/10 fixed w-full top-0 z-50">
       <header className="w-full px-4 md:px-8 h-24 flex items-center justify-between backdrop-blur-sm">
-        {/* Logo or Brand */}
         <div className="text-xl md:text-2xl font-bold tracking-wider flex items-center">
           <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
             Michael-Dev
           </span>
         </div>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
           <button onClick={handleHomeClick} className={navButtonClass}>
             Home
@@ -143,7 +141,6 @@ const Header = () => {
           )}
         </nav>
 
-        {/* Mobile Menu Button */}
         <button 
           className="md:hidden p-2 text-gray-300 hover:text-indigo-400 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -151,7 +148,6 @@ const Header = () => {
           <Menu size={24} />
         </button>
 
-        {/* Mobile Navigation */}
         <div className={mobileMenuClass}>
           <button onClick={handleHomeClick} className={navButtonClass}>
             Home
@@ -196,7 +192,6 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Login Modal - Kept the same but with minor responsive adjustments */}
       <Transition show={showLoginModal} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={handleClose}>
           <Transition.Child

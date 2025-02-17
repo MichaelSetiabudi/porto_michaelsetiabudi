@@ -13,6 +13,7 @@
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
+    "framer-motion": "^12.4.3",
     "glob": "^11.0.0",
     "inflight": "^1.0.6",
     "js-cookie": "^3.0.5",
