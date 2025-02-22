@@ -22,7 +22,7 @@ const Footer = () => {
               Privacy
             </a>
             <span className="text-gray-600">•</span>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+            <a href="./aboutme" className="text-gray-400 hover:text-white transition-colors duration-300">
               Contact
             </a>
           </div>

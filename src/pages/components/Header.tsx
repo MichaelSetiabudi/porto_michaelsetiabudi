@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const router = useRouter();
@@ -13,13 +13,34 @@ const Header = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showFeatures, setShowFeatures] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const isUserLoggedIn = Cookies.get("isLoggedIn") === "true";
     setLoggedIn(isUserLoggedIn);
+    
+    setIsMobile(window.innerWidth < 768);
+
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      if (!mobile) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleLoginClick = () => setShowLoginModal(true);
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+    setIsMenuOpen(false);
+    setShowFeatures(false);
+  };
+
   const handleClose = () => {
     setShowLoginModal(false);
     setErrorMessage("");
@@ -37,22 +58,29 @@ const Header = () => {
   };
 
   const handleHomeClick = () => {
-    router.push(loggedIn ? "/homepage" : "/landingpage");
+    router.push("/");
     setIsMenuOpen(false);
+    setShowFeatures(false);
   };
-  const handlemyProfileClick = () => {
-    router.push("/aboutme");
-    setIsMenuOpen(false);
-  };
+
   const handleChatbotClick = () => {
     router.push("/chatbot");
     setIsMenuOpen(false);
+    setShowFeatures(false);
+  };
+
+  const handleConnectClick = () => {
+    router.push("/aboutme");
+    setIsMenuOpen(false);
+    setShowFeatures(false);
   };
 
   const handleLogout = () => {
     Cookies.remove("isLoggedIn");
+    setLoggedIn(false);
     router.push("/");
     setIsMenuOpen(false);
+    setShowFeatures(false);
   };
 
   const navButtonClass = `
@@ -80,12 +108,14 @@ const Header = () => {
     whitespace-nowrap
   `;
 
-  const mobileMenuClass = `
-    fixed top-24 right-0 w-64 bg-gray-900/95 backdrop-blur-sm
-    border-l border-indigo-500/10 h-[calc(100vh-6rem)]
-    transform transition-transform duration-300 ease-in-out
-    flex flex-col items-start p-4 space-y-4
-    ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+  const dropdownClass = `
+    absolute top-full right-0 mt-2
+    w-48 bg-gray-900/95 backdrop-blur-sm
+    rounded-lg shadow-lg
+    border border-indigo-500/10
+    py-2
+    transform transition-all duration-200 ease-in-out
+    ${showFeatures ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
   `;
 
   return (
@@ -97,50 +127,62 @@ const Header = () => {
           </span>
         </div>
 
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
           <button onClick={handleHomeClick} className={navButtonClass}>
-            Home
+            About
           </button>
-          <button onClick={handleChatbotClick} className={navButtonClass}>
-            Chatbot
-          </button>
-          <button onClick={handlemyProfileClick} className={navButtonClass}>
-            My Profile
+          
+          {/* Features Dropdown */}
+          <div className="relative">
+            <button 
+              className={`${navButtonClass} inline-flex items-center`}
+              onClick={() => setShowFeatures(!showFeatures)}
+              onBlur={() => setTimeout(() => setShowFeatures(false), 200)}
+            >
+              <span>Features</span>
+              <ChevronDown className={`ml-2 h-4 w-4 transform transition-transform duration-200 ${showFeatures ? 'rotate-180' : ''}`} />
+            </button>
+
+            <div className={dropdownClass}>
+              <button
+                onClick={handleChatbotClick}
+                className="w-full text-left px-4 py-2 text-gray-300 hover:text-indigo-400 hover:bg-gray-800/50 transition-colors"
+              >
+                AI Chatbot
+              </button>
+              {!loggedIn && (
+                <button
+                  onClick={handleLoginClick}
+                  className="w-full text-left px-4 py-2 text-gray-300 hover:text-indigo-400 hover:bg-gray-800/50 transition-colors"
+                >
+                  Login Demo
+                </button>
+              )}
+            </div>
+          </div>
+
+          <button onClick={handleConnectClick} className={navButtonClass}>
+            Connect
           </button>
 
-          {loggedIn ? (
-            <>
-              <button className={navButtonClass}>Nilai</button>
-              <button className={navButtonClass}>Profil</button>
-              <button
-                onClick={handleLogout}
-                className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
-                  transition-all duration-300 ease-in-out
-                  hover:from-indigo-500 hover:to-purple-500 
-                  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900
-                  active:scale-95
-                  shadow-lg shadow-indigo-500/20
-                  text-sm font-medium"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
+          {loggedIn && (
             <button
-              onClick={handleLoginClick}
+              onClick={handleLogout}
               className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
                 transition-all duration-300 ease-in-out
-                hover:from-indigo-500 hover:to-purple-500
+                hover:from-indigo-500 hover:to-purple-500 
                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900
                 active:scale-95
                 shadow-lg shadow-indigo-500/20
                 text-sm font-medium"
             >
-              Login
+              Logout
             </button>
           )}
         </nav>
 
+        {/* Mobile Menu Button */}
         <button 
           className="md:hidden p-2 text-gray-300 hover:text-indigo-400 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -148,34 +190,27 @@ const Header = () => {
           <Menu size={24} />
         </button>
 
-        <div className={mobileMenuClass}>
+        {/* Mobile Menu */}
+        <div 
+          className={`
+            fixed top-24 right-0 w-64 bg-gray-900/95 backdrop-blur-sm
+            border-l border-indigo-500/10 h-[calc(100vh-6rem)]
+            transform transition-transform duration-300 ease-in-out
+            flex flex-col items-start p-4 space-y-4
+            ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+            md:hidden
+          `}
+        >
           <button onClick={handleHomeClick} className={navButtonClass}>
-            Home
+            About
           </button>
           <button onClick={handleChatbotClick} className={navButtonClass}>
-            Chatbot
+            AI Chatbot
           </button>
-          <button onClick={handlemyProfileClick} className={navButtonClass}>
-            My Profile
+          <button onClick={handleConnectClick} className={navButtonClass}>
+            Connect
           </button>
-          {loggedIn ? (
-            <>
-              <button className={navButtonClass}>Nilai</button>
-              <button className={navButtonClass}>Profil</button>
-              <button
-                onClick={handleLogout}
-                className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
-                  transition-all duration-300 ease-in-out
-                  hover:from-indigo-500 hover:to-purple-500 
-                  focus:outline-none focus:ring-2 focus:ring-indigo-500
-                  active:scale-95
-                  shadow-lg shadow-indigo-500/20
-                  text-sm font-medium"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
+          {!loggedIn ? (
             <button
               onClick={handleLoginClick}
               className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
@@ -186,12 +221,26 @@ const Header = () => {
                 shadow-lg shadow-indigo-500/20
                 text-sm font-medium"
             >
-              Login
+              Login Demo
+            </button>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
+                transition-all duration-300 ease-in-out
+                hover:from-indigo-500 hover:to-purple-500 
+                focus:outline-none focus:ring-2 focus:ring-indigo-500
+                active:scale-95
+                shadow-lg shadow-indigo-500/20
+                text-sm font-medium"
+            >
+              Logout
             </button>
           )}
         </div>
       </header>
 
+      {/* Login Modal */}
       <Transition show={showLoginModal} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={handleClose}>
           <Transition.Child

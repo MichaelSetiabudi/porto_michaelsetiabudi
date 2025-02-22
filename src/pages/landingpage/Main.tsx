@@ -40,9 +40,21 @@ const customAnimations = `
   .animate-slideInRight {
     animation: slideInRight 1s ease forwards;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
 `;
 
 const Main = () => {
+  const scrollToProjects = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <style jsx global>
@@ -59,12 +71,12 @@ const Main = () => {
               Web Developer | UI/UX Designer
             </p>
             <div className="text-center">
-              <a
-                href="#projects"
-                className="inline-block px-8 py-4 bg-red-600 hover:bg-red-700 rounded-lg transition-all duration-300 animate-fadeIn"
+              <button
+                onClick={scrollToProjects}
+                className="inline-block px-8 py-4 bg-red-600 hover:bg-red-700 rounded-lg transition-all duration-300 animate-fadeIn transform hover:-translate-y-1 hover:shadow-lg"
               >
                 My Project
-              </a>
+              </button>
             </div>
           </div>
         </section>
@@ -139,7 +151,7 @@ const Main = () => {
                     algorithm. Built with React.js and Tailwind CSS, this the
                     project combines cultural heritage with the modern web
                     technology. This project was created to fulfill my final
-                    assignment in the Artificial Intelligence course
+                    assignment in the Artificial Intelligence course on iSTTS
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     <span className="px-3 py-1 bg-gray-600 rounded-full text-sm text-gray-200">

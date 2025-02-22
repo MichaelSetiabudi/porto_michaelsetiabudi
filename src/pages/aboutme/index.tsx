@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
           <Header />
         </header>
 
-        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5] pt-20 ">
+        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5]">
           <Main />
         </main>
 
