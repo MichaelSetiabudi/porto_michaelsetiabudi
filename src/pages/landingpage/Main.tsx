@@ -265,10 +265,10 @@ const Main = () => {
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {[
-                    { name: "PHP", level: "85%" },
-                    { name: "Laravel", level: "88%" },
-                    { name: "MySQL", level: "90%" },
-                    { name: "MongoDB", level: "82%" },
+                    { name: "PHP" },
+                    { name: "Laravel"},
+                    { name: "MySQL"},
+                    { name: "MongoDB"},
                   ].map((skill) => (
                     <div
                       key={skill.name}

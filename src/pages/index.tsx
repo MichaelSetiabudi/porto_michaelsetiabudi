@@ -3,6 +3,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 const index = () => {
   const router = useRouter();
@@ -11,7 +12,11 @@ const index = () => {
     router.push('/landingpage');
   }, [router]);
 
-  return null;
+  return (
+    <ThemeProvider>
+      {null}
+    </ThemeProvider>
+  );
 };
 
 export default index;

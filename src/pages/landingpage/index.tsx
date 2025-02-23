@@ -4,13 +4,15 @@ import Footer from "@/pages/components/Footer";
 import Main from "@/pages/landingpage/Main";
 import { useEffect } from "react";
 import Cookies from 'js-cookie';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { useTheme } from '@/context/ThemeContext';
 
 const Index: React.FC = () => {
   useEffect(() => {
     const isLoggedIn = Cookies.get("isLoggedIn");
     Cookies.remove("isLoggedIn");
   }, []);
-
+  const { theme } = useTheme();
   return (
     <>
       <Head>
@@ -19,10 +21,18 @@ const Index: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="flex flex-col min-h-screen bg-[#2c2c2e] scroll-smooth">
+      <div className={`flex flex-col min-h-screen scroll-smooth ${
+        theme === 'dark' 
+          ? 'bg-[#2c2c2e]' 
+          : 'bg-gray-50'
+      }`}>
         <Header />
         
-        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5] overflow-x-hidden">
+        <main className={`flex-grow overflow-x-hidden ${
+          theme === 'dark' 
+            ? 'bg-[#2c2c2e] text-[#e5e5e5]' 
+            : 'bg-gray-50 text-gray-900'
+        }`}>
           <Main />
         </main>
 

@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { Menu, ChevronDown } from "lucide-react";
+import { Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/context/ThemeContext';
 
 const Header = () => {
   const router = useRouter();
@@ -15,6 +17,22 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showFeatures, setShowFeatures] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const ThemeToggle = () => (
+    <button
+      onClick={toggleTheme}
+      className={`${navButtonClass} group`}
+      aria-label="Toggle theme"
+    >
+      {theme === 'dark' ? (
+        <Sun className="h-5 w-5 text-gray-300 group-hover:text-indigo-400" />
+      ) : (
+        <Moon className="h-5 w-5 text-gray-600 group-hover:text-indigo-600" />
+      )}
+    </button>
+  );
+
+
 
   useEffect(() => {
     const isUserLoggedIn = Cookies.get("isLoggedIn") === "true";
@@ -163,6 +181,7 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
+        <ThemeToggle />
           <button onClick={handleHomeClick} className={navButtonClass}>
             About
           </button>
@@ -239,6 +258,8 @@ const Header = () => {
             md:hidden
           `}
         >
+          <ThemeToggle />
+
           <button onClick={handleHomeClick} className={navButtonClass}>
             About
           </button>
