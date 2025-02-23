@@ -22,7 +22,7 @@ const Index: React.FC = () => {
       <div className="flex flex-col min-h-screen bg-[#2c2c2e] scroll-smooth">
         <Header />
         
-        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5] pt-24 overflow-x-hidden">
+        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5] overflow-x-hidden">
           <Main />
         </main>
 

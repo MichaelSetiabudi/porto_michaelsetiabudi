@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 const customAnimations = `
@@ -21,14 +21,12 @@ const customAnimations = `
       transform: translateX(0);
     }
   }
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    to {
+  @keyframes blink {
+    0%, 100% {
       opacity: 1;
-      transform: translateX(0);
+    }
+    50% {
+      opacity: 0;
     }
   }
   .animate-fadeIn {
@@ -37,15 +35,61 @@ const customAnimations = `
   .animate-slideInLeft {
     animation: slideInLeft 1s ease forwards;
   }
-  .animate-slideInRight {
-    animation: slideInRight 1s ease forwards;
-  }
-  
-  html {
-    scroll-behavior: smooth;
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: currentColor;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
   }
 `;
+const TypewriterText = () => {
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const phrases = [
+    "Web Developer",
+    "UI/UX Enthusiast",
+  ];
+  const typingSpeed = 70; 
+  const deletingSpeed = 30; 
+  const pauseTime = 1500;   
 
+  useEffect(() => {
+    const currentPhrase = phrases[loopNum % phrases.length];
+    
+    const tick = () => {
+      if (!isDeleting) {
+        setText(currentPhrase.substring(0, text.length + 1));
+      } else {
+        setText(currentPhrase.substring(0, text.length - 1));
+      }
+    };
+
+    let timeoutId: NodeJS.Timeout;
+
+    if (!isDeleting && text === currentPhrase) {
+      timeoutId = setTimeout(() => setIsDeleting(true), pauseTime);
+    } else if (isDeleting && text === "") {
+      setIsDeleting(false);
+      setLoopNum(loopNum + 1);
+    } else {
+      timeoutId = setTimeout(tick, isDeleting ? deletingSpeed : typingSpeed);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [text, isDeleting, loopNum, phrases]);
+
+  return (
+    <p className="text-xl md:text-2xl text-center h-8">
+      <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">
+        {text}
+      </span>
+      <span className="cursor" />
+    </p>
+  );
+};
 const Main = () => {
   const scrollToProjects = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
@@ -67,9 +111,7 @@ const Main = () => {
             <h1 className="text-4xl md:text-6xl font-bold text-center animate-slideInLeft">
               Hi, I'm Michael Setiabudi
             </h1>
-            <p className="text-xl md:text-2xl text-center animate-slideInRight">
-              Web Developer | UI/UX Designer
-            </p>
+            <TypewriterText />
             <div className="text-center">
               <button
                 onClick={scrollToProjects}
