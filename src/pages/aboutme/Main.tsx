@@ -172,6 +172,7 @@ const Main = () => {
                 "JavaScript",
                 "React Basics",
                 "Tailwind CSS",
+                "React",
               ]}
               delay={0}
             />
@@ -197,7 +198,7 @@ const Main = () => {
             <SkillCard
               icon={<Book />}
               title="Currently Learning"
-              skills={["React", "Next.js", "TypeScript", "Advanced JavaScript"]}
+              skills={["Next.js", "TypeScript", "Advanced JavaScript"]}
               delay={0.6}
             />
           </div>
