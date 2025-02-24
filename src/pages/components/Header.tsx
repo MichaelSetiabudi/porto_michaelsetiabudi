@@ -233,7 +233,7 @@ const Header = () => {
         </button>
 
         {/* Mobile Menu */}
-        {/* {isMobile && (
+        {isMobile && (
         <>
           <div
             className={`
@@ -291,7 +291,7 @@ const Header = () => {
           )}
         </>
       )
-      } */}
+      }
       </header>
 
       {/* Login Modal */}
