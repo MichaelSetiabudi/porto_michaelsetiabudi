@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { Menu, ChevronDown } from "lucide-react";
-import { Sun, Moon } from 'lucide-react';
-import { useTheme } from '@/context/ThemeContext';
+import { Sun, Moon } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const Header = () => {
   const router = useRouter();
@@ -24,15 +24,13 @@ const Header = () => {
       className={`${navButtonClass} group`}
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? (
+      {theme === "dark" ? (
         <Sun className="h-5 w-5 text-gray-300 group-hover:text-indigo-400" />
       ) : (
         <Moon className="h-5 w-5 text-gray-600 group-hover:text-indigo-600" />
       )}
     </button>
   );
-
-
 
   useEffect(() => {
     const isUserLoggedIn = Cookies.get("isLoggedIn") === "true";
@@ -83,12 +81,6 @@ const Header = () => {
 
   const handleChatbotClick = () => {
     router.push("/chatbot");
-    setIsMenuOpen(false);
-    setShowFeatures(false);
-  };
-
-  const handleConnectClick = () => {
-    router.push("/aboutme");
     setIsMenuOpen(false);
     setShowFeatures(false);
   };
@@ -161,14 +153,11 @@ const Header = () => {
 
   return (
     <div className="bg-[#0A0A0A] relative">
-      {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/5 via-purple-900/5 to-indigo-900/5" />
 
-      {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
-      {/* Glowing orbs */}
       <div className="absolute -top-20 left-1/4 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl" />
       <div className="absolute -top-20 right-1/4 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
 
@@ -181,9 +170,9 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
-        <ThemeToggle />
+          <ThemeToggle />
           <button onClick={handleHomeClick} className={navButtonClass}>
-            About
+            Home
           </button>
 
           {/* Features Dropdown */}
@@ -219,10 +208,6 @@ const Header = () => {
             </div>
           </div>
 
-          <button onClick={handleConnectClick} className={navButtonClass}>
-            Connect
-          </button>
-
           {loggedIn && (
             <button
               onClick={handleLogout}
@@ -248,55 +233,65 @@ const Header = () => {
         </button>
 
         {/* Mobile Menu */}
-        <div
-          className={`
-            fixed top-24 right-0 w-64 bg-gray-900/95 backdrop-blur-sm
-            border-l border-indigo-500/10 h-[calc(100vh-6rem)]
-            transform transition-transform duration-300 ease-in-out
-            flex flex-col items-start p-4 space-y-4
-            ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
-            md:hidden
-          `}
-        >
-          <ThemeToggle />
-
-          <button onClick={handleHomeClick} className={navButtonClass}>
-            About
-          </button>
-          <button onClick={handleChatbotClick} className={navButtonClass}>
-            AI Chatbot
-          </button>
-          <button onClick={handleConnectClick} className={navButtonClass}>
-            Connect
-          </button>
-          {!loggedIn ? (
-            <button
-              onClick={handleLoginClick}
-              className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
+        {/* {isMobile && (
+        <>
+          <div
+            className={`
+              fixed top-24 right-0 w-64 
+              bg-gray-900/95 backdrop-blur-sm
+              border-l border-indigo-500/10 
+              h-[calc(100vh-6rem)]
+              transform transition-transform duration-300 ease-in-out
+              flex flex-col items-start p-4 space-y-4
+              ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
+              md:hidden
+              z-40
+            `}
+          >
+            <ThemeToggle />
+            <button onClick={handleHomeClick} className={navButtonClass}>
+              About
+            </button>
+            <button onClick={handleChatbotClick} className={navButtonClass}>
+              AI Chatbot
+            </button>
+            {!loggedIn ? (
+              <button
+                onClick={handleLoginClick}
+                className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
                 transition-all duration-300 ease-in-out
                 hover:from-indigo-500 hover:to-purple-500
                 focus:outline-none focus:ring-2 focus:ring-indigo-500
                 active:scale-95
                 shadow-lg shadow-indigo-500/20
                 text-sm font-medium"
-            >
-              Login Demo
-            </button>
-          ) : (
-            <button
-              onClick={handleLogout}
-              className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
+              >
+                Login Demo
+              </button>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
                 transition-all duration-300 ease-in-out
                 hover:from-indigo-500 hover:to-purple-500 
                 focus:outline-none focus:ring-2 focus:ring-indigo-500
                 active:scale-95
                 shadow-lg shadow-indigo-500/20
                 text-sm font-medium"
-            >
-              Logout
-            </button>
+              >
+                Logout
+              </button>
+            )}
+          </div>
+          {isMenuOpen && (
+            <div
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden z-30"
+              onClick={() => setIsMenuOpen(false)}
+            />
           )}
-        </div>
+        </>
+      )
+      } */}
       </header>
 
       {/* Login Modal */}
