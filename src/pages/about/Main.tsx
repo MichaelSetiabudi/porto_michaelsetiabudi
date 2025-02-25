@@ -39,7 +39,7 @@ const staggerContainer = {
 const Main = () => {
   const socialLinks = {
     github: "https://github.com/MichaelSetiabudi",
-    linkedin: "www.linkedin.com/in/michael-setiabudi-032090297",
+    linkedin: "https://www.linkedin.com/in/michael-setiabudi-032090297/",
   };
 
   return (
