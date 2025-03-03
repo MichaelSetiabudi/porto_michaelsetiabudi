@@ -55,7 +55,7 @@ const Main = () => {
           <div className="absolute top-20 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-purple-500/20 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-blue-500/20 rounded-full blur-3xl" />
         </motion.div>
-        
+
         <div className="container mx-auto px-6 lg:px-12 py-6 relative z-10">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
             <motion.div
@@ -107,33 +107,43 @@ const Main = () => {
         </div>
       </section>
 
-      {/* Biography Section */}
-      <section className="py-8 md:py-12 bg-gradient-to-b from-[#232325] to-[#1a1a1c]">
-        <motion.div
-          className="w-[95%] mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div className="space-y-6">
-            <motion.h2
-              className="text-3xl md:text-5xl font-bold text-center bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-poppins mb-8"
-              variants={fadeInUp}
-            >
-              About Me
-            </motion.h2>
-            <motion.div 
-              className="text-lg md:text-xl text-gray-300 leading-relaxed font-roboto"
-              variants={fadeInUp}
-            >
-              <p>
-                Greetings! I&apos;m Michael Setiabudi, an Computer Science student at Institut Teknologi Sains Terpadu Surabaya (ISTTS). I was Born in Surabaya and raised in Probolinggo, where I spent my formative years with my grandparents, I&apos;ve developed a deep passion for technology and creative problem-solving. As a UI/UX Designer and Full Stack Web Development enthusiast, I&apos;m constantly pushing the boundaries of my knowledge in website development. My journey in tech is driven by an insatiable curiosity for emerging technologies and creative coding solutions. Currently pursuing my undergraduate degree in iSTTS Surabaya, I&apos;m dedicated to combining technical expertise with creative design thinking to craft exceptional digital experiences.
-              </p>
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </section>
+      {/* Biography Section - Wider for desktop */}
+<section className="py-8 md:py-12 bg-gradient-to-b from-[#232325] to-[#1a1a1c]">
+  <motion.div
+    className="container mx-auto px-4 md:px-6 lg:px-8 xl:px-12"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+  >
+    <motion.div className="w-full max-w-[1400px] mx-auto">
+      <motion.h2
+        className="text-3xl md:text-5xl font-bold text-center bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-poppins mb-8"
+        variants={fadeInUp}
+      >
+        About Me
+      </motion.h2>
+      
+      <motion.div 
+        className="text-lg md:text-xl text-gray-300 leading-relaxed font-roboto p-6 md:p-8 bg-[#232325]/70 backdrop-blur-sm rounded-xl border border-gray-800 shadow-lg"
+        variants={fadeInUp}
+      >
+        <p className="mb-4">
+          Greetings! I&apos;m Michael Setiabudi, a Computer Science student at Institut Teknologi Sains Terpadu Surabaya (ISTTS).
+        </p>
+        <p className="mb-4">
+          Born in Surabaya and raised in Probolinggo, where I spent my formative years with my grandparents, I&apos;ve developed a deep passion for technology and creative problem-solving.
+        </p>
+        <p className="mb-4">
+          As a UI/UX Designer and Full Stack Web Development enthusiast, I&apos;m constantly pushing the boundaries of my knowledge in website development. My journey in tech is driven by an insatiable curiosity for emerging technologies and creative coding solutions.
+        </p>
+        <p>
+          Currently pursuing my undergraduate degree in iSTTS Surabaya, I&apos;m dedicated to combining technical expertise with creative design thinking to craft exceptional digital experiences.
+        </p>
+      </motion.div>
+    </motion.div>
+  </motion.div>
+</section>
 
       {/* Skills Section */}
       <section className="py-8 md:py-12 bg-gradient-to-b from-[#1a1a1c] via-[#232325] to-[#1a1a1c]">
@@ -154,7 +164,14 @@ const Main = () => {
             <SkillCard
               icon={<Code className="text-blue-400" />}
               title="Frontend Development"
-              skills={["React", "Next.js", "JavaScript", "HTML5", "CSS3", "Tailwind"]}
+              skills={[
+                "React",
+                "Next.js",
+                "JavaScript",
+                "HTML5",
+                "CSS3",
+                "Tailwind",
+              ]}
               delay={0}
             />
             <SkillCard
@@ -179,33 +196,41 @@ const Main = () => {
         </motion.div>
       </section>
 
-      {/* Contact Section */}
+      {/* Contact Section - FIXED */}
       <section className="py-8 md:py-12 bg-gradient-to-b from-[#1a1a1c] to-[#232325]">
         <motion.div
-          className="container mx-auto px-6 lg:px-12"
+          className="container mx-auto px-4 md:px-6 lg:px-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div className="max-w-3xl mx-auto text-center bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 p-8 rounded-2xl backdrop-blur-sm">
-            <motion.h2
-              className="text-3xl md:text-5xl font-bold mb-6 font-poppins bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-              variants={fadeInUp}
-            >
-              Let&apos;s Connect
-            </motion.h2>
-            <motion.p className="text-gray-300 mb-6 text-lg md:text-xl font-roboto" variants={fadeInUp}>
-              I&apos;m always open to new opportunities and collaborations.
-            </motion.p>
-            <motion.div
-              className="inline-flex items-center justify-center space-x-3 text-gray-300 bg-white/5 px-6 py-3 rounded-full hover:bg-white/10 transition-all duration-300"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.05 }}
-            >
-              <Mail className="w-6 h-6 text-blue-400" />
-              <span className="font-roboto text-lg">michaelsetiabudi@gmail.com</span>
-            </motion.div>
+          <div className="max-w-3xl mx-auto text-center relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-md"></div>
+            <div className="relative bg-[#1f1f23]/80 p-6 md:p-8 rounded-2xl border border-gray-700 shadow-xl backdrop-blur-sm">
+              <motion.h2
+                className="text-3xl md:text-5xl font-bold mb-6 font-poppins bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+                variants={fadeInUp}
+              >
+                Let&apos;s Connect
+              </motion.h2>
+              <motion.p
+                className="text-gray-300 mb-6 text-lg md:text-xl font-roboto"
+                variants={fadeInUp}
+              >
+                I&apos;m always open to new opportunities and collaborations.
+              </motion.p>
+              <motion.div
+                className="inline-flex items-center justify-center space-x-3 text-gray-300 bg-white/5 px-5 py-3 rounded-full hover:bg-white/10 transition-all duration-300 border border-gray-700"
+                variants={fadeInUp}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Mail className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                <span className="font-roboto text-base md:text-lg truncate">
+                  michaelsetiabudi@gmail.com
+                </span>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -256,7 +281,12 @@ const AnimatedProfileImage = () => (
   </>
 );
 
-const SkillCard: React.FC<SkillCardProps> = ({ icon, title, skills, delay }) => (
+const SkillCard: React.FC<SkillCardProps> = ({
+  icon,
+  title,
+  skills,
+  delay,
+}) => (
   <motion.div
     className="p-6 bg-gradient-to-br from-[#2c2c2e] to-[#1f1f21] rounded-xl border border-gray-700 hover:border-blue-500 transition-all duration-300 font-roboto"
     initial={{ opacity: 0, y: 20 }}

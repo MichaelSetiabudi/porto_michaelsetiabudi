@@ -7,9 +7,8 @@ const TypewriterText = () => {
   const [loopNum, setLoopNum] = useState(0);
   
   const phrases = useMemo(() => [
-    "Full Stack Developer",
+    "Full Stack Web Developer",
     "UI/UX Enthusiast",
-    "Problem Solver"
   ], []);
   
   useEffect(() => {
@@ -65,8 +64,8 @@ const Main = () => {
         </div>
         
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6 md:space-y-8 px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold animate-fadeIn leading-tight">
-            Hi, I&rsquo;m Michael Setiabudi
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold animate-fadeIn leading-tight">
+            Hi, Welcome to My Portofolio
           </h1>
           
           <TypewriterText />
