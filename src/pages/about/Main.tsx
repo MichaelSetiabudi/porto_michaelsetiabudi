@@ -107,7 +107,6 @@ const Main = () => {
         </div>
       </section>
 
-      {/* Biography Section - Wider for desktop */}
 <section className="py-8 md:py-12 bg-gradient-to-b from-[#232325] to-[#1a1a1c]">
   <motion.div
     className="container mx-auto px-4 md:px-6 lg:px-8 xl:px-12"

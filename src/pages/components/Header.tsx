@@ -18,6 +18,7 @@ const Header = () => {
   const [showFeatures, setShowFeatures] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  
   const ThemeToggle = () => (
     <button
       onClick={toggleTheme}
@@ -94,8 +95,7 @@ const Header = () => {
   };
 
   const navButtonClass = `
-    text-gray-300 
-    hover:text-indigo-400 
+    ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}
     px-3 md:px-6 py-2 md:py-3 
     transition-all 
     duration-300 
@@ -139,11 +139,14 @@ const Header = () => {
 
   const dropdownClass = `
     absolute top-full right-0 mt-2
-    w-48 bg-gray-900/95 backdrop-blur-sm
+    w-48 
     rounded-2xl shadow-xl
-    border border-indigo-500/20
+    border
     py-2
     transform transition-all duration-200 ease-in-out
+    ${theme === 'dark' 
+      ? 'bg-gray-900/95 backdrop-blur-sm border-indigo-500/20' 
+      : 'bg-white/95 backdrop-blur-sm border-indigo-500/20'}
     ${
       showFeatures
         ? "opacity-100 translate-y-0"
@@ -151,8 +154,12 @@ const Header = () => {
     }
   `;
 
+  const headerBgClass = theme === 'dark' 
+    ? 'bg-[#0A0A0A]' 
+    : 'bg-white';
+
   return (
-    <div className="bg-[#0A0A0A] relative">
+    <div className={`${headerBgClass} relative transition-colors duration-300`}>
       <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/5 via-purple-900/5 to-indigo-900/5" />
 
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
@@ -193,14 +200,14 @@ const Header = () => {
             <div className={dropdownClass}>
               <button
                 onClick={handleChatbotClick}
-                className="w-full text-left px-4 py-2 text-gray-300 hover:text-indigo-400 hover:bg-gray-800/50 transition-colors"
+                className={`w-full text-left px-4 py-2 hover:bg-gray-800/50 transition-colors ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}`}
               >
                 AI Chatbot
               </button>
               {!loggedIn && (
                 <button
                   onClick={handleLoginClick}
-                  className="w-full text-left px-4 py-2 text-gray-300 hover:text-indigo-400 hover:bg-gray-800/50 transition-colors"
+                  className={`w-full text-left px-4 py-2 hover:bg-gray-800/50 transition-colors ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}`}
                 >
                   Login Demo
                 </button>
@@ -226,72 +233,73 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-gray-300 hover:text-indigo-400 transition-colors"
+          className={`md:hidden p-2 transition-colors ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <Menu size={24} />
         </button>
 
         {/* Mobile Menu */}
-        {/* {isMobile && (
-        <>
-          <div
-            className={`
-              fixed top-24 right-0 w-64 
-              bg-gray-900/95 backdrop-blur-sm
-              border-l border-indigo-500/10 
-              h-[calc(100vh-6rem)]
-              transform transition-transform duration-300 ease-in-out
-              flex flex-col items-start p-4 space-y-4
-              ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
-              md:hidden
-              z-40
-            `}
-          >
-            <ThemeToggle />
-            <button onClick={handleHomeClick} className={navButtonClass}>
-              About
-            </button>
-            <button onClick={handleChatbotClick} className={navButtonClass}>
-              AI Chatbot
-            </button>
-            {!loggedIn ? (
-              <button
-                onClick={handleLoginClick}
-                className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
-                transition-all duration-300 ease-in-out
-                hover:from-indigo-500 hover:to-purple-500
-                focus:outline-none focus:ring-2 focus:ring-indigo-500
-                active:scale-95
-                shadow-lg shadow-indigo-500/20
-                text-sm font-medium"
-              >
-                Login Demo
-              </button>
-            ) : (
-              <button
-                onClick={handleLogout}
-                className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
-                transition-all duration-300 ease-in-out
-                hover:from-indigo-500 hover:to-purple-500 
-                focus:outline-none focus:ring-2 focus:ring-indigo-500
-                active:scale-95
-                shadow-lg shadow-indigo-500/20
-                text-sm font-medium"
-              >
-                Logout
-              </button>
-            )}
-          </div>
-          {isMenuOpen && (
+        {isMobile && (
+          <>
             <div
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden z-30"
-              onClick={() => setIsMenuOpen(false)}
-            />
-          )}
-        </>
-      )
-      } */}
+              className={`
+                fixed top-24 right-0 w-64 
+                border-l
+                h-[calc(100vh-6rem)]
+                transform transition-transform duration-300 ease-in-out
+                flex flex-col items-start p-4 space-y-4
+                ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
+                md:hidden
+                z-40
+                ${theme === 'dark' 
+                  ? 'bg-gray-900/95 backdrop-blur-sm border-indigo-500/10' 
+                  : 'bg-white/95 backdrop-blur-sm border-indigo-500/10'}
+              `}
+            >
+              <ThemeToggle />
+              <button onClick={handleHomeClick} className={navButtonClass}>
+                Home
+              </button>
+              <button onClick={handleChatbotClick} className={navButtonClass}>
+                AI Chatbot
+              </button>
+              {!loggedIn ? (
+                <button
+                  onClick={handleLoginClick}
+                  className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
+                  transition-all duration-300 ease-in-out
+                  hover:from-indigo-500 hover:to-purple-500
+                  focus:outline-none focus:ring-2 focus:ring-indigo-500
+                  active:scale-95
+                  shadow-lg shadow-indigo-500/20
+                  text-sm font-medium"
+                >
+                  Login Demo
+                </button>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
+                  transition-all duration-300 ease-in-out
+                  hover:from-indigo-500 hover:to-purple-500 
+                  focus:outline-none focus:ring-2 focus:ring-indigo-500
+                  active:scale-95
+                  shadow-lg shadow-indigo-500/20
+                  text-sm font-medium"
+                >
+                  Logout
+                </button>
+              )}
+            </div>
+            {isMenuOpen && (
+              <div
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden z-30"
+                onClick={() => setIsMenuOpen(false)}
+              />
+            )}
+          </>
+        )}
       </header>
 
       {/* Login Modal */}
@@ -320,7 +328,9 @@ const Header = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-900/95 backdrop-blur-sm p-6 md:p-8 text-left align-middle shadow-xl transition-all border border-indigo-500/20">
+                <Dialog.Panel className={`w-full max-w-md transform overflow-hidden rounded-2xl p-6 md:p-8 text-left align-middle shadow-xl transition-all border border-indigo-500/20 ${theme === 'dark' 
+                  ? 'bg-gray-900/95 backdrop-blur-sm' 
+                  : 'bg-white/95 backdrop-blur-sm'}`}>
                   <div className="flex justify-between items-center mb-6 md:mb-8">
                     <Dialog.Title className="text-xl md:text-2xl font-bold text-indigo-400 bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
                       Welcome Back
@@ -335,31 +345,35 @@ const Header = () => {
 
                   <div className="space-y-4 md:space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                         Username
                       </label>
                       <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="w-full px-4 py-2 md:py-3 bg-gray-800/50 border border-gray-700 rounded-lg 
+                        className={`w-full px-4 py-2 md:py-3 border rounded-lg 
                           focus:ring-2 focus:ring-indigo-500 focus:border-transparent 
-                          text-white placeholder-gray-400"
+                          placeholder-gray-400 ${theme === 'dark' 
+                            ? 'bg-gray-800/50 border-gray-700 text-white' 
+                            : 'bg-gray-100/50 border-gray-300 text-gray-900'}`}
                         placeholder="Enter username"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                         Password
                       </label>
                       <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-2 md:py-3 bg-gray-800/50 border border-gray-700 rounded-lg 
+                        className={`w-full px-4 py-2 md:py-3 border rounded-lg 
                           focus:ring-2 focus:ring-indigo-500 focus:border-transparent 
-                          text-white placeholder-gray-400"
+                          placeholder-gray-400 ${theme === 'dark' 
+                            ? 'bg-gray-800/50 border-gray-700 text-white' 
+                            : 'bg-gray-100/50 border-gray-300 text-gray-900'}`}
                         placeholder="Enter password"
                       />
                     </div>
@@ -375,7 +389,7 @@ const Header = () => {
                   <div className="mt-6 md:mt-8 flex justify-end space-x-4">
                     <button
                       onClick={handleClose}
-                      className="px-4 md:px-6 py-2 md:py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors text-sm font-medium"
+                      className={`px-4 md:px-6 py-2 md:py-3 text-white rounded-lg transition-colors text-sm font-medium ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-300 hover:bg-gray-400 text-gray-800'}`}
                     >
                       Cancel
                     </button>
