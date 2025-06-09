@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, Home } from "lucide-react";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -15,7 +15,6 @@ const Header = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showFeatures, setShowFeatures] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { theme, toggleTheme } = useTheme();
   
@@ -55,7 +54,6 @@ const Header = () => {
   const handleLoginClick = () => {
     setShowLoginModal(true);
     setIsMenuOpen(false);
-    setShowFeatures(false);
   };
 
   const handleClose = () => {
@@ -74,16 +72,9 @@ const Header = () => {
     }
   };
 
-  const handleHomeClick = () => {
-    router.push("/");
-    setIsMenuOpen(false);
-    setShowFeatures(false);
-  };
-
   const handleChatbotClick = () => {
     router.push("/chatbot");
     setIsMenuOpen(false);
-    setShowFeatures(false);
   };
 
   const handleLogout = () => {
@@ -91,7 +82,12 @@ const Header = () => {
     setLoggedIn(false);
     router.push("/");
     setIsMenuOpen(false);
-    setShowFeatures(false);
+  };
+
+  // Handler untuk kembali ke landing page
+  const handleHomeClick = () => {
+    router.push("/");
+    setIsMenuOpen(false);
   };
 
   const navButtonClass = `
@@ -137,23 +133,6 @@ const Header = () => {
     whitespace-nowrap
   `;
 
-  const dropdownClass = `
-    absolute top-full right-0 mt-2
-    w-48 
-    rounded-2xl shadow-xl
-    border
-    py-2
-    transform transition-all duration-200 ease-in-out
-    ${theme === 'dark' 
-      ? 'bg-gray-900/95 backdrop-blur-sm border-indigo-500/20' 
-      : 'bg-white/95 backdrop-blur-sm border-indigo-500/20'}
-    ${
-      showFeatures
-        ? "opacity-100 translate-y-0"
-        : "opacity-0 -translate-y-2 pointer-events-none"
-    }
-  `;
-
   const headerBgClass = theme === 'dark' 
     ? 'bg-[#0A0A0A]' 
     : 'bg-white';
@@ -169,66 +148,19 @@ const Header = () => {
       <div className="absolute -top-20 right-1/4 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
 
       <header className="w-full px-4 md:px-8 h-24 flex items-center justify-between backdrop-blur-sm relative z-10">
-        <div className="text-xl md:text-2xl font-bold tracking-wider flex items-center">
+        {/* Logo/Title yang dapat diklik untuk kembali ke home */}
+        <button 
+          onClick={handleHomeClick}
+          className="text-xl md:text-2xl font-bold tracking-wider flex items-center hover:scale-105 transition-transform duration-300"
+        >
           <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent relative">
             Michael-Dev
           </span>
-        </div>
+        </button>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
           <ThemeToggle />
-          <button onClick={handleHomeClick} className={navButtonClass}>
-            Home
-          </button>
-
-          {/* Features Dropdown */}
-          <div className="relative">
-            <button
-              className={`${navButtonClass} inline-flex items-center`}
-              onClick={() => setShowFeatures(!showFeatures)}
-              onBlur={() => setTimeout(() => setShowFeatures(false), 200)}
-            >
-              <span>Features</span>
-              <ChevronDown
-                className={`ml-2 h-4 w-4 transform transition-transform duration-200 ${
-                  showFeatures ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            <div className={dropdownClass}>
-              <button
-                onClick={handleChatbotClick}
-                className={`w-full text-left px-4 py-2 hover:bg-gray-800/50 transition-colors ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}`}
-              >
-                AI Chatbot
-              </button>
-              {!loggedIn && (
-                <button
-                  onClick={handleLoginClick}
-                  className={`w-full text-left px-4 py-2 hover:bg-gray-800/50 transition-colors ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}`}
-                >
-                  Login Demo
-                </button>
-              )}
-            </div>
-          </div>
-
-          {loggedIn && (
-            <button
-              onClick={handleLogout}
-              className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
-                transition-all duration-300 ease-in-out
-                hover:from-indigo-500 hover:to-purple-500 
-                focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900
-                active:scale-95
-                shadow-lg shadow-indigo-500/20
-                text-sm font-medium"
-            >
-              Logout
-            </button>
-          )}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -239,66 +171,69 @@ const Header = () => {
           <Menu size={24} />
         </button>
 
+        {/* Mobile Menu Overlay */}
+        {isMobile && isMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden z-40"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
         {/* Mobile Menu */}
         {isMobile && (
-          <>
-            <div
-              className={`
-                fixed top-24 right-0 w-64 
-                border-l
-                h-[calc(100vh-6rem)]
-                transform transition-transform duration-300 ease-in-out
-                flex flex-col items-start p-4 space-y-4
-                ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
-                md:hidden
-                z-40
-                ${theme === 'dark' 
-                  ? 'bg-gray-900/95 backdrop-blur-sm border-indigo-500/10' 
-                  : 'bg-white/95 backdrop-blur-sm border-indigo-500/10'}
-              `}
-            >
-              <ThemeToggle />
-              <button onClick={handleHomeClick} className={navButtonClass}>
-                Home
+          <div
+            className={`
+              fixed top-0 right-0 w-80 max-w-[85vw]
+              h-full
+              transform transition-transform duration-300 ease-in-out
+              flex flex-col p-6 pt-8 space-y-6
+              ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
+              md:hidden
+              z-50
+              ${theme === 'dark' 
+                ? 'bg-gray-900 border-l border-gray-800' 
+                : 'bg-white border-l border-gray-200'}
+              shadow-2xl
+            `}
+          >
+            {/* Close Button */}
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                  theme === 'dark' 
+                    ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                }`}
+              >
+                ×
               </button>
-              <button onClick={handleChatbotClick} className={navButtonClass}>
-                AI Chatbot
-              </button>
-              {!loggedIn ? (
-                <button
-                  onClick={handleLoginClick}
-                  className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
-                  transition-all duration-300 ease-in-out
-                  hover:from-indigo-500 hover:to-purple-500
-                  focus:outline-none focus:ring-2 focus:ring-indigo-500
-                  active:scale-95
-                  shadow-lg shadow-indigo-500/20
-                  text-sm font-medium"
+            </div>
+
+            {/* Menu Items */}
+            <div className="flex flex-col space-y-4">
+              <div className="flex items-center justify-between">
+                <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                  Theme
+                </span>
+                <ThemeToggle />
+              </div>
+              
+              {router.pathname !== '/' && (
+                <button 
+                  onClick={handleChatbotClick} 
+                  className={`
+                    w-full text-left px-4 py-3 rounded-lg transition-colors
+                    ${theme === 'dark' 
+                      ? 'text-gray-300 hover:text-indigo-400 hover:bg-gray-800' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-100'}
+                  `}
                 >
-                  Login Demo
-                </button>
-              ) : (
-                <button
-                  onClick={handleLogout}
-                  className="w-full px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg
-                  transition-all duration-300 ease-in-out
-                  hover:from-indigo-500 hover:to-purple-500 
-                  focus:outline-none focus:ring-2 focus:ring-indigo-500
-                  active:scale-95
-                  shadow-lg shadow-indigo-500/20
-                  text-sm font-medium"
-                >
-                  Logout
+                  AI Chatbot
                 </button>
               )}
             </div>
-            {isMenuOpen && (
-              <div
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden z-30"
-                onClick={() => setIsMenuOpen(false)}
-              />
-            )}
-          </>
+          </div>
         )}
       </header>
 
