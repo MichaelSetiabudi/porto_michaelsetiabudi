@@ -1,0 +1,10 @@
+export { default as Main } from "./Main";
+export { default as HeroSection } from "./HeroSection";
+export { default as AboutSection } from "./AboutSection";
+export { default as TechnicalSkillsSlider } from "./TechnicalSkillsSlider";
+export { default as ContactSection } from "./ContactSection";
+export { default as SocialLink } from "./SocialLink";
+export { default as AnimatedProfileImage } from "./AnimatedProfileImage";
+export * from "./types";
+export * from "./animations";
+export * from "./themeHelpers";

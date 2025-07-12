@@ -1,8 +1,8 @@
 import Head from "next/head";
-import Header from "@/pages/components/Header";
-import Footer from "@/pages/components/Footer";
-import Main from "@/pages/about/Main";
-import { useTheme } from '@/context/ThemeContext';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Main from "../about/Main";
+import { useTheme } from '../../context/ThemeContext';
 
 const About: React.FC = () => {
   const { theme } = useTheme();

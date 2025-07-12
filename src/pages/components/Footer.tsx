@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
               Privacy
             </a>
             <span className={`${theme === 'dark' ? 'text-gray-700' : 'text-gray-300'}`}>•</span>
-            <a href="./aboutme" className={linkClass}>
+            <a href="./about" className={linkClass}>
               Contact
             </a>
           </div>
