@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Main from "../about/Main";
+import Main from "../../components/about/Main";
 import { useTheme } from '../../context/ThemeContext';
 
 const About: React.FC = () => {

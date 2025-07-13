@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import {
   Code,
@@ -9,7 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { TechnicalSkillsSliderProps, SkillCategory } from "./types";
+import { TechnicalSkillsSliderProps, SkillCategory } from "../../lib/types";
 
 const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
   theme,
@@ -20,7 +20,7 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
   const [isAnimating, setIsAnimating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const skillCategories: SkillCategory[] = [
+  const skillCategories: SkillCategory[] = useMemo(() => [
     {
       icon: <Code className="text-blue-400" />,
       title: "Frontend Development",
@@ -79,7 +79,7 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
       gradient: "from-yellow-500/20 via-green-500/20 to-emerald-500/20",
       borderGradient: "from-yellow-400 to-green-400",
     },
-  ];
+  ], []);
 
   const getSkillCardBackgroundClass = () => {
     return theme === "dark"

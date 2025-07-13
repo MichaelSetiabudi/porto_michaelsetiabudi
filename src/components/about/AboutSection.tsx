@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { fadeInUp } from "./animations";
+import { fadeInUp } from "../../lib/animations";
 
 interface AboutSectionProps {
   getSectionBackgroundClass: (

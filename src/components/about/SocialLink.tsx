@@ -1,10 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
-import { SocialLinkProps } from "./types";
+import { SocialLinkProps } from "../../lib/types";
 
 const SocialLink: React.FC<SocialLinkProps> = ({ href, icon }) => {
   const { theme } = useTheme();
+
+  if (!icon) {
+    return null;
+  }
 
   return (
     <motion.a

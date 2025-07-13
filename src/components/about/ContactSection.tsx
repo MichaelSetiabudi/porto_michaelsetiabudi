@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
-import { fadeInUp } from "./animations";
+import { fadeInUp } from "../../lib/animations";
 
 interface ContactSectionProps {
   getSectionBackgroundClass: (

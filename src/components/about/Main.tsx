@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "@/context/ThemeContext";
-import { useThemeHelpers } from "./themeHelpers";
+import { useThemeHelpers } from "../../lib/themeHelpers";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
 import TechnicalSkillsSlider from "./TechnicalSkillsSlider";
