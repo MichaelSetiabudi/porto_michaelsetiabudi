@@ -1,9 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useTheme } from '@/context/ThemeContext';
 
 const Main = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { theme } = useTheme();
+
+  // Theme-based styles
+  const bgClass = theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50';
+  const textClass = theme === 'dark' ? 'text-gray-100' : 'text-gray-900';
+  const cardBgClass = theme === 'dark' ? 'bg-gray-800/50' : 'bg-white';
+  const cardBorderClass = theme === 'dark' ? 'border-gray-700' : 'border-gray-200';
+  const cardTextClass = theme === 'dark' ? 'text-gray-300' : 'text-gray-600';
+  const cardHoverClass = theme === 'dark' ? 'hover:shadow-2xl hover:border-gray-600' : 'hover:shadow-xl hover:border-gray-300';
+  const previewBgClass = theme === 'dark' ? 'bg-gray-700/50' : 'bg-gray-100';
+  const techBadgeClass = theme === 'dark' ? 'bg-gray-700/50 border-gray-600 text-gray-300' : 'bg-gray-100 border-gray-300 text-gray-700';
+  const buttonClass = theme === 'dark' ? 'bg-gray-800/80 hover:bg-gray-700 border-gray-600' : 'bg-white/80 hover:bg-gray-100 border-gray-300';
+  const buttonTextClass = theme === 'dark' ? 'text-white' : 'text-gray-700';
+  const dotClass = theme === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-300 hover:bg-gray-400';
+  const dotActiveClass = theme === 'dark' ? 'bg-purple-500' : 'bg-purple-600';
+  const comingSoonBgClass = theme === 'dark' ? 'bg-gray-800/30 border-gray-700' : 'bg-white border-gray-200';
+  const comingSoonTextClass = theme === 'dark' ? 'text-gray-400' : 'text-gray-500';
 
   // Data untuk GitHub projects (nanti bisa diupdate dengan link dan detail sebenarnya)
   const githubProjects = [
@@ -42,22 +60,26 @@ const Main = () => {
   };
 
   const getProjectIcon = (type: string) => {
+    const iconColorClass = theme === 'dark' 
+      ? { mobile: 'text-green-400', web: 'text-blue-400', default: 'text-purple-400' }
+      : { mobile: 'text-green-600', web: 'text-blue-600', default: 'text-purple-600' };
+
     switch (type) {
       case 'mobile':
         return (
-          <svg className="w-6 h-6 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <svg className={`w-6 h-6 ${iconColorClass.mobile} flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zM8 4h4v10H8V4z" clipRule="evenodd" />
           </svg>
         );
       case 'web':
         return (
-          <svg className="w-6 h-6 text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <svg className={`w-6 h-6 ${iconColorClass.web} flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
           </svg>
         );
       default:
         return (
-          <svg className="w-6 h-6 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <svg className={`w-6 h-6 ${iconColorClass.default} flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
           </svg>
         );
@@ -65,11 +87,11 @@ const Main = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
+    <div className={`min-h-screen ${bgClass} ${textClass}`}>
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl" />
+        <div className={`absolute top-20 left-1/4 w-64 h-64 ${theme === 'dark' ? 'bg-purple-500/20' : 'bg-purple-500/10'} rounded-full blur-3xl`} />
+        <div className={`absolute bottom-20 right-1/4 w-64 h-64 ${theme === 'dark' ? 'bg-indigo-500/20' : 'bg-indigo-500/10'} rounded-full blur-3xl`} />
       </div>
 
       <section className="py-20 px-4 relative z-10">
@@ -88,20 +110,27 @@ const Main = () => {
               </span>
             </h2>
             <div className="max-w-4xl mx-auto">
-              <div className="bg-gray-800/50 rounded-xl overflow-hidden shadow-xl border border-gray-700 transform hover:-translate-y-2 transition-all duration-300">
+              <div className={`${cardBgClass} rounded-xl overflow-hidden shadow-xl border ${cardBorderClass} transform hover:-translate-y-2 transition-all duration-300`}>
                 <a
                   href="https://macanmacananai-git-main-michaels-projects-958f3d39.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block group"
                 >
-                  <div className="relative h-64 bg-gray-700/50">
+                  <div className={`relative h-64 ${previewBgClass}`}>
+                    <div className="absolute inset-0 transform scale-[0.6] origin-top-left -translate-y-16 pointer-events-none">
+                      <iframe
+                        src="https://macanmacananai-git-main-michaels-projects-958f3d39.vercel.app/"
+                        className="w-[170%] h-[210%]"
+                        title="Macan-Macanan AI Preview"
+                      />
+                    </div>
                     <div className="absolute inset-0 bg-black bg-opacity-0 
                       group-hover:bg-opacity-20 transition-all duration-300 
                       flex items-center justify-center">
-                      <span className="text-white opacity-0 group-hover:opacity-100 
+                      <span className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} opacity-0 group-hover:opacity-100 
                         transition-opacity duration-300 text-lg font-semibold 
-                        bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent`}>
                         View Live Project →
                       </span>
                     </div>
@@ -109,7 +138,7 @@ const Main = () => {
                 </a>
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className={`w-6 h-6 ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`} fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -119,7 +148,7 @@ const Main = () => {
                       Live
                     </span>
                   </div>
-                  <p className="text-gray-300 mb-4">
+                  <p className={`${cardTextClass} mb-4`}>
                     An innovative implementation of the Javanese traditional board
                     game "Tiger-Macanan" powered by AI using the Minimax
                     algorithm. Built with React.js and Tailwind CSS, this project
@@ -153,7 +182,7 @@ const Main = () => {
               {githubProjects.map((project) => (
                 <div
                   key={project.id}
-                  className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 shadow-xl hover:shadow-2xl hover:border-gray-600 transform hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full"
+                  className={`${cardBgClass} rounded-xl p-6 border ${cardBorderClass} shadow-xl hover:shadow-2xl hover:border-opacity-80 transform hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full`}
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start gap-3 flex-1 min-w-0">
@@ -166,7 +195,7 @@ const Main = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-white transition-colors flex-shrink-0 ml-2"
+                      className={`${cardTextClass} hover:text-opacity-100 transition-colors flex-shrink-0 ml-2`}
                     >
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
@@ -174,7 +203,7 @@ const Main = () => {
                     </a>
                   </div>
                   
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed flex-grow">
+                  <p className={`${cardTextClass} text-sm mb-4 leading-relaxed flex-grow`}>
                     {project.description}
                   </p>
                   
@@ -182,7 +211,7 @@ const Main = () => {
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-gray-700/50 rounded-full text-xs text-gray-300 border border-gray-600"
+                        className={`px-2 py-1 ${theme === 'dark' ? 'bg-gray-700/50 text-gray-300 border-gray-600' : 'bg-gray-200 text-gray-700 border-gray-300'} rounded-full text-xs border`}
                       >
                         {tech}
                       </span>
@@ -216,7 +245,7 @@ const Main = () => {
                       key={project.id}
                       className="w-full flex-shrink-0 px-4"
                     >
-                      <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 shadow-xl">
+                      <div className={`${cardBgClass} rounded-xl p-6 border ${cardBorderClass} shadow-xl`}>
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-start gap-3 flex-1 min-w-0">
                             {getProjectIcon(project.type)}
@@ -228,7 +257,7 @@ const Main = () => {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white transition-colors flex-shrink-0 ml-2"
+                            className={`${cardTextClass} hover:text-opacity-100 transition-colors flex-shrink-0 ml-2`}
                           >
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
@@ -236,7 +265,7 @@ const Main = () => {
                           </a>
                         </div>
                         
-                        <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+                        <p className={`${cardTextClass} text-sm mb-4 leading-relaxed`}>
                           {project.description}
                         </p>
                         
@@ -244,7 +273,7 @@ const Main = () => {
                           {project.technologies.map((tech, index) => (
                             <span
                               key={index}
-                              className="px-2 py-1 bg-gray-700/50 rounded-full text-xs text-gray-300 border border-gray-600"
+                              className={`px-2 py-1 ${theme === 'dark' ? 'bg-gray-700/50 text-gray-300 border-gray-600' : 'bg-gray-200 text-gray-700 border-gray-300'} rounded-full text-xs border`}
                             >
                               {tech}
                             </span>
@@ -271,20 +300,20 @@ const Main = () => {
               {/* Navigation Buttons */}
               <button
                 onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 border border-gray-600 rounded-full p-2 transition-all duration-200 z-10"
+                className={`absolute left-0 top-1/2 -translate-y-1/2 ${buttonClass} border ${cardBorderClass} rounded-full p-2 transition-all duration-200 z-10`}
                 disabled={currentSlide === 0}
               >
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`w-6 h-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               
               <button
                 onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700 border border-gray-600 rounded-full p-2 transition-all duration-200 z-10"
+                className={`absolute right-0 top-1/2 -translate-y-1/2 ${buttonClass} border ${cardBorderClass} rounded-full p-2 transition-all duration-200 z-10`}
                 disabled={currentSlide === githubProjects.length - 1}
               >
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`w-6 h-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -298,7 +327,7 @@ const Main = () => {
                     className={`w-3 h-3 rounded-full transition-all duration-200 ${
                       index === currentSlide 
                         ? 'bg-purple-500' 
-                        : 'bg-gray-600 hover:bg-gray-500'
+                        : `${theme === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-400 hover:bg-gray-500'}`
                     }`}
                   />
                 ))}
@@ -308,14 +337,14 @@ const Main = () => {
 
           {/* Add More Projects Section */}
           <div className="text-center">
-            <div className="bg-gray-800/30 rounded-xl p-8 border border-gray-700 border-dashed">
-              <svg className="w-12 h-12 text-gray-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className={`${cardBgClass} rounded-xl p-8 border ${cardBorderClass} border-dashed`}>
+              <svg className={`w-12 h-12 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'} mx-auto mb-4`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
-              <h3 className="text-xl font-semibold text-gray-400 mb-2 bg-gradient-to-r from-gray-400 to-gray-600 bg-clip-text text-transparent">
+              <h3 className={`text-xl font-semibold ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-2 bg-gradient-to-r ${theme === 'dark' ? 'from-gray-400 to-gray-600' : 'from-gray-600 to-gray-800'} bg-clip-text text-transparent`}>
                 More Projects Coming Soon
               </h3>
-              <p className="text-gray-500">Stay tuned for more exciting projects!</p>
+              <p className={`${theme === 'dark' ? 'text-gray-500' : 'text-gray-600'}`}>Stay tuned for more exciting projects!</p>
             </div>
           </div>
         </div>

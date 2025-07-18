@@ -30,15 +30,7 @@ const Footer: React.FC = () => {
             <span className="font-medium ml-2 bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">Michael-Dev</span>
           </div>
           
-          <div className="flex items-center mt-3 md:mt-0 space-x-6">
-            <a href="#" className={linkClass}>
-              Terms
-            </a>
-            <span className={`${theme === 'dark' ? 'text-gray-700' : 'text-gray-300'}`}>•</span>
-            <a href="#" className={linkClass}>
-              Privacy
-            </a>
-            <span className={`${theme === 'dark' ? 'text-gray-700' : 'text-gray-300'}`}>•</span>
+          <div className="flex items-center mt-3 md:mt-0">
             <a href="./about" className={linkClass}>
               Contact
             </a>
