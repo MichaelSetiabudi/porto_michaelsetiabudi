@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Menu, Home } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useThemeHelpers } from "@/lib/themeHelpers";
 
 const Header = () => {
   const router = useRouter();
@@ -17,17 +18,18 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  
+  const helpers = useThemeHelpers(theme);
+
   const ThemeToggle = () => (
     <button
       onClick={toggleTheme}
-      className={`${navButtonClass} group`}
+      className="p-2 rounded-lg hover:bg-opacity-10 transition-all duration-200 group"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <Sun className="h-5 w-5 text-gray-300 group-hover:text-indigo-400" />
+        <Sun className={`h-5 w-5 transition-colors ${helpers.getTextSecondaryClass()} ${helpers.getAccentTextClass()}`} />
       ) : (
-        <Moon className="h-5 w-5 text-gray-600 group-hover:text-indigo-600" />
+        <Moon className={`h-5 w-5 transition-colors ${helpers.getTextSecondaryClass()} ${helpers.getAccentTextClass()}`} />
       )}
     </button>
   );
@@ -84,18 +86,18 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  // Handler untuk kembali ke landing page
   const handleHomeClick = () => {
     router.push("/");
     setIsMenuOpen(false);
   };
 
   const navButtonClass = `
-    ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}
-    px-3 md:px-6 py-2 md:py-3 
-    transition-all 
-    duration-300 
-    relative 
+    ${helpers.getTextSecondaryClass()}
+    hover:${helpers.getAccentTextClass().split(' ')[0]}
+    px-3 md:px-6 py-2 md:py-3
+    transition-all
+    duration-300
+    relative
     font-medium
     before:content-['']
     before:absolute
@@ -104,9 +106,7 @@ const Header = () => {
     before:-translate-x-1/2
     before:w-2
     before:h-2
-    before:bg-gradient-to-r
-    before:from-indigo-500
-    before:to-purple-500
+    before:bg-current
     before:rounded-full
     before:scale-0
     hover:before:scale-100
@@ -119,10 +119,8 @@ const Header = () => {
     after:-translate-x-1/2
     after:w-8
     after:h-[1px]
-    after:bg-gradient-to-r
-    after:from-transparent
-    after:via-indigo-500
-    after:to-transparent
+    after:bg-current
+    after:opacity-50
     after:scale-x-0
     hover:after:scale-x-100
     after:transition-transform
@@ -133,27 +131,26 @@ const Header = () => {
     whitespace-nowrap
   `;
 
-  const headerBgClass = theme === 'dark' 
-    ? 'bg-[#0A0A0A]' 
-    : 'bg-white';
-
   return (
-    <div className={`${headerBgClass} relative transition-colors duration-300`}>
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/5 via-purple-900/5 to-indigo-900/5" />
+    <div className={`${helpers.getBackgroundClass()} relative transition-colors duration-300`}>
+      {/* Subtle background glow - teal tones */}
+      <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-r from-[#64ffda]/5 via-transparent to-[#64ffda]/5' : 'bg-gradient-to-r from-[#00b894]/5 via-transparent to-[#00b894]/5'}`} />
 
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+      {/* Top and bottom accent lines */}
+      <div className={`absolute top-0 left-0 w-full h-[1px] ${theme === 'dark' ? 'bg-gradient-to-r from-transparent via-[#64ffda]/30 to-transparent' : 'bg-gradient-to-r from-transparent via-[#00b894]/30 to-transparent'}`} />
+      <div className={`absolute bottom-0 left-0 w-full h-[1px] ${theme === 'dark' ? 'bg-gradient-to-r from-transparent via-[#64ffda]/20 to-transparent' : 'bg-gradient-to-r from-transparent via-[#00b894]/20 to-transparent'}`} />
 
-      <div className="absolute -top-20 left-1/4 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl" />
-      <div className="absolute -top-20 right-1/4 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl" />
+      {/* Ambient glows */}
+      <div className={`absolute -top-20 left-1/4 w-40 h-40 rounded-full blur-3xl ${theme === 'dark' ? 'bg-[#64ffda]/10' : 'bg-[#00b894]/10'}`} />
+      <div className={`absolute -top-20 right-1/4 w-40 h-40 rounded-full blur-3xl ${theme === 'dark' ? 'bg-[#52d4aa]/10' : 'bg-[#1dd1a1]/10'}`} />
 
       <header className="w-full px-4 md:px-8 h-24 flex items-center justify-between backdrop-blur-sm relative z-10">
-        {/* Logo/Title yang dapat diklik untuk kembali ke home */}
-        <button 
+        {/* Logo/Title */}
+        <button
           onClick={handleHomeClick}
           className="text-xl md:text-2xl font-bold tracking-wider flex items-center hover:scale-105 transition-transform duration-300"
         >
-          <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent relative">
+          <span className={`bg-gradient-to-r ${theme === 'dark' ? 'from-[#64ffda] to-[#80ffe4]' : 'from-[#00b894] to-[#1dd1a1]'} bg-clip-text text-transparent relative`}>
             Michael-Dev
           </span>
         </button>
@@ -165,7 +162,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden p-2 transition-colors ${theme === 'dark' ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-600'}`}
+          className={`md:hidden p-2 transition-colors rounded-lg ${helpers.getTextSecondaryClass()} ${helpers.getAccentTextClass()}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <Menu size={24} />
@@ -190,9 +187,9 @@ const Header = () => {
               ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
               md:hidden
               z-50
-              ${theme === 'dark' 
-                ? 'bg-gray-900 border-l border-gray-800' 
-                : 'bg-white border-l border-gray-200'}
+              ${helpers.getSectionBackgroundClass('secondary')}
+              ${helpers.getBorderClass()}
+              border-l
               shadow-2xl
             `}
           >
@@ -200,11 +197,7 @@ const Header = () => {
             <div className="flex justify-end mb-4">
               <button
                 onClick={() => setIsMenuOpen(false)}
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-                  theme === 'dark' 
-                    ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${helpers.getTextSecondaryClass()} hover:${helpers.getTextPrimaryClass()} ${helpers.getSectionBackgroundClass('tertiary')}`}
               >
                 ×
               </button>
@@ -213,20 +206,21 @@ const Header = () => {
             {/* Menu Items */}
             <div className="flex flex-col space-y-4">
               <div className="flex items-center justify-between">
-                <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                <span className={`text-sm font-medium ${helpers.getTextPrimaryClass()}`}>
                   Theme
                 </span>
                 <ThemeToggle />
               </div>
-              
+
               {router.pathname !== '/' && (
-                <button 
-                  onClick={handleChatbotClick} 
+                <button
+                  onClick={handleChatbotClick}
                   className={`
-                    w-full text-left px-4 py-3 rounded-lg transition-colors
-                    ${theme === 'dark' 
-                      ? 'text-gray-300 hover:text-indigo-400 hover:bg-gray-800' 
-                      : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-100'}
+                    w-full text-left px-4 py-3 rounded-lg transition-all duration-200
+                    ${helpers.getTextPrimaryClass()}
+                    ${helpers.getAccentTextClass()}
+                    ${helpers.getSectionBackgroundClass('tertiary')}
+                    hover:${helpers.getAccentBorderClass()}
                   `}
                 >
                   AI Chatbot
@@ -263,16 +257,14 @@ const Header = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className={`w-full max-w-md transform overflow-hidden rounded-2xl p-6 md:p-8 text-left align-middle shadow-xl transition-all border border-indigo-500/20 ${theme === 'dark' 
-                  ? 'bg-gray-900/95 backdrop-blur-sm' 
-                  : 'bg-white/95 backdrop-blur-sm'}`}>
+                <Dialog.Panel className={`w-full max-w-md transform overflow-hidden rounded-2xl p-6 md:p-8 text-left align-middle shadow-xl transition-all ${helpers.getCardElevatedClass()} ${helpers.getAccentBorderClass()} border backdrop-blur-sm`}>
                   <div className="flex justify-between items-center mb-6 md:mb-8">
-                    <Dialog.Title className="text-xl md:text-2xl font-bold text-indigo-400 bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
+                    <Dialog.Title className={`text-xl md:text-2xl font-bold bg-gradient-to-r ${theme === 'dark' ? 'from-[#64ffda] to-[#80ffe4]' : 'from-[#00b894] to-[#1dd1a1]'} bg-clip-text text-transparent`}>
                       Welcome Back
                     </Dialog.Title>
                     <button
                       onClick={handleClose}
-                      className="text-gray-400 hover:text-white transition-colors text-xl"
+                      className={`${helpers.getTextSecondaryClass()} hover:${helpers.getTextPrimaryClass()} transition-colors text-xl`}
                     >
                       ×
                     </button>
@@ -280,41 +272,33 @@ const Header = () => {
 
                   <div className="space-y-4 md:space-y-6">
                     <div>
-                      <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                      <label className={`block text-sm font-medium mb-2 ${helpers.getTextPrimaryClass()}`}>
                         Username
                       </label>
                       <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className={`w-full px-4 py-2 md:py-3 border rounded-lg 
-                          focus:ring-2 focus:ring-indigo-500 focus:border-transparent 
-                          placeholder-gray-400 ${theme === 'dark' 
-                            ? 'bg-gray-800/50 border-gray-700 text-white' 
-                            : 'bg-gray-100/50 border-gray-300 text-gray-900'}`}
+                        className={`w-full px-4 py-2 md:py-3 border rounded-lg transition-all ${helpers.getInputClass()}`}
                         placeholder="Enter username"
                       />
                     </div>
 
                     <div>
-                      <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                      <label className={`block text-sm font-medium mb-2 ${helpers.getTextPrimaryClass()}`}>
                         Password
                       </label>
                       <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className={`w-full px-4 py-2 md:py-3 border rounded-lg 
-                          focus:ring-2 focus:ring-indigo-500 focus:border-transparent 
-                          placeholder-gray-400 ${theme === 'dark' 
-                            ? 'bg-gray-800/50 border-gray-700 text-white' 
-                            : 'bg-gray-100/50 border-gray-300 text-gray-900'}`}
+                        className={`w-full px-4 py-2 md:py-3 border rounded-lg transition-all ${helpers.getInputClass()}`}
                         placeholder="Enter password"
                       />
                     </div>
 
                     {errorMessage && (
-                      <div className="bg-red-900/50 border border-red-500 text-red-200 px-4 py-2 md:py-3 rounded-lg flex items-center space-x-2">
+                      <div className={`${theme === 'dark' ? 'bg-[#ff6b6b]/20' : 'bg-[#e74c3c]/20'} border ${theme === 'dark' ? 'border-[#ff6b6b]' : 'border-[#e74c3c]'} ${helpers.getTextPrimaryClass()} px-4 py-2 md:py-3 rounded-lg flex items-center space-x-2`}>
                         <span>⚠️</span>
                         <span>{errorMessage}</span>
                       </div>
@@ -324,14 +308,13 @@ const Header = () => {
                   <div className="mt-6 md:mt-8 flex justify-end space-x-4">
                     <button
                       onClick={handleClose}
-                      className={`px-4 md:px-6 py-2 md:py-3 text-white rounded-lg transition-colors text-sm font-medium ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-300 hover:bg-gray-400 text-gray-800'}`}
+                      className={`px-4 md:px-6 py-2 md:py-3 rounded-lg transition-colors text-sm font-medium ${helpers.getSecondaryButtonClass()}`}
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleLogin}
-                      className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-lg transition-colors
-                        shadow-lg shadow-indigo-500/20 text-sm font-medium"
+                      className={`px-4 md:px-6 py-2 md:py-3 rounded-lg transition-colors text-sm font-medium ${helpers.getAccentButtonClass()} ${theme === 'dark' ? 'shadow-dark-lg' : 'shadow-light-lg'}`}
                     >
                       Login
                     </button>

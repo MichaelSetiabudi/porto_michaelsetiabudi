@@ -5,16 +5,18 @@ import Main from "@/pages/homepage/Main";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { useTheme } from "@/context/ThemeContext";
 
 const HomePage: React.FC = () => {
   const router = useRouter();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const isLoggedIn = Cookies.get("isLoggedIn");
     if (!isLoggedIn) {
       router.push("/landingpage");
     }
-  }, [router]); 
+  }, [router]);
 
   return (
     <>
@@ -24,12 +26,16 @@ const HomePage: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="flex flex-col min-h-screen bg-[#2c2c2e]">
+      <div className={`flex flex-col min-h-screen ${
+        theme === 'dark' ? 'bg-[#0a192f]' : 'bg-white'
+      }`}>
         <header className="">
           <Header />
         </header>
 
-        <main className="flex-grow bg-[#2c2c2e] text-[#e5e5e5] pt-20 px-4 sm:px-6 lg:px-8">
+        <main className={`flex-grow ${
+          theme === 'dark' ? 'bg-[#0a192f] text-[#e6f1ff]' : 'bg-white text-[#0a192f]'
+        } pt-20 px-4 sm:px-6 lg:px-8`}>
           <Main />
         </main>
 

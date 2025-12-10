@@ -22,7 +22,7 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
 
   const skillCategories: SkillCategory[] = useMemo(() => [
     {
-      icon: <Code className="text-blue-400" />,
+      icon: <Code className={theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"} />,
       title: "Frontend Development",
       description: "Building modern and responsive user interfaces",
       skills: [
@@ -36,11 +36,11 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
         "Vue.js",
         "TypeScript",
       ],
-      gradient: "from-blue-500/20 via-indigo-500/20 to-purple-500/20",
-      borderGradient: "from-blue-400 to-indigo-400",
+      gradient: theme === "dark" ? "from-[#64ffda]/20 via-[#80ffe4]/20 to-[#64ffda]/20" : "from-[#00b894]/20 via-[#1dd1a1]/20 to-[#00b894]/20",
+      borderGradient: theme === "dark" ? "from-[#64ffda] to-[#80ffe4]" : "from-[#00b894] to-[#1dd1a1]",
     },
     {
-      icon: <Database className="text-purple-400" />,
+      icon: <Database className={theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"} />,
       title: "Backend Development",
       description: "Server-side logic and database management",
       skills: [
@@ -52,45 +52,45 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
         "Express.js",
         "Firebase",
       ],
-      gradient: "from-purple-500/20 via-pink-500/20 to-red-500/20",
-      borderGradient: "from-purple-400 to-pink-400",
+      gradient: theme === "dark" ? "from-[#64ffda]/20 via-[#80ffe4]/20 to-[#64ffda]/20" : "from-[#00b894]/20 via-[#1dd1a1]/20 to-[#00b894]/20",
+      borderGradient: theme === "dark" ? "from-[#64ffda] to-[#80ffe4]" : "from-[#00b894] to-[#1dd1a1]",
     },
     {
-      icon: <Palette className="text-orange-400" />,
+      icon: <Palette className={theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"} />,
       title: "Other Technologies",
       description: "Additional programming languages and tools",
       skills: ["Kotlin", "C#", "Python", "Figma"],
-      gradient: "from-orange-500/20 via-yellow-500/20 to-amber-500/20",
-      borderGradient: "from-orange-400 to-yellow-400",
+      gradient: theme === "dark" ? "from-[#64ffda]/20 via-[#80ffe4]/20 to-[#64ffda]/20" : "from-[#00b894]/20 via-[#1dd1a1]/20 to-[#00b894]/20",
+      borderGradient: theme === "dark" ? "from-[#64ffda] to-[#80ffe4]" : "from-[#00b894] to-[#1dd1a1]",
     },
     {
-      icon: <Cloud className="text-cyan-400" />,
+      icon: <Cloud className={theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"} />,
       title: "Cloud & DevOps",
       description: "Cloud services and development operations",
       skills: ["AWS", "Git", "GitHub Actions"],
-      gradient: "from-cyan-500/20 via-blue-500/20 to-indigo-500/20",
-      borderGradient: "from-cyan-400 to-blue-400",
+      gradient: theme === "dark" ? "from-[#64ffda]/20 via-[#80ffe4]/20 to-[#64ffda]/20" : "from-[#00b894]/20 via-[#1dd1a1]/20 to-[#00b894]/20",
+      borderGradient: theme === "dark" ? "from-[#64ffda] to-[#80ffe4]" : "from-[#00b894] to-[#1dd1a1]",
     },
     {
-      icon: <Book className="text-yellow-400" />,
+      icon: <Book className={theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"} />,
       title: "Currently Learning",
       description: "Expanding knowledge in emerging technologies",
       skills: ["GraphQL", "Microservices", "Flutter", "Docker"],
-      gradient: "from-yellow-500/20 via-green-500/20 to-emerald-500/20",
-      borderGradient: "from-yellow-400 to-green-400",
+      gradient: theme === "dark" ? "from-[#64ffda]/20 via-[#80ffe4]/20 to-[#64ffda]/20" : "from-[#00b894]/20 via-[#1dd1a1]/20 to-[#00b894]/20",
+      borderGradient: theme === "dark" ? "from-[#64ffda] to-[#80ffe4]" : "from-[#00b894] to-[#1dd1a1]",
     },
-  ], []);
+  ], [theme]);
 
   const getSkillCardBackgroundClass = () => {
     return theme === "dark"
-      ? "from-[#2c2c2e] to-[#1f1f21] border-gray-700"
-      : "from-white/95 to-slate-50/95 border-slate-200/80 shadow-2xl shadow-blue-100/50";
+      ? "from-[#112240] to-[#0a192f] border-[#1e2d3d]"
+      : "from-white/95 to-[#f8f9fa]/95 border-[#e9ecef] shadow-2xl shadow-[#00b894]/10";
   };
 
   const getButtonClass = () => {
     return theme === "dark"
-      ? "bg-[#2c2c2e]/80 hover:bg-[#2c2c2e] text-white border-gray-600 hover:border-blue-500 backdrop-blur-sm"
-      : "bg-white/90 hover:bg-white text-slate-700 border-slate-300 hover:border-blue-400 shadow-lg hover:shadow-xl backdrop-blur-sm";
+      ? "bg-[#112240]/80 hover:bg-[#112240] text-[#e6f1ff] border-[#1e2d3d] hover:border-[#64ffda]/60 backdrop-blur-sm"
+      : "bg-white/90 hover:bg-white text-[#0a192f] border-[#dee2e6] hover:border-[#00b894]/60 shadow-lg hover:shadow-xl backdrop-blur-sm";
   };
 
   const nextSlide = useCallback(() => {
@@ -148,7 +148,11 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
       <div className="container mx-auto px-4 md:px-6 lg:px-12 relative z-10">
         <div className="text-center mb-12 md:mb-16">
           <motion.h2
-            className="text-4xl md:text-6xl font-bold mb-6 font-poppins bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+            className={`text-4xl md:text-6xl font-bold mb-6 font-poppins bg-gradient-to-r ${
+              theme === "dark"
+                ? "from-[#64ffda] to-[#80ffe4]"
+                : "from-[#00b894] to-[#1dd1a1]"
+            } bg-clip-text text-transparent`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -221,12 +225,12 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                       <div
                         className={`relative p-8 bg-gradient-to-br ${getSkillCardBackgroundClass()} rounded-2xl border-2 transition-all duration-500 backdrop-blur-xl flex flex-col h-full w-full ${
                           isCenter
-                            ? `border-transparent shadow-2xl shadow-${
-                                category.borderGradient.split(" ")[1]
-                              }/30`
+                            ? `border-transparent shadow-2xl ${
+                                theme === "dark" ? "shadow-[#64ffda]/30" : "shadow-[#00b894]/30"
+                              }`
                             : theme === "dark"
-                            ? "border-gray-600"
-                            : "border-slate-300"
+                            ? "border-[#1e2d3d]"
+                            : "border-[#dee2e6]"
                         }`}
                       >
                         <div
@@ -238,8 +242,8 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                           <motion.div
                             className={`w-20 h-20 ${
                               theme === "dark"
-                                ? "bg-white/10"
-                                : "bg-white/90 shadow-lg border border-slate-200/50"
+                                ? "bg-[#64ffda]/10 border border-[#64ffda]/20"
+                                : "bg-white/90 shadow-lg border border-[#00b894]/30"
                             } rounded-2xl flex items-center justify-center mb-6 mx-auto flex-shrink-0`}
                             whileHover={{ scale: 1.1, rotate: 10 }}
                             animate={isCenter ? { scale: [1, 1.05, 1] } : {}}
@@ -272,12 +276,12 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                                     key={skillIndex}
                                     className={`${
                                       theme === "dark"
-                                        ? "bg-white/10 hover:bg-white/20"
+                                        ? "bg-[#64ffda]/10 hover:bg-[#64ffda]/20"
                                         : "bg-white/80 hover:bg-white"
                                     } px-3 py-2 rounded-lg text-center transition-all duration-300 border ${
                                       theme === "dark"
-                                        ? "border-gray-600 hover:border-blue-400"
-                                        : "border-slate-200 hover:border-blue-300"
+                                        ? "border-[#1e2d3d] hover:border-[#64ffda]/40"
+                                        : "border-[#dee2e6] hover:border-[#00b894]/60"
                                     } min-h-[40px] flex items-center justify-center`}
                                     whileHover={{ scale: 1.05, y: -2 }}
                                     initial={{ opacity: 0, y: 10 }}
@@ -379,8 +383,8 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                       <motion.div
                         className={`w-16 h-16 md:w-20 md:h-20 ${
                           theme === "dark"
-                            ? "bg-white/10"
-                            : "bg-white/90 shadow-lg border border-slate-200/50"
+                            ? "bg-[#64ffda]/10 border border-[#64ffda]/20"
+                            : "bg-white/90 shadow-lg border border-[#00b894]/30"
                         } rounded-2xl flex items-center justify-center mb-6 mx-auto`}
                         animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
                         transition={{ duration: 3, repeat: Infinity }}
@@ -405,12 +409,12 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                             key={skillIndex}
                             className={`${
                               theme === "dark"
-                                ? "bg-white/10 hover:bg-white/20"
+                                ? "bg-[#64ffda]/10 hover:bg-[#64ffda]/20"
                                 : "bg-white/80 hover:bg-white"
                             } px-3 py-2 rounded-lg text-center transition-all duration-300 border ${
                               theme === "dark"
-                                ? "border-gray-600 hover:border-blue-400"
-                                : "border-slate-200 hover:border-blue-300"
+                                ? "border-[#1e2d3d] hover:border-[#64ffda]/40"
+                                : "border-[#dee2e6] hover:border-[#00b894]/60"
                             }`}
                             whileHover={{ scale: 1.05, y: -2 }}
                             initial={{ opacity: 0, y: 10 }}
@@ -451,7 +455,9 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                   className={`rounded-full transition-all duration-500 ${
                     index === currentSlide
                       ? "w-16 h-4 bg-gradient-to-r " + category.borderGradient
-                      : "w-4 h-4 bg-gray-400 hover:bg-gray-300 group-hover:scale-125"
+                      : theme === "dark"
+                      ? "w-4 h-4 bg-[#8892b0]/40 hover:bg-[#8892b0]/60 group-hover:scale-125"
+                      : "w-4 h-4 bg-[#2d3e50]/40 hover:bg-[#2d3e50]/60 group-hover:scale-125"
                   }`}
                 />
                 {index === currentSlide && (
@@ -481,7 +487,7 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
           <div className="mt-6 max-w-md mx-auto">
             <div
               className={`h-2 ${
-                theme === "dark" ? "bg-gray-700" : "bg-gray-200"
+                theme === "dark" ? "bg-[#1e2d3d]" : "bg-[#dee2e6]"
               } rounded-full overflow-hidden`}
             >
               <motion.div

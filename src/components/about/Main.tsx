@@ -30,6 +30,7 @@ const Main = () => {
         getSectionBackgroundClass={getSectionBackgroundClass}
         getTextSecondaryClass={getTextSecondaryClass}
         getCardBackgroundClass={getCardBackgroundClass}
+        theme={theme}
       />
       
       <TechnicalSkillsSlider

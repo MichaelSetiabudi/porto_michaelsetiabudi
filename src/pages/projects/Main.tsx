@@ -90,14 +90,18 @@ const Main = () => {
     <div className={`min-h-screen ${bgClass} ${textClass}`}>
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className={`absolute top-20 left-1/4 w-64 h-64 ${theme === 'dark' ? 'bg-purple-500/20' : 'bg-purple-500/10'} rounded-full blur-3xl`} />
-        <div className={`absolute bottom-20 right-1/4 w-64 h-64 ${theme === 'dark' ? 'bg-indigo-500/20' : 'bg-indigo-500/10'} rounded-full blur-3xl`} />
+        <div className={`absolute top-20 left-1/4 w-64 h-64 ${theme === 'dark' ? 'bg-[#64ffda]/20' : 'bg-[#00b894]/15'} rounded-full blur-3xl`} />
+        <div className={`absolute bottom-20 right-1/4 w-64 h-64 ${theme === 'dark' ? 'bg-[#112240]/30' : 'bg-[#00b894]/10'} rounded-full blur-3xl`} />
       </div>
 
       <section className="py-20 px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 animate-fadeIn">
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className={`bg-gradient-to-r ${
+              theme === 'dark'
+                ? 'from-[#64ffda] to-[#80ffe4]'
+                : 'from-[#00b894] to-[#1dd1a1]'
+            } bg-clip-text text-transparent`}>
               My Projects
             </span>
           </h1>
@@ -105,7 +109,11 @@ const Main = () => {
           {/* Featured Project Section */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+              <span className={`bg-gradient-to-r ${
+                theme === 'dark'
+                  ? 'from-[#64ffda] to-[#80ffe4]'
+                  : 'from-[#00b894] to-[#1dd1a1]'
+              } bg-clip-text text-transparent`}>
                 Featured Project (Live)
               </span>
             </h2>
@@ -128,9 +136,13 @@ const Main = () => {
                     <div className="absolute inset-0 bg-black bg-opacity-0 
                       group-hover:bg-opacity-20 transition-all duration-300 
                       flex items-center justify-center">
-                      <span className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'} opacity-0 group-hover:opacity-100 
-                        transition-opacity duration-300 text-lg font-semibold 
-                        bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent`}>
+                      <span className={`opacity-0 group-hover:opacity-100
+                        transition-opacity duration-300 text-lg font-semibold
+                        bg-gradient-to-r ${
+                          theme === 'dark'
+                            ? 'from-[#64ffda] to-[#80ffe4]'
+                            : 'from-[#00b894] to-[#1dd1a1]'
+                        } bg-clip-text text-transparent`}>
                         View Live Project →
                       </span>
                     </div>
@@ -138,13 +150,21 @@ const Main = () => {
                 </a>
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <svg className={`w-6 h-6 ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`} fill="currentColor" viewBox="0 0 20 20">
+                    <svg className={`w-6 h-6 ${theme === 'dark' ? 'text-[#64ffda]' : 'text-[#00b894]'}`} fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <h3 className={`text-xl font-bold bg-gradient-to-r ${
+                      theme === 'dark'
+                        ? 'from-[#64ffda] to-[#80ffe4]'
+                        : 'from-[#00b894] to-[#1dd1a1]'
+                    } bg-clip-text text-transparent`}>
                       Macan-Macanan AI Game
                     </h3>
-                    <span className="px-2 py-1 bg-green-600 rounded-full text-xs text-white">
+                    <span className={`px-2 py-1 ${
+                      theme === 'dark' ? 'bg-[#64ffda]' : 'bg-[#00b894]'
+                    } rounded-full text-xs ${
+                      theme === 'dark' ? 'text-[#0a192f]' : 'text-white'
+                    }`}>
                       Live
                     </span>
                   </div>
@@ -158,7 +178,11 @@ const Main = () => {
                     {["React.js", "Tailwind", "AI/Minimax"].map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-blue-600 rounded-full text-sm text-white"
+                        className={`px-3 py-1 ${
+                          theme === 'dark'
+                            ? 'bg-[#64ffda]/10 border border-[#64ffda]/20 text-[#64ffda]'
+                            : 'bg-[#00b894]/10 border border-[#00b894]/30 text-[#00b894]'
+                        } rounded-full text-sm`}
                       >
                         {tech}
                       </span>
@@ -172,7 +196,11 @@ const Main = () => {
           {/* GitHub Projects Section */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+              <span className={`bg-gradient-to-r ${
+                theme === 'dark'
+                  ? 'from-[#64ffda] to-[#80ffe4]'
+                  : 'from-[#00b894] to-[#1dd1a1]'
+              } bg-clip-text text-transparent`}>
                 GitHub Projects
               </span>
             </h2>
@@ -187,7 +215,11 @@ const Main = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start gap-3 flex-1 min-w-0">
                       {getProjectIcon(project.type)}
-                      <h3 className="text-lg font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent group-hover:from-pink-400 group-hover:to-indigo-400 transition-all leading-tight">
+                      <h3 className={`text-lg font-bold bg-gradient-to-r ${
+                        theme === 'dark'
+                          ? 'from-[#64ffda] to-[#80ffe4] group-hover:from-[#80ffe4] group-hover:to-[#64ffda]'
+                          : 'from-[#00b894] to-[#1dd1a1] group-hover:from-[#1dd1a1] group-hover:to-[#00b894]'
+                      } bg-clip-text text-transparent transition-all leading-tight`}>
                         {project.title}
                       </h3>
                     </div>
@@ -222,7 +254,9 @@ const Main = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors group-hover:gap-3 mt-auto"
+                    className={`inline-flex items-center gap-2 ${
+                      theme === 'dark' ? 'text-[#64ffda] hover:text-[#80ffe4]' : 'text-[#00b894] hover:text-[#1dd1a1]'
+                    } text-sm font-medium transition-colors group-hover:gap-3 mt-auto`}
                   >
                     View on GitHub
                     <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
@@ -249,7 +283,11 @@ const Main = () => {
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-start gap-3 flex-1 min-w-0">
                             {getProjectIcon(project.type)}
-                            <h3 className="text-lg font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
+                            <h3 className={`text-lg font-bold bg-gradient-to-r ${
+                              theme === 'dark'
+                                ? 'from-[#64ffda] to-[#80ffe4]'
+                                : 'from-[#00b894] to-[#1dd1a1]'
+                            } bg-clip-text text-transparent leading-tight`}>
                               {project.title}
                             </h3>
                           </div>
@@ -284,7 +322,9 @@ const Main = () => {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors"
+                          className={`inline-flex items-center gap-2 ${
+                            theme === 'dark' ? 'text-[#64ffda] hover:text-[#80ffe4]' : 'text-[#00b894] hover:text-[#1dd1a1]'
+                          } text-sm font-medium transition-colors`}
                         >
                           View on GitHub
                           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -325,9 +365,9 @@ const Main = () => {
                     key={index}
                     onClick={() => setCurrentSlide(index)}
                     className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                      index === currentSlide 
-                        ? 'bg-purple-500' 
-                        : `${theme === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-400 hover:bg-gray-500'}`
+                      index === currentSlide
+                        ? theme === 'dark' ? 'bg-[#64ffda]' : 'bg-[#00b894]'
+                        : theme === 'dark' ? 'bg-[#8892b0]/40 hover:bg-[#8892b0]/60' : 'bg-[#2d3e50]/40 hover:bg-[#2d3e50]/60'
                     }`}
                   />
                 ))}

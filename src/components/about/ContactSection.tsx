@@ -30,12 +30,20 @@ const ContactSection: React.FC<ContactSectionProps> = ({
         transition={{ duration: 0.8 }}
       >
         <div className="max-w-3xl mx-auto text-center relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-md"></div>
+          <div className={`absolute inset-0 bg-gradient-to-r ${
+            theme === "dark"
+              ? "from-[#64ffda]/20 via-[#80ffe4]/20 to-[#64ffda]/20"
+              : "from-[#00b894]/20 via-[#1dd1a1]/20 to-[#00b894]/20"
+          } rounded-2xl blur-md`}></div>
           <div
             className={`relative ${getContactCardBackgroundClass()} p-6 md:p-8 rounded-2xl shadow-xl backdrop-blur-sm`}
           >
             <motion.h2
-              className="text-3xl md:text-5xl font-bold mb-6 font-poppins bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+              className={`text-3xl md:text-5xl font-bold mb-6 font-poppins bg-gradient-to-r ${
+                theme === "dark"
+                  ? "from-[#64ffda] to-[#80ffe4]"
+                  : "from-[#00b894] to-[#1dd1a1]"
+              } bg-clip-text text-transparent`}
               variants={fadeInUp}
             >
               Let&apos;s Connect
@@ -52,13 +60,15 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               rel="noopener noreferrer"
               className={`inline-flex items-center justify-center space-x-3 ${getTextSecondaryClass()} ${
                 theme === "dark"
-                  ? "bg-white/5 hover:bg-white/10 border-gray-700"
-                  : "bg-white/80 hover:bg-white/95 border-slate-200 shadow-lg shadow-indigo-100/30"
+                  ? "bg-white/5 hover:bg-white/10 border-[#1e2d3d] hover:border-[#64ffda]/40"
+                  : "bg-white/80 hover:bg-white/95 border-slate-200 shadow-lg shadow-[#00b894]/10"
               } px-5 py-3 rounded-full transition-all duration-300 border cursor-pointer`}
               variants={fadeInUp}
               whileHover={{ scale: 1.05 }}
             >
-              <Mail className="w-5 h-5 text-blue-400 flex-shrink-0" />
+              <Mail className={`w-5 h-5 ${
+                theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"
+              } flex-shrink-0`} />
               <span className="font-roboto text-base md:text-lg truncate">
                 michaelsetiabudi@gmail.com
               </span>

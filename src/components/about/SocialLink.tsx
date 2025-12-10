@@ -17,15 +17,15 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon }) => {
       rel="noopener noreferrer"
       className={`p-3 ${
         theme === "dark"
-          ? "bg-white/10 hover:bg-white/20"
-          : "bg-white/70 hover:bg-white/90 border border-slate-200/50 shadow-lg shadow-blue-100/30"
+          ? "bg-[#64ffda]/10 hover:bg-[#64ffda]/20 border border-[#64ffda]/20"
+          : "bg-white/70 hover:bg-white/90 border border-[#00b894]/30 shadow-lg shadow-[#00b894]/10"
       } rounded-full transition-all duration-300`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
       {React.cloneElement(icon, {
         className: `w-7 h-7 ${
-          theme === "dark" ? "text-gray-300" : "text-slate-600"
+          theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"
         }`,
       })}
     </motion.a>

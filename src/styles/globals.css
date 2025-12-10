@@ -2,28 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * CSS Custom Properties
+ * "Slate & Teal" Theme
+ * Synchronized with src/theme/colors.ts
+ */
+
 :root {
-  --text-primary: #1f2937;
-  --text-secondary: #4b5563;
+  /* Light Mode - Clean whites & navy */
+
+  /* Backgrounds */
   --bg-primary: #ffffff;
-  --bg-secondary: #f3f4f6;
-  --accent-primary: #6366f1;
-  --accent-secondary: #a855f7;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --bg-overlay: #ffffff;
+  --bg-elevated: #ffffff;
+
+  /* Text */
+  --text-primary: #0a192f;
+  --text-secondary: #2d3e50;
+  --text-tertiary: #5a6d8c;
+  --text-disabled: #adb5bd;
+  --text-inverse: #ffffff;
+
+  /* Accent - Deep teal */
+  --accent-primary: #00b894;
+  --accent-secondary: #00a080;
+  --accent-tertiary: #008c6c;
+  --accent-light: #1dd1a1;
+
+  /* Support colors */
+  --support-success: #00b894;
+  --support-warning: #f39c12;
+  --support-error: #e74c3c;
+  --support-info: #3498db;
+
+  /* Borders */
+  --border-primary: #e9ecef;
+  --border-secondary: #dee2e6;
+  --border-accent: rgba(0, 184, 148, 0.6);
+
+  /* Navigation */
   --nav-bg: rgba(255, 255, 255, 0.8);
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --border-color: rgba(99, 102, 241, 0.2);
+  --card-bg: rgba(248, 249, 250, 0.9);
 }
 
 .dark {
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --bg-primary: #0A0A0A;
-  --bg-secondary: #111827;
-  --accent-primary: #6366f1;
-  --accent-secondary: #a855f7;
-  --nav-bg: rgba(10, 10, 10, 0.8);
-  --card-bg: rgba(17, 24, 39, 0.9);
-  --border-color: rgba(99, 102, 241, 0.2);
+  /* Dark Mode - Navy, slate & teal */
+
+  /* Backgrounds */
+  --bg-primary: #0a192f;
+  --bg-secondary: #112240;
+  --bg-tertiary: #1a2332;
+  --bg-overlay: #0d1b2a;
+  --bg-elevated: #1e2d3d;
+
+  /* Text */
+  --text-primary: #e6f1ff;
+  --text-secondary: #8892b0;
+  --text-tertiary: #5a6d8c;
+  --text-disabled: #495670;
+  --text-inverse: #0a192f;
+
+  /* Accent - Bright teal */
+  --accent-primary: #64ffda;
+  --accent-secondary: #52d4aa;
+  --accent-tertiary: #40b894;
+  --accent-light: #80ffe4;
+
+  /* Support colors */
+  --support-success: #52d4aa;
+  --support-warning: #ffd93d;
+  --support-error: #ff6b6b;
+  --support-info: #4dabf7;
+
+  /* Borders */
+  --border-primary: #1e2d3d;
+  --border-secondary: #2d3e50;
+  --border-accent: rgba(100, 255, 218, 0.4);
+
+  /* Navigation */
+  --nav-bg: rgba(10, 25, 47, 0.8);
+  --card-bg: rgba(17, 34, 64, 0.7);
 }
 
 body {

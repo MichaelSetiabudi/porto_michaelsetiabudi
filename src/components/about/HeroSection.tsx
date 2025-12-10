@@ -30,18 +30,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       >
         <div
           className={`absolute top-20 left-1/4 w-64 h-64 md:w-96 md:h-96 ${
-            theme === "dark" ? "bg-purple-500/20" : "bg-purple-400/15"
+            theme === "dark" ? "bg-[#64ffda]/20" : "bg-[#00b894]/15"
           } rounded-full blur-3xl`}
         />
         <div
           className={`absolute bottom-20 right-1/4 w-64 h-64 md:w-96 md:h-96 ${
-            theme === "dark" ? "bg-blue-500/20" : "bg-blue-400/15"
+            theme === "dark" ? "bg-[#112240]/30" : "bg-[#00b894]/10"
           } rounded-full blur-3xl`}
         />
         {theme === "light" && (
           <>
-            <div className="absolute top-40 right-1/3 w-32 h-32 bg-pink-300/10 rounded-full blur-2xl" />
-            <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-indigo-300/12 rounded-full blur-3xl" />
+            <div className="absolute top-40 right-1/3 w-32 h-32 bg-[#00b894]/10 rounded-full blur-2xl" />
+            <div className="absolute bottom-40 left-1/3 w-48 h-48 bg-[#1dd1a1]/12 rounded-full blur-3xl" />
           </>
         )}
       </motion.div>
@@ -60,7 +60,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <span className={`bg-gradient-to-r ${
+                theme === "dark"
+                  ? "from-[#64ffda] to-[#80ffe4]"
+                  : "from-[#00b894] to-[#1dd1a1]"
+              } bg-clip-text text-transparent`}>
                 Michael Setiabudi
               </span>
             </motion.h1>

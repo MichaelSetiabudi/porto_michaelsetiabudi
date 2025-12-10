@@ -8,12 +8,14 @@ interface AboutSectionProps {
   ) => string;
   getTextSecondaryClass: () => string;
   getCardBackgroundClass: () => string;
+  theme?: string;
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({
   getSectionBackgroundClass,
   getTextSecondaryClass,
   getCardBackgroundClass,
+  theme = "dark",
 }) => {
   return (
     <section
@@ -28,7 +30,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       >
         <motion.div className="w-full max-w-[1400px] mx-auto">
           <motion.h2
-            className="text-3xl md:text-5xl font-bold text-center bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-poppins mb-8"
+            className={`text-3xl md:text-5xl font-bold text-center bg-gradient-to-r ${
+              theme === "dark"
+                ? "from-[#64ffda] to-[#80ffe4]"
+                : "from-[#00b894] to-[#1dd1a1]"
+            } bg-clip-text text-transparent font-poppins mb-8`}
             variants={fadeInUp}
           >
             About Me

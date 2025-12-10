@@ -1,4 +1,9 @@
 /** @type {import('tailwindcss').Config} */
+
+// Import theme configuration
+const { colors } = require('./src/theme/colors');
+const { tokens } = require('./src/theme/tokens');
+
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -8,41 +13,69 @@ module.exports = {
   darkMode: 'class', // Enable class-based dark mode
   theme: {
     extend: {
+      // === COLOR SYSTEM ===
       colors: {
-        dark: '#0A0A0A',
-        light: '#FFFFFF',
+        // Theme colors - accessible via theme()
+        'theme-dark': colors.dark,
+        'theme-light': colors.light,
+
+        // Quick access aliases
+        'bg-primary-dark': colors.dark.bg.primary,
+        'bg-primary-light': colors.light.bg.primary,
+        'text-primary-dark': colors.dark.text.primary,
+        'text-primary-light': colors.light.text.primary,
+        'accent': colors.dark.accent.primary,
+        'accent-light': colors.light.accent.primary,
       },
-      backgroundColor: {
-        primary: {
-          light: '#FFFFFF',
-          dark: '#0A0A0A',
-        },
-        secondary: {
-          light: '#F3F4F6',
-          dark: '#111827',
-        },
+
+      // === TYPOGRAPHY ===
+      fontSize: tokens.typography.fontSize,
+      fontWeight: tokens.typography.fontWeight,
+      lineHeight: tokens.typography.lineHeight,
+      letterSpacing: tokens.typography.letterSpacing,
+
+      // === SPACING ===
+      spacing: tokens.spacing,
+
+      // === BORDER RADIUS ===
+      borderRadius: tokens.borderRadius,
+
+      // === Z-INDEX ===
+      zIndex: tokens.zIndex,
+
+      // === ANIMATIONS ===
+      transitionDuration: tokens.duration,
+      transitionTimingFunction: tokens.easing,
+
+      // === BREAKPOINTS ===
+      screens: tokens.breakpoints,
+
+      // === CONTAINER ===
+      maxWidth: tokens.container,
+
+      // === BOX SHADOW ===
+      boxShadow: {
+        // Dark mode shadows
+        'dark-sm': colors.dark.shadow.sm,
+        'dark-md': colors.dark.shadow.md,
+        'dark-lg': colors.dark.shadow.lg,
+        'dark-xl': colors.dark.shadow.xl,
+        // Light mode shadows
+        'light-sm': colors.light.shadow.sm,
+        'light-md': colors.light.shadow.md,
+        'light-lg': colors.light.shadow.lg,
+        'light-xl': colors.light.shadow.xl,
       },
-      textColor: {
-        primary: {
-          light: '#1F2937',
-          dark: '#F3F4F6',
-        },
-        secondary: {
-          light: '#4B5563',
-          dark: '#9CA3AF',
-        },
+
+      // === BACKDROP BLUR ===
+      backdropBlur: {
+        xs: '2px',
+        sm: '4px',
+        DEFAULT: '8px',
+        md: '12px',
+        lg: '16px',
+        xl: '24px',
       },
-      borderColor: {
-        primary: {
-          light: 'rgba(99, 102, 241, 0.2)',
-          dark: 'rgba(99, 102, 241, 0.2)',
-        },
-      },
-      gradientColorStops: theme => ({
-        ...theme('colors'),
-        'indigo-hover': '#5c5fc0',
-        'purple-hover': '#9448d6',
-      }),
     },
   },
   plugins: [],
