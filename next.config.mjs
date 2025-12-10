@@ -5,9 +5,6 @@ const nextConfig = {
   async redirects() {
     return [];
   },
-  webpack: (config) => {
-    return config;
-  },
 };
 
 export default nextConfig;

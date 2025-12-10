@@ -23,7 +23,7 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon }) => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
-      {React.cloneElement(icon, {
+      {React.cloneElement(icon as React.ReactElement<any>, {
         className: `w-7 h-7 ${
           theme === "dark" ? "text-[#64ffda]" : "text-[#00b894]"
         }`,

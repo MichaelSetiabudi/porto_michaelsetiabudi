@@ -249,7 +249,7 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                             animate={isCenter ? { scale: [1, 1.05, 1] } : {}}
                             transition={{ duration: 2, repeat: Infinity }}
                           >
-                            {React.cloneElement(category.icon, {
+                            {React.cloneElement(category.icon as React.ReactElement<any>, {
                               className: "w-10 h-10",
                             })}
                           </motion.div>
@@ -389,7 +389,7 @@ const TechnicalSkillsSlider: React.FC<TechnicalSkillsSliderProps> = ({
                         animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
                         transition={{ duration: 3, repeat: Infinity }}
                       >
-                        {React.cloneElement(currentCategory.icon, {
+                        {React.cloneElement(currentCategory.icon as React.ReactElement<any>, {
                           className: "w-8 h-8 md:w-10 md:h-10",
                         })}
                       </motion.div>

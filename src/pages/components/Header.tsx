@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Menu } from "lucide-react";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useThemeHelpers } from "@/lib/themeHelpers";
@@ -15,8 +14,6 @@ const Header = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const helpers = useThemeHelpers(theme);
 
@@ -37,25 +34,10 @@ const Header = () => {
   useEffect(() => {
     const isUserLoggedIn = Cookies.get("isLoggedIn") === "true";
     setLoggedIn(isUserLoggedIn);
-
-    setIsMobile(window.innerWidth < 768);
-
-    const handleResize = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-
-      if (!mobile) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleLoginClick = () => {
     setShowLoginModal(true);
-    setIsMenuOpen(false);
   };
 
   const handleClose = () => {
@@ -76,19 +58,16 @@ const Header = () => {
 
   const handleChatbotClick = () => {
     router.push("/chatbot");
-    setIsMenuOpen(false);
   };
 
   const handleLogout = () => {
     Cookies.remove("isLoggedIn");
     setLoggedIn(false);
     router.push("/");
-    setIsMenuOpen(false);
   };
 
   const handleHomeClick = () => {
     router.push("/");
-    setIsMenuOpen(false);
   };
 
   const navButtonClass = `
@@ -160,75 +139,10 @@ const Header = () => {
           <ThemeToggle />
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className={`md:hidden p-2 transition-colors rounded-lg ${helpers.getTextSecondaryClass()} ${helpers.getAccentTextClass()}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <Menu size={24} />
-        </button>
-
-        {/* Mobile Menu Overlay */}
-        {isMobile && isMenuOpen && (
-          <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden z-40"
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
-
-        {/* Mobile Menu */}
-        {isMobile && (
-          <div
-            className={`
-              fixed top-0 right-0 w-80 max-w-[85vw]
-              h-full
-              transform transition-transform duration-300 ease-in-out
-              flex flex-col p-6 pt-8 space-y-6
-              ${isMenuOpen ? "translate-x-0" : "translate-x-full"}
-              md:hidden
-              z-50
-              ${helpers.getSectionBackgroundClass('secondary')}
-              ${helpers.getBorderClass()}
-              border-l
-              shadow-2xl
-            `}
-          >
-            {/* Close Button */}
-            <div className="flex justify-end mb-4">
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${helpers.getTextSecondaryClass()} hover:${helpers.getTextPrimaryClass()} ${helpers.getSectionBackgroundClass('tertiary')}`}
-              >
-                ×
-              </button>
-            </div>
-
-            {/* Menu Items */}
-            <div className="flex flex-col space-y-4">
-              <div className="flex items-center justify-between">
-                <span className={`text-sm font-medium ${helpers.getTextPrimaryClass()}`}>
-                  Theme
-                </span>
-                <ThemeToggle />
-              </div>
-
-              {router.pathname !== '/' && (
-                <button
-                  onClick={handleChatbotClick}
-                  className={`
-                    w-full text-left px-4 py-3 rounded-lg transition-all duration-200
-                    ${helpers.getTextPrimaryClass()}
-                    ${helpers.getAccentTextClass()}
-                    ${helpers.getSectionBackgroundClass('tertiary')}
-                    hover:${helpers.getAccentBorderClass()}
-                  `}
-                >
-                  AI Chatbot
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+        {/* Mobile Theme Toggle - directly visible */}
+        <div className="md:hidden">
+          <ThemeToggle />
+        </div>
       </header>
 
       {/* Login Modal */}

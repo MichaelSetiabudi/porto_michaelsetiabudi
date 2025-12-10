@@ -1,5 +1,7 @@
+import React from 'react';
+
 export interface SkillCardProps {
-  icon: JSX.Element;
+  icon: React.ReactElement;
   title: string;
   skills: string[];
   delay: number;
@@ -7,7 +9,7 @@ export interface SkillCardProps {
 
 export interface SocialLinkProps {
   href: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
 }
 
 export interface TechnicalSkillsSliderProps {
@@ -19,7 +21,7 @@ export interface TechnicalSkillsSliderProps {
 }
 
 export interface SkillCategory {
-  icon: JSX.Element;
+  icon: React.ReactElement;
   title: string;
   description: string;
   skills: string[];

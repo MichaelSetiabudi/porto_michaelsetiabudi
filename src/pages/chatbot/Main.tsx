@@ -76,9 +76,11 @@ const Chatbot = () => {
             >
               {msg.sender === 'bot' ? (
                 <div className="space-y-2">
-                  <ReactMarkdown className="prose prose-invert max-w-none">
-                    {msg.text}
-                  </ReactMarkdown>
+                  <div className="prose prose-invert max-w-none">
+                    <ReactMarkdown>
+                      {msg.text}
+                    </ReactMarkdown>
+                  </div>
                   <button
                     onClick={() => copyToClipboard(msg.text)}
                     className="mt-2 px-3 py-1 text-sm bg-gray-600 hover:bg-gray-500 rounded transition-colors duration-200"
