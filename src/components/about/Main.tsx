@@ -3,7 +3,7 @@ import { useTheme } from "@/context/ThemeContext";
 import { useThemeHelpers } from "../../lib/themeHelpers";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
-import TechnicalSkillsSlider from "./TechnicalSkillsSlider";
+import TechnicalSkills from "./TechnicalSkills";
 import ContactSection from "./ContactSection";
 
 const Main = () => {
@@ -33,7 +33,7 @@ const Main = () => {
         theme={theme}
       />
       
-      <TechnicalSkillsSlider
+      <TechnicalSkills
         theme={theme}
         getSectionBackgroundClass={getSectionBackgroundClass}
         getTextSecondaryClass={getTextSecondaryClass}

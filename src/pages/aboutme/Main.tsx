@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
+import ExperienceSection from "@/components/about/ExperienceSection";
 
 // Define types for component props
 interface SkillCardProps {
@@ -209,8 +210,15 @@ const Main = () => {
         </motion.div>
       </section>
 
-      {/* Education Section */}
+      {/* Experience Section */}
       <section className="py-16 md:py-20 bg-[var(--bg-primary)] transition-colors duration-300">
+        <div className="container mx-auto px-4 sm:px-6">
+          <ExperienceSection theme={theme} />
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section className="py-16 md:py-20 bg-[var(--bg-secondary)] transition-colors duration-300">
         <motion.div
           className="container mx-auto px-4 sm:px-6"
           initial={{ opacity: 0, y: 20 }}
@@ -251,7 +259,7 @@ const Main = () => {
       </section>
 
       {/* Projects Section */}
-      <section className="py-16 md:py-20 bg-[var(--bg-secondary)] transition-colors duration-300">
+      <section className="py-16 md:py-20 bg-[var(--bg-primary)] transition-colors duration-300">
         <motion.div
           className="container mx-auto px-4 sm:px-6"
           variants={staggerContainer}
@@ -277,7 +285,7 @@ const Main = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 md:py-20 bg-[var(--bg-primary)] transition-colors duration-300">
+      <section className="py-16 md:py-20 bg-[var(--bg-secondary)] transition-colors duration-300">
         <motion.div
           className="container mx-auto px-4 sm:px-6"
           initial={{ opacity: 0, y: 20 }}

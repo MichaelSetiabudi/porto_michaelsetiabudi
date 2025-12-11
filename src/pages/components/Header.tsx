@@ -124,14 +124,31 @@ const Header = () => {
       <div className={`absolute -top-20 right-1/4 w-40 h-40 rounded-full blur-3xl ${theme === 'dark' ? 'bg-[#52d4aa]/10' : 'bg-[#1dd1a1]/10'}`} />
 
       <header className="w-full px-4 md:px-8 h-24 flex items-center justify-between backdrop-blur-sm relative z-10">
-        {/* Logo/Title */}
+        {/* Logo/Title - Clickable Home Button */}
         <button
           onClick={handleHomeClick}
-          className="text-xl md:text-2xl font-bold tracking-wider flex items-center hover:scale-105 transition-transform duration-300"
+          className="group text-xl md:text-2xl font-bold tracking-wider flex items-center gap-2 hover:scale-105 transition-all duration-300 relative"
+          aria-label="Go to home page"
         >
-          <span className={`bg-gradient-to-r ${theme === 'dark' ? 'from-[#64ffda] to-[#80ffe4]' : 'from-[#00b894] to-[#1dd1a1]'} bg-clip-text text-transparent relative`}>
+          {/* Home Icon */}
+          <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg ${theme === 'dark' ? 'bg-[#64ffda]/10 group-hover:bg-[#64ffda]/20' : 'bg-[#00b894]/10 group-hover:bg-[#00b894]/20'} flex items-center justify-center transition-all duration-300 group-hover:rotate-[-5deg]`}>
+            <svg
+              className={`w-4 h-4 md:w-5 md:h-5 ${theme === 'dark' ? 'text-[#64ffda]' : 'text-[#00b894]'}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </div>
+
+          {/* Text with gradient */}
+          <span className={`bg-gradient-to-r ${theme === 'dark' ? 'from-[#64ffda] to-[#80ffe4]' : 'from-[#00b894] to-[#1dd1a1]'} bg-clip-text text-transparent relative group-hover:tracking-wide transition-all duration-300`}>
             Michael-Dev
           </span>
+
+          {/* Subtle underline on hover */}
+          <span className={`absolute -bottom-1 left-0 w-full h-[2px] ${theme === 'dark' ? 'bg-[#64ffda]' : 'bg-[#00b894]'} scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}></span>
         </button>
 
         {/* Desktop Navigation */}

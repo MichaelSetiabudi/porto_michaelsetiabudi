@@ -28,3 +28,33 @@ export interface SkillCategory {
   gradient: string;
   borderGradient: string;
 }
+
+export interface ExperienceProject {
+  title: string;
+  description: string;
+  technologies: string[];
+  impact?: string;
+}
+
+export interface Experience {
+  id: number;
+  company: string;
+  position: string;
+  division: string;
+  location: string;
+  startDate: string;
+  endDate: string | "Present";
+  description: string;
+  projects: ExperienceProject[];
+  skills: string[];
+  type: "internship" | "full-time" | "part-time" | "contract";
+}
+
+export interface ExperienceCardProps {
+  experience: Experience;
+  theme: string;
+  getCardBackgroundClass: () => string;
+  getTextPrimaryClass: () => string;
+  getTextSecondaryClass: () => string;
+  getAccentColorClass: () => string;
+}

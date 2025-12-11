@@ -1,11 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTheme } from '@/context/ThemeContext';
 
 const Main = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const { theme } = useTheme();
+
+  // Reset slide to 0 when category changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [selectedCategory]);
 
   // Theme-based styles
   const bgClass = theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50';
@@ -27,42 +33,70 @@ const Main = () => {
   const githubProjects = [
     {
       id: 1,
-      title: "My Coral",
-      description: "An innovative Android application dedicated to coral reef preservation. Features a multi-role system with Users purchasing coral seedlings, Admins managing coral species and cultivation sites, and Workers handling planting operations. Integrated with Midtrans payment gateway, Google Maps for location tracking, and MongoDB for scalable data management. Workers can upload planting progress photos with real-time status updates.",
-      githubUrl: "https://github.com/YosuaChristian69/aplikasiadopsiterumbukarang", // Update dengan link sebenarnya
-      technologies: ["Kotlin", "MongoDB", "Google Maps API", "Midtrans", "Express.js"],
-      type: "mobile"
+      title: "Hotel Booking System",
+      description: "Internal hotel booking system for Pakuwon Group operations developed during internship at Four Points By Sheraton Surabaya. Features comprehensive room reservation management, real-time availability tracking, and seamless database integration for efficient hotel operations. Built with Flutter for cross-platform compatibility and FastAPI for high-performance backend services.",
+      githubUrl: null, // Private internal project
+      technologies: ["Flutter", "FastAPI", "Python", "MySQL"],
+      type: "professional",
+      category: "Professional",
+      isPrivate: true
     },
     {
       id: 2,
+      title: "Canteen Attendance System",
+      description: "Employee meal attendance tracking system developed for Four Points By Sheraton Surabaya. Utilizes barcode scanner technology for efficient canteen consumption monitoring, automated reporting, and meal quota management. Streamlines the meal tracking process and reduces manual administrative work.",
+      githubUrl: null, // Private internal project
+      technologies: ["PHP", "MySQL", "Barcode Scanner"],
+      type: "professional",
+      category: "Professional",
+      isPrivate: true
+    },
+    {
+      id: 3,
+      title: "My Coral",
+      description: "An innovative Android application dedicated to coral reef preservation. Features a multi-role system with Users purchasing coral seedlings, Admins managing coral species and cultivation sites, and Workers handling planting operations. Integrated with Midtrans payment gateway, Google Maps for location tracking, and MongoDB for scalable data management. Workers can upload planting progress photos with real-time status updates.",
+      githubUrl: "https://github.com/YosuaChristian69/aplikasiadopsiterumbukarang",
+      technologies: ["Kotlin", "MongoDB", "Google Maps API", "Midtrans", "Express.js"],
+      type: "mobile",
+      category: "Personal"
+    },
+    {
+      id: 4,
       title: "Booking Lapangan Futsal",
       description: "A comprehensive futsal field booking system built with Laravel. Features include real-time field availability checking, time slot management, and dual confirmation system for both customers and administrators. Admins can manage multiple fields (add/edit), while users enjoy seamless booking experience with automated notifications. Currently uses manual verification process ensuring booking accuracy and customer satisfaction.",
       githubUrl: "https://github.com/MichaelSetiabudi/BookingLapanganFutsal",
       technologies: ["Laravel", "PHP", "MySQL", "Tailwind"],
-      type: "web"
+      type: "web",
+      category: "Personal"
     },
     {
-      id: 3,
+      id: 5,
       title: "Replikasi Sistem Informasi Mahasiswa(SIM) ISTTS",
       description: "A comprehensive replica of ISTTS Student Information System achieving 75% similarity with the original. Built as a final project for Web Programming course, featuring multi-role authentication for students and lecturers, course scheduling system, grade input and management, PDF grade reports generation, and student GPA calculation. Designed specifically for ISTTS internal academic operations with modern web technologies.",
-      githubUrl: "https://github.com/Xrror404/Project_BWP", 
+      githubUrl: "https://github.com/Xrror404/Project_BWP",
       technologies: ["Laravel", "PHP", "MySQL", "Bootstrap", "PDF Generation"],
-      type: "web"
+      type: "web",
+      category: "Academic"
     }
   ];
 
+  // Filter projects based on selected category
+  const filteredProjects = selectedCategory === 'All'
+    ? githubProjects
+    : githubProjects.filter(project => project.category === selectedCategory);
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % githubProjects.length);
+    setCurrentSlide((prev) => (prev + 1) % filteredProjects.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + githubProjects.length) % githubProjects.length);
+    setCurrentSlide((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
   };
 
   const getProjectIcon = (type: string) => {
-    const iconColorClass = theme === 'dark' 
-      ? { mobile: 'text-green-400', web: 'text-blue-400', default: 'text-purple-400' }
-      : { mobile: 'text-green-600', web: 'text-blue-600', default: 'text-purple-600' };
+    const iconColorClass = theme === 'dark'
+      ? { mobile: 'text-green-400', web: 'text-blue-400', professional: 'text-orange-400', default: 'text-purple-400' }
+      : { mobile: 'text-green-600', web: 'text-blue-600', professional: 'text-orange-600', default: 'text-purple-600' };
 
     switch (type) {
       case 'mobile':
@@ -75,6 +109,13 @@ const Main = () => {
         return (
           <svg className={`w-6 h-6 ${iconColorClass.web} flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
+          </svg>
+        );
+      case 'professional':
+        return (
+          <svg className={`w-6 h-6 ${iconColorClass.professional} flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" />
+            <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
           </svg>
         );
       default:
@@ -201,13 +242,34 @@ const Main = () => {
                   ? 'from-[#64ffda] to-[#80ffe4]'
                   : 'from-[#00b894] to-[#1dd1a1]'
               } bg-clip-text text-transparent`}>
-                GitHub Projects
+                My Projects
               </span>
             </h2>
-            
+
+            {/* Category Filter Buttons */}
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {['All', 'Professional', 'Personal', 'Academic'].map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    selectedCategory === category
+                      ? theme === 'dark'
+                        ? 'bg-[#64ffda]/20 text-[#64ffda] border-2 border-[#64ffda]'
+                        : 'bg-[#00b894]/20 text-[#00b894] border-2 border-[#00b894]'
+                      : theme === 'dark'
+                      ? 'bg-gray-800/50 text-gray-400 border-2 border-gray-700 hover:border-gray-600'
+                      : 'bg-white text-gray-600 border-2 border-gray-300 hover:border-gray-400'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
             {/* Desktop Grid Layout */}
             <div className="hidden lg:grid lg:grid-cols-3 gap-6 animate-fadeIn delay-100">
-              {githubProjects.map((project) => (
+              {filteredProjects.map((project) => (
                 <div
                   key={project.id}
                   className={`${cardBgClass} rounded-xl p-6 border ${cardBorderClass} shadow-xl hover:shadow-2xl hover:border-opacity-80 transform hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full`}
@@ -223,16 +285,18 @@ const Main = () => {
                         {project.title}
                       </h3>
                     </div>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${cardTextClass} hover:text-opacity-100 transition-colors flex-shrink-0 ml-2`}
-                    >
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                    </a>
+                    {!project.isPrivate && project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${cardTextClass} hover:text-opacity-100 transition-colors flex-shrink-0 ml-2`}
+                      >
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                      </a>
+                    )}
                   </div>
                   
                   <p className={`${cardTextClass} text-sm mb-4 leading-relaxed flex-grow`}>
@@ -249,20 +313,31 @@ const Main = () => {
                       </span>
                     ))}
                   </div>
-                  
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 ${
-                      theme === 'dark' ? 'text-[#64ffda] hover:text-[#80ffe4]' : 'text-[#00b894] hover:text-[#1dd1a1]'
-                    } text-sm font-medium transition-colors group-hover:gap-3 mt-auto`}
-                  >
-                    View on GitHub
-                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </a>
+
+                  {project.isPrivate ? (
+                    <div className={`inline-flex items-center gap-2 ${
+                      theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                    } text-sm font-medium mt-auto`}>
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                      </svg>
+                      Private Internal Project
+                    </div>
+                  ) : project.githubUrl ? (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 ${
+                        theme === 'dark' ? 'text-[#64ffda] hover:text-[#80ffe4]' : 'text-[#00b894] hover:text-[#1dd1a1]'
+                      } text-sm font-medium transition-colors group-hover:gap-3 mt-auto`}
+                    >
+                      View on GitHub
+                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                  ) : null}
                 </div>
               ))}
             </div>
@@ -270,11 +345,11 @@ const Main = () => {
             {/* Mobile/Tablet Carousel Layout */}
             <div className="lg:hidden relative">
               <div className="overflow-hidden">
-                <div 
+                <div
                   className="flex transition-transform duration-300 ease-in-out"
                   style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                 >
-                  {githubProjects.map((project) => (
+                  {filteredProjects.map((project) => (
                     <div
                       key={project.id}
                       className="w-full flex-shrink-0 px-4"
@@ -291,16 +366,18 @@ const Main = () => {
                               {project.title}
                             </h3>
                           </div>
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`${cardTextClass} hover:text-opacity-100 transition-colors flex-shrink-0 ml-2`}
-                          >
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                          </a>
+                          {!project.isPrivate && project.githubUrl && (
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`${cardTextClass} hover:text-opacity-100 transition-colors flex-shrink-0 ml-2`}
+                            >
+                              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                              </svg>
+                            </a>
+                          )}
                         </div>
                         
                         <p className={`${cardTextClass} text-sm mb-4 leading-relaxed`}>
@@ -317,20 +394,31 @@ const Main = () => {
                             </span>
                           ))}
                         </div>
-                        
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-2 ${
-                            theme === 'dark' ? 'text-[#64ffda] hover:text-[#80ffe4]' : 'text-[#00b894] hover:text-[#1dd1a1]'
-                          } text-sm font-medium transition-colors`}
-                        >
-                          View on GitHub
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                          </svg>
-                        </a>
+
+                        {project.isPrivate ? (
+                          <div className={`inline-flex items-center gap-2 ${
+                            theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                          } text-sm font-medium`}>
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                            </svg>
+                            Private Internal Project
+                          </div>
+                        ) : project.githubUrl ? (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex items-center gap-2 ${
+                              theme === 'dark' ? 'text-[#64ffda] hover:text-[#80ffe4]' : 'text-[#00b894] hover:text-[#1dd1a1]'
+                            } text-sm font-medium transition-colors`}
+                          >
+                            View on GitHub
+                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                          </a>
+                        ) : null}
                       </div>
                     </div>
                   ))}
@@ -351,7 +439,7 @@ const Main = () => {
               <button
                 onClick={nextSlide}
                 className={`absolute right-0 top-1/2 -translate-y-1/2 ${buttonClass} border ${cardBorderClass} rounded-full p-2 transition-all duration-200 z-10`}
-                disabled={currentSlide === githubProjects.length - 1}
+                disabled={currentSlide === filteredProjects.length - 1}
               >
                 <svg className={`w-6 h-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -360,7 +448,7 @@ const Main = () => {
 
               {/* Dots Indicator */}
               <div className="flex justify-center space-x-2 mt-6">
-                {githubProjects.map((_, index) => (
+                {filteredProjects.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
