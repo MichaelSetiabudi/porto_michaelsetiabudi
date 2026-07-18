@@ -2,135 +2,213 @@
 @tailwind components;
 @tailwind utilities;
 
-/**
- * CSS Custom Properties
- * "Slate & Teal" Theme
- * Synchronized with src/theme/colors.ts
- */
+/* ------------------------------------------------------------------ *\
+   Design tokens — single source of truth for both themes.
+   "Daylight" (light) = cool concrete. "Night shift" (dark) = control room.
+   Colour appears on the page only as --live: the mark of "in production".
+\* ------------------------------------------------------------------ */
 
 :root {
-  /* Light Mode - Clean whites & navy */
-
-  /* Backgrounds */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #e9ecef;
-  --bg-overlay: #ffffff;
-  --bg-elevated: #ffffff;
-
-  /* Text */
-  --text-primary: #0a192f;
-  --text-secondary: #2d3e50;
-  --text-tertiary: #5a6d8c;
-  --text-disabled: #adb5bd;
-  --text-inverse: #ffffff;
-
-  /* Accent - Deep teal */
-  --accent-primary: #00b894;
-  --accent-secondary: #00a080;
-  --accent-tertiary: #008c6c;
-  --accent-light: #1dd1a1;
-
-  /* Support colors */
-  --support-success: #00b894;
-  --support-warning: #f39c12;
-  --support-error: #e74c3c;
-  --support-info: #3498db;
-
-  /* Borders */
-  --border-primary: #e9ecef;
-  --border-secondary: #dee2e6;
-  --border-accent: rgba(0, 184, 148, 0.6);
-
-  /* Navigation */
-  --nav-bg: rgba(255, 255, 255, 0.8);
-  --card-bg: rgba(248, 249, 250, 0.9);
+  --paper: #e9eae5;
+  --surface: #dfe1db;
+  --raised: #f3f4f0;
+  --ink: #181a18;
+  --ink-2: #565a55;
+  --ink-3: #8a8e88;
+  --rule: #cccec6;
+  --rule-strong: #b7bab1;
+  --live: #1c6b47;
+  --live-soft: rgba(28, 107, 71, 0.1);
+  color-scheme: light;
 }
 
-.dark {
-  /* Dark Mode - Navy, slate & teal */
-
-  /* Backgrounds */
-  --bg-primary: #0a192f;
-  --bg-secondary: #112240;
-  --bg-tertiary: #1a2332;
-  --bg-overlay: #0d1b2a;
-  --bg-elevated: #1e2d3d;
-
-  /* Text */
-  --text-primary: #e6f1ff;
-  --text-secondary: #8892b0;
-  --text-tertiary: #5a6d8c;
-  --text-disabled: #495670;
-  --text-inverse: #0a192f;
-
-  /* Accent - Bright teal */
-  --accent-primary: #64ffda;
-  --accent-secondary: #52d4aa;
-  --accent-tertiary: #40b894;
-  --accent-light: #80ffe4;
-
-  /* Support colors */
-  --support-success: #52d4aa;
-  --support-warning: #ffd93d;
-  --support-error: #ff6b6b;
-  --support-info: #4dabf7;
-
-  /* Borders */
-  --border-primary: #1e2d3d;
-  --border-secondary: #2d3e50;
-  --border-accent: rgba(100, 255, 218, 0.4);
-
-  /* Navigation */
-  --nav-bg: rgba(10, 25, 47, 0.8);
-  --card-bg: rgba(17, 34, 64, 0.7);
+:root[data-theme="dark"] {
+  --paper: #141615;
+  --surface: #1c1f1d;
+  --raised: #262a27;
+  --ink: #e6e8e3;
+  --ink-2: #99a09a;
+  --ink-3: #656b65;
+  --rule: #272b28;
+  --rule-strong: #3a403a;
+  --live: #5bc08d;
+  --live-soft: rgba(91, 192, 141, 0.14);
+  color-scheme: dark;
 }
 
-body {
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
-  transition: color 0.3s, background-color 0.3s;
-}
-
-/* Custom cursor animation for TypewriterText component */
-.cursor::after {
-  content: '|';
-  display: inline;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  from, to {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
+/* No-JS / pre-hydration fallback: honour the OS preference until the
+   inline theme script (in _document) stamps an explicit data-theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --paper: #141615;
+    --surface: #1c1f1d;
+    --raised: #262a27;
+    --ink: #e6e8e3;
+    --ink-2: #99a09a;
+    --ink-3: #656b65;
+    --rule: #272b28;
+    --rule-strong: #3a403a;
+    --live: #5bc08d;
+    --live-soft: rgba(91, 192, 141, 0.14);
+    color-scheme: dark;
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.55;
+  }
+  ::selection {
+    background: var(--live);
+    color: var(--paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--live);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.6s forwards;
+@layer components {
+  /* Page gutter */
+  .wrap {
+    width: 100%;
+    max-width: var(--wrap, 1360px);
+    margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 64px);
+  }
+
+  /* Oversized nameplate display */
+  .t-display {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wght" 545, "wdth" 112;
+    font-weight: 545;
+    line-height: 1;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+  }
+
+  /* Project / section titles */
+  .t-title {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-variation-settings: "wght" 540, "wdth" 108;
+    font-weight: 540;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  /* Monospaced uppercase label — the metadata layer */
+  .t-label {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+  }
+
+  .t-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Hairline rule that structures the register */
+  .rule-t {
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Underlined "live" number — colour = running */
+  .live-metric {
+    color: var(--ink);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    border-bottom: 2px solid var(--live);
+    padding-bottom: 1px;
+  }
+
+  /* Text link with a wipe-in underline (transform only) */
+  .link {
+    color: var(--ink);
+    position: relative;
+  }
+  .link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+  .link:hover::after,
+  .link:focus-visible::after {
+    transform: scaleX(1);
+  }
 }
 
-.delay-100 {
-  animation-delay: 0.1s;
+@layer utilities {
+  /* One orchestrated page-load: staggered rise. transform + opacity only. */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .rise {
+    animation: rise 0.62s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+  }
+  .rise-1 {
+    animation-delay: 0.05s;
+  }
+  .rise-2 {
+    animation-delay: 0.11s;
+  }
+  .rise-3 {
+    animation-delay: 0.17s;
+  }
+  .rise-4 {
+    animation-delay: 0.23s;
+  }
+  .rise-5 {
+    animation-delay: 0.29s;
+  }
+
+  /* Rule that draws in once when revealed */
+  @keyframes drawx {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 }
 
-.delay-200 {
-  animation-delay: 0.2s;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
