@@ -1,30 +1,16 @@
-import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Figtree, Schibsted_Grotesk } from "next/font/google";
 
-/**
- * Display — Archivo (variable, with the width axis loaded so headlines can be
- * set slightly expanded, like an equipment nameplate).
- */
-export const archivo = Archivo({
+/** Body & interface — a humanist sans that stays comfortable in paragraphs. */
+export const figtree = Figtree({
   subsets: ["latin"],
-  axes: ["wdth"],
-  display: "swap",
-  variable: "--font-display",
-});
-
-/** Body — IBM Plex Sans. Engineering-documentation pedigree; not Inter. */
-export const plexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
   variable: "--font-body",
 });
 
-/** Data / labels — IBM Plex Mono. Tabular metadata: stack, status, years. */
-export const plexMono = IBM_Plex_Mono({
+/** Headings & the name — a contemporary grotesque with quiet character. */
+export const schibsted = Schibsted_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["500", "600", "700"],
   display: "swap",
-  variable: "--font-mono",
+  variable: "--font-display",
 });
-
-export const fontVariables = `${archivo.variable} ${plexSans.variable} ${plexMono.variable}`;

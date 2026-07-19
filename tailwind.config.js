@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
-// Colour and font tokens are defined as CSS custom properties in
-// src/styles/globals.css (single source of truth for the two themes).
-// Tailwind utilities point at those variables so theme switching is pure CSS.
+// Colour tokens are CSS custom properties (src/styles/globals.css) so theme
+// switching is pure CSS. Tailwind utilities point at those variables.
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -12,28 +11,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        paper: "var(--paper)",
+        page: "var(--page)",
         surface: "var(--surface)",
-        raised: "var(--raised)",
         ink: "var(--ink)",
         "ink-2": "var(--ink-2)",
         "ink-3": "var(--ink-3)",
-        rule: "var(--rule)",
-        "rule-strong": "var(--rule-strong)",
-        live: "var(--live)",
-        "live-soft": "var(--live-soft)",
+        line: "var(--line)",
+        "line-2": "var(--line-2)",
+        accent: "var(--accent)",
+        "accent-hover": "var(--accent-hover)",
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       maxWidth: {
-        wrap: "1360px",
-        measure: "62ch",
-      },
-      letterSpacing: {
-        label: "0.14em",
+        measure: "68ch",
       },
     },
   },
