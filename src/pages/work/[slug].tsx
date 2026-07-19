@@ -109,7 +109,7 @@ export default function ProjectDetail({ project, prev, next }: Props) {
             </figure>
           ) : project.internal ? (
             <div className="mt-12 border border-rule bg-surface px-6 py-8">
-              <p className="t-label mb-3 text-ink-3">Internal system</p>
+              <p className="t-label mb-3 text-ink-2">Internal system</p>
               <p className="max-w-measure text-ink-2">
                 Built for internal hotel operations. Described here, but not
                 linked or shown &mdash; no URL, no screenshot, by request.
