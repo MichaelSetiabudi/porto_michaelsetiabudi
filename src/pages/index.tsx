@@ -48,9 +48,24 @@ export default function Home() {
       <main>
         <div className="wrap">
           {/* Hero */}
-          <section className="flex flex-col gap-8 pt-10 sm:flex-row sm:items-start sm:justify-between sm:pt-14">
-            <div className="max-w-measure">
-              <h1 className="font-display text-[clamp(2.25rem,5vw,3rem)] font-bold leading-[1.1] tracking-[-0.02em]">
+          <section className="pt-8 sm:pt-10 md:grid md:grid-cols-[minmax(0,1fr)_340px] md:items-start md:gap-x-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-20">
+            {/* Photo — above the name on mobile, beside the intro on tablet+ */}
+            <div className="mb-9 max-w-[440px] md:order-none md:col-start-2 md:row-start-1 md:mb-0 md:max-w-none">
+              <div className="relative aspect-[6/5] w-full overflow-hidden rounded-xl border border-line md:aspect-[4/5]">
+                <Image
+                  src="/MichaelSetiabudi.jpg"
+                  alt="Michael Setiabudi"
+                  fill
+                  sizes="(max-width: 767px) 92vw, (max-width: 1023px) 340px, 400px"
+                  className="object-cover object-top"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Intro */}
+            <div className="max-w-[60ch] md:col-start-1 md:row-start-1">
+              <h1 className="font-display text-[clamp(2.4rem,4.8vw,3.4rem)] font-bold leading-[1.08] tracking-[-0.02em]">
                 Michael Setiabudi
               </h1>
               <p className="mt-3 text-[1.05rem] text-ink-2">
@@ -86,17 +101,6 @@ export default function Home() {
                 <a href={CONTACT.cv}>Download CV</a>
               </div>
             </div>
-
-            <div className="relative aspect-[4/5] w-[168px] shrink-0 overflow-hidden rounded-lg border border-line sm:w-[184px]">
-              <Image
-                src="/MichaelSetiabudi.jpg"
-                alt="Michael Setiabudi"
-                fill
-                sizes="184px"
-                className="object-cover object-top grayscale"
-                priority
-              />
-            </div>
           </section>
 
           {/* Work */}
@@ -106,18 +110,22 @@ export default function Home() {
               {projects.map((p) => (
                 <article
                   key={p.title}
-                  className="border-t border-line py-8"
+                  className="project-grid border-t border-line py-8 lg:py-9"
                 >
-                  <h3 className="font-display text-[1.4rem] font-semibold tracking-[-0.015em]">
+                  <h3 className="area-title font-display text-[1.4rem] font-semibold tracking-[-0.015em]">
                     {p.title}
                   </h3>
-                  <p className="mt-1.5 text-[0.92rem] text-ink-2">{p.context}</p>
-                  <p className="mt-3.5 max-w-measure">{p.description}</p>
-                  <p className="mt-3.5 text-[0.92rem] font-medium text-ink-2">
+                  <p className="area-context mt-1.5 text-[0.92rem] text-ink-2 lg:mt-0">
+                    {p.context}
+                  </p>
+                  <p className="area-desc mt-3.5 max-w-[68ch] lg:mt-0">
+                    {p.description}
+                  </p>
+                  <p className="area-tech mt-3.5 text-[0.92rem] font-medium text-ink-2 lg:mt-0">
                     {p.tech}
                   </p>
                   {p.links.length > 0 ? (
-                    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.95rem] font-medium">
+                    <div className="area-links mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.95rem] font-medium lg:mt-0">
                       {p.links.map((l, i) => (
                         <Fragment key={l.href}>
                           {i > 0 && (
@@ -137,7 +145,7 @@ export default function Home() {
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-4 text-[0.95rem] text-ink-3">
+                    <p className="area-links mt-4 text-[0.95rem] text-ink-3 lg:mt-0">
                       {p.internalNote}
                     </p>
                   )}
@@ -149,7 +157,7 @@ export default function Home() {
           {/* About */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel id="about">About</SectionLabel>
-            <div className="mt-4 max-w-measure space-y-4">
+            <div className="mt-4 max-w-[68ch] space-y-4">
               <p>
                 I&rsquo;m a fullstack developer based in Surabaya. I graduated in
                 Informatics from iSTTS in July 2026 with a 3.52 GPA.
@@ -167,18 +175,18 @@ export default function Home() {
           {/* Experience */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel>Experience</SectionLabel>
-            <div className="mt-4 max-w-measure">
-              <h3 className="font-display text-[1.15rem] font-semibold">
+            <div className="exp-grid mt-4">
+              <h3 className="area-role font-display text-[1.15rem] font-semibold">
                 IT Intern — Fullstack Developer and IT Support
               </h3>
-              <p className="mt-1 text-ink-2">
+              <p className="area-company mt-1 text-ink-2 lg:mt-0">
                 Four Points by Sheraton Tunjungan Plaza, PT Pakuwon Jati ·
                 Surabaya
               </p>
-              <p className="mt-1 text-[0.92rem] text-ink-3">
+              <p className="area-dates mt-1 text-[0.92rem] text-ink-3 lg:mt-0">
                 August 2025 – January 2026
               </p>
-              <p className="mt-3.5">
+              <p className="area-desc mt-3.5 max-w-[68ch] lg:mt-0">
                 Built the two hotel systems listed above. Also handled on-site IT
                 support for hotel guests and staff, and ran requirement and
                 progress reviews with the IT Manager.
@@ -193,7 +201,7 @@ export default function Home() {
               {SKILLS.map(([label, items]) => (
                 <div
                   key={label}
-                  className="grid gap-y-1 border-t border-line py-4 sm:grid-cols-[190px_1fr] sm:gap-x-6"
+                  className="grid gap-y-1 border-t border-line py-4 md:grid-cols-[248px_minmax(0,1fr)] md:gap-x-12"
                 >
                   <dt className="font-display text-[0.98rem] font-semibold">
                     {label}
@@ -207,13 +215,16 @@ export default function Home() {
           {/* Education & certifications */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel>Education &amp; certifications</SectionLabel>
-            <ul className="mt-4 space-y-5">
+            <ul className="mt-4">
               {CREDENTIALS.map(([name, detail]) => (
-                <li key={name} className="max-w-measure">
+                <li
+                  key={name}
+                  className="grid gap-y-1 border-t border-line py-4 lg:grid-cols-[248px_minmax(0,1fr)] lg:gap-x-12"
+                >
                   <p className="font-display text-[1.05rem] font-semibold">
                     {name}
                   </p>
-                  <p className="mt-0.5 text-ink-2">{detail}</p>
+                  <p className="text-ink-2">{detail}</p>
                 </li>
               ))}
             </ul>
@@ -222,7 +233,7 @@ export default function Home() {
           {/* Contact */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel id="contact">Contact</SectionLabel>
-            <div className="mt-4 max-w-measure">
+            <div className="mt-4 max-w-[68ch]">
               <p>Open to fullstack roles. Email is the best way to reach me.</p>
               <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-medium">
                 <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
