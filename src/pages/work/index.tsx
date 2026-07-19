@@ -1,18 +1,15 @@
-import Head from "next/head";
 import Layout from "@/components/Layout";
+import Seo from "@/components/Seo";
 import WorkIndex from "@/components/WorkIndex";
 import { productionWork, personalWork } from "@/data/projects";
 
 export default function Work() {
   return (
     <>
-      <Head>
-        <title>Work — Michael Setiabudi</title>
-        <meta
-          name="description"
-          content="A register of what Michael Setiabudi has built — a university student information system, two internal hotel systems, and personal projects — grouped by whether it's still in production."
-        />
-      </Head>
+      <Seo
+        title="Work — Michael Setiabudi"
+        description="A register of what Michael Setiabudi has built — a university student information system, two internal hotel systems, and personal projects — grouped by whether it's still in production."
+      />
 
       <Layout>
         <section className="wrap pb-14 pt-12 md:pt-20">

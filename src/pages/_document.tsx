@@ -8,7 +8,19 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!==
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <meta
+          name="theme-color"
+          content="#e9eae5"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#141615"
+          media="(prefers-color-scheme: dark)"
+        />
+      </Head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <Main />

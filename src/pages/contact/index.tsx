@@ -1,5 +1,5 @@
-import Head from "next/head";
 import Layout from "@/components/Layout";
+import Seo from "@/components/Seo";
 
 const CHANNELS = [
   {
@@ -25,13 +25,10 @@ const CHANNELS = [
 export default function Contact() {
   return (
     <>
-      <Head>
-        <title>Contact — Michael Setiabudi</title>
-        <meta
-          name="description"
-          content="Michael Setiabudi is open to fullstack roles from July 2026. Reach him by email at michaelsetiabudi@gmail.com, or on LinkedIn and GitHub."
-        />
-      </Head>
+      <Seo
+        title="Contact — Michael Setiabudi"
+        description="Michael Setiabudi is open to fullstack roles from July 2026. Reach him by email at michaelsetiabudi@gmail.com, or on LinkedIn and GitHub."
+      />
 
       <Layout>
         <section className="wrap pb-16 pt-12 md:pt-20">

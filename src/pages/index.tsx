@@ -1,6 +1,6 @@
-import Head from "next/head";
 import Link from "next/link";
 import Layout from "@/components/Layout";
+import Seo from "@/components/Seo";
 import Colophon from "@/components/Colophon";
 import WorkIndex from "@/components/WorkIndex";
 import { projects } from "@/data/projects";
@@ -8,13 +8,10 @@ import { projects } from "@/data/projects";
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Michael Setiabudi — Fullstack developer, Surabaya</title>
-        <meta
-          name="description"
-          content="Michael Setiabudi is a fullstack developer in Surabaya who builds back-of-house systems that stay in production — from a university's student information system to the tools three Marriott hotels run on."
-        />
-      </Head>
+      <Seo
+        title="Michael Setiabudi — Fullstack developer, Surabaya"
+        description="Michael Setiabudi is a fullstack developer in Surabaya who builds back-of-house systems that stay in production — from a university's student information system to the tools three Marriott hotels run on."
+      />
 
       <Layout>
         {/* Hero */}

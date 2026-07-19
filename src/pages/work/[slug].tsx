@@ -1,8 +1,8 @@
-import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "@/components/Layout";
+import Seo from "@/components/Seo";
 import { projects, getProject, Project } from "@/data/projects";
 
 interface Props {
@@ -27,10 +27,10 @@ export default function ProjectDetail({ project, prev, next }: Props) {
 
   return (
     <>
-      <Head>
-        <title>{project.title} — Michael Setiabudi</title>
-        <meta name="description" content={project.standfirst} />
-      </Head>
+      <Seo
+        title={`${project.title} — Michael Setiabudi`}
+        description={project.standfirst}
+      />
 
       <Layout>
         <article className="wrap pb-8 pt-10 md:pt-14">

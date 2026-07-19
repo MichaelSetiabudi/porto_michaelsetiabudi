@@ -1,7 +1,7 @@
-import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "@/components/Layout";
+import Seo from "@/components/Seo";
 
 const NARRATIVE = [
   "I'm finishing a Bachelor of Informatics at Institut Sains dan Teknologi Terpadu Surabaya (iSTTS), from June 2022 to July 2026, with a 3.52 GPA. My thesis is the largest thing I've built: a full reengineering of the university's student information system from a single Laravel application into a Flutter and NestJS one, now live for students, lecturers, and management.",
@@ -31,13 +31,10 @@ const CERTS: [string, string][] = [
 export default function About() {
   return (
     <>
-      <Head>
-        <title>About — Michael Setiabudi</title>
-        <meta
-          name="description"
-          content="Michael Setiabudi is a fullstack developer in Surabaya finishing a Bachelor of Informatics at iSTTS. He builds and migrates the back-of-house systems institutions run on."
-        />
-      </Head>
+      <Seo
+        title="About — Michael Setiabudi"
+        description="Michael Setiabudi is a fullstack developer in Surabaya finishing a Bachelor of Informatics at iSTTS. He builds and migrates the back-of-house systems institutions run on."
+      />
 
       <Layout>
         {/* Lead */}
