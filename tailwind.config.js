@@ -26,7 +26,7 @@ module.exports = {
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
       },
       maxWidth: {
-        measure: "68ch",
+        measure: "62ch",
       },
     },
   },

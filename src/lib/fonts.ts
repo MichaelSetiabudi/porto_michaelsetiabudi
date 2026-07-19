@@ -1,16 +1,16 @@
-import { Figtree, Schibsted_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 
-/** Body & interface — a humanist sans that stays comfortable in paragraphs. */
-export const figtree = Figtree({
+/** Headings & the name — a characterful grotesque; firm and distinctive. */
+export const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-display",
+});
+
+/** Body & interface — a clean, readable sans. */
+export const instrument = Instrument_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
-});
-
-/** Headings & the name — a contemporary grotesque with quiet character. */
-export const schibsted = Schibsted_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-  variable: "--font-display",
 });

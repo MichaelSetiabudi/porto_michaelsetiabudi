@@ -3,50 +3,50 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------ *\
-   Design tokens — one source of truth for both themes.
-   Light and dark are tuned separately (not inverted values).
-   One accent (blue), used for links and small emphasis only.
+   Design tokens — warm neutrals + near-black ink + one wine accent.
+   Light and dark tuned separately. Accent is used sparingly (links,
+   small emphasis) — never as decoration.
 \* ------------------------------------------------------------------ */
 
 :root {
-  --page: #fcfcfb;
-  --surface: #f3f3f1;
-  --ink: #191a1b;
-  --ink-2: #55575a;
-  --ink-3: #6c6e72;
-  --line: #e7e6e2;
-  --line-2: #d7d6d0;
-  --accent: #235ac2;
-  --accent-hover: #1b478f;
+  --page: #f7f5f0;
+  --surface: #fffdf9;
+  --ink: #1a1917;
+  --ink-2: #575249;
+  --ink-3: #726a5c;
+  --line: #e4e0d6;
+  --line-2: #d6d1c4;
+  --accent: #8c2d3d;
+  --accent-hover: #711f2e;
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --page: #101113;
-  --surface: #191b1d;
-  --ink: #ececee;
-  --ink-2: #a7a9ac;
-  --ink-3: #8b8d91;
-  --line: #26282b;
-  --line-2: #35373b;
-  --accent: #85aaf2;
-  --accent-hover: #a6c2ff;
+  --page: #181611;
+  --surface: #211e18;
+  --ink: #ece7dd;
+  --ink-2: #a69d8e;
+  --ink-3: #948c81;
+  --line: #302b22;
+  --line-2: #3f392e;
+  --accent: #e28d9a;
+  --accent-hover: #eda3ae;
   color-scheme: dark;
 }
 
-/* No-JS / pre-hydration fallback: honour the OS preference until the inline
+/* No-JS / pre-hydration fallback: honour OS preference until the inline
    theme script (in _document) stamps an explicit data-theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --page: #101113;
-    --surface: #191b1d;
-    --ink: #ececee;
-    --ink-2: #a7a9ac;
-    --ink-3: #8b8d91;
-    --line: #26282b;
-    --line-2: #35373b;
-    --accent: #85aaf2;
-    --accent-hover: #a6c2ff;
+    --page: #181611;
+    --surface: #211e18;
+    --ink: #ece7dd;
+    --ink-2: #a69d8e;
+    --ink-3: #948c81;
+    --line: #302b22;
+    --line-2: #3f392e;
+    --accent: #e28d9a;
+    --accent-hover: #eda3ae;
     color-scheme: dark;
   }
 }
@@ -62,15 +62,15 @@
     font-family: var(--font-body), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    line-height: 1.65;
+    line-height: 1.6;
   }
   ::selection {
-    background: color-mix(in srgb, var(--accent) 22%, transparent);
+    background: color-mix(in srgb, var(--accent) 24%, transparent);
   }
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
   a {
     color: var(--accent);
@@ -84,53 +84,10 @@
 @layer components {
   .wrap {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1080px;
     margin-inline: auto;
-    padding-inline: clamp(22px, 5vw, 48px);
+    padding-inline: clamp(22px, 5vw, 44px);
   }
-  /* underlined text link (for inline links in prose / project links) */
-  .u-link {
-    border-bottom: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
-    padding-bottom: 1px;
-    transition: border-color 0.15s ease;
-  }
-  .u-link:hover {
-    border-color: var(--accent);
-  }
-}
-
-/* Two-column layouts on large screens. The source (DOM) order is the mobile
-   reading order; grid-template-areas reposition into columns at >=1024px, so
-   the narrow left column carries meta and the wide right column carries prose. */
-@media (min-width: 1024px) {
-  .project-grid,
-  .exp-grid {
-    display: grid;
-    grid-template-columns: 248px minmax(0, 1fr);
-    column-gap: 3rem;
-    row-gap: 0.75rem;
-    align-items: start;
-  }
-  .project-grid {
-    grid-template-areas:
-      "context title"
-      "tech    desc"
-      "links   desc";
-  }
-  .exp-grid {
-    grid-template-areas:
-      "company role"
-      "dates   desc"
-      ".       desc";
-  }
-  .area-title { grid-area: title; }
-  .area-context { grid-area: context; }
-  .area-desc { grid-area: desc; }
-  .area-tech { grid-area: tech; }
-  .area-links { grid-area: links; }
-  .area-role { grid-area: role; }
-  .area-company { grid-area: company; }
-  .area-dates { grid-area: dates; }
 }
 
 @media (prefers-reduced-motion: reduce) {

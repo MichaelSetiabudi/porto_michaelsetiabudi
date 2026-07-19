@@ -4,11 +4,11 @@ export default function Header() {
   return (
     <header
       id="top"
-      className="wrap flex items-center justify-between gap-4 py-6"
+      className="wrap flex items-center justify-between gap-4 py-5 sm:py-6"
     >
       <a
         href="#top"
-        className="font-display text-[17px] font-semibold tracking-[-0.01em] text-ink"
+        className="font-display text-[17px] font-bold tracking-[-0.01em] text-ink"
       >
         Michael Setiabudi
       </a>

@@ -9,7 +9,7 @@ function SectionLabel({ id, children }: { id?: string; children: ReactNode }) {
   return (
     <h2
       id={id}
-      className="scroll-mt-8 font-display text-[0.82rem] font-semibold uppercase tracking-[0.09em] text-ink-3"
+      className="scroll-mt-8 font-display text-[0.8rem] font-bold uppercase tracking-[0.12em] text-ink-3"
     >
       {children}
     </h2>
@@ -41,56 +41,27 @@ export default function Home() {
     <>
       <Seo
         title="Michael Setiabudi — Fullstack Developer"
-        description="Fullstack developer in Surabaya. I rebuilt my university's student information system (sim.istts.ac.id) and built two systems that three Marriott hotels still use. Open to fullstack roles."
+        description="Fullstack developer in Surabaya building web and mobile apps, backend to interface. Informatics graduate from iSTTS, open to fullstack roles."
       />
       <Header />
 
       <main>
         <div className="wrap">
-          {/* Hero */}
-          <section className="pt-8 sm:pt-10 md:grid md:grid-cols-[minmax(0,1fr)_340px] md:items-start md:gap-x-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-20">
-            {/* Photo — above the name on mobile, beside the intro on tablet+ */}
-            <div className="mb-9 max-w-[440px] md:order-none md:col-start-2 md:row-start-1 md:mb-0 md:max-w-none">
-              <div className="relative aspect-[6/5] w-full overflow-hidden rounded-xl border border-line md:aspect-[4/5]">
-                <Image
-                  src="/MichaelSetiabudi.jpg"
-                  alt="Michael Setiabudi"
-                  fill
-                  sizes="(max-width: 767px) 92vw, (max-width: 1023px) 340px, 400px"
-                  className="object-cover object-top"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* Intro */}
-            <div className="max-w-[60ch] md:col-start-1 md:row-start-1">
-              <h1 className="font-display text-[clamp(2.4rem,4.8vw,3.4rem)] font-bold leading-[1.08] tracking-[-0.02em]">
+          {/* Hero — about me, not one project */}
+          <section className="flex flex-col-reverse gap-8 pt-10 sm:flex-row sm:items-start sm:justify-between sm:pt-14">
+            <div className="max-w-[34rem]">
+              <h1 className="font-display text-[clamp(2.6rem,6vw,4.1rem)] font-extrabold leading-[1.04] tracking-[-0.02em]">
                 Michael Setiabudi
               </h1>
-              <p className="mt-3 text-[1.05rem] text-ink-2">
-                Fullstack Developer · Surabaya, Indonesia
+              <p className="mt-5 max-w-[26ch] font-display text-[clamp(1.15rem,1.9vw,1.45rem)] font-medium leading-[1.25] text-ink">
+                Fullstack developer — web and mobile, backend to interface.
               </p>
-              <p className="mt-6 text-[1.2rem] leading-[1.5]">
-                I rebuilt my university&rsquo;s student information system. It
-                runs at{" "}
-                <a
-                  href="https://sim.istts.ac.id"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="u-link"
-                >
-                  sim.istts.ac.id
-                </a>
-                .
+              <p className="mt-5 max-w-measure text-ink-2">
+                Informatics graduate from iSTTS in Surabaya. I&rsquo;ve shipped a
+                university student portal, internal tools for a hotel group, and a
+                few personal projects. Open to fullstack roles.
               </p>
-              <p className="mt-4 text-ink-2">
-                Informatics graduate from iSTTS. Before my thesis I spent six
-                months as an IT intern at Four Points by Sheraton, where I built
-                two systems that three Marriott hotels still use. Open to
-                fullstack roles.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[0.98rem] font-medium">
+              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[0.95rem] font-semibold">
                 <a href={CONTACT.github} target="_blank" rel="noopener noreferrer">
                   GitHub
                 </a>
@@ -101,31 +72,38 @@ export default function Home() {
                 <a href={CONTACT.cv}>Download CV</a>
               </div>
             </div>
+
+            <div className="relative h-[150px] w-[124px] shrink-0 self-start overflow-hidden rounded-2xl border border-line bg-surface sm:h-[210px] sm:w-[172px]">
+              <Image
+                src="/ms_pic.jpeg"
+                alt="Michael Setiabudi"
+                fill
+                sizes="172px"
+                className="object-cover object-[center_12%]"
+                priority
+              />
+            </div>
           </section>
 
           {/* Work */}
           <section className="mt-16 sm:mt-20">
-            <SectionLabel id="work">Work</SectionLabel>
-            <div className="mt-2">
+            <SectionLabel id="work">Selected work</SectionLabel>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {projects.map((p) => (
                 <article
                   key={p.title}
-                  className="project-grid border-t border-line py-8 lg:py-9"
+                  className="flex flex-col rounded-xl border border-line bg-surface p-6 transition-colors hover:border-accent sm:p-7"
                 >
-                  <h3 className="area-title font-display text-[1.4rem] font-semibold tracking-[-0.015em]">
+                  <h3 className="font-display text-[1.35rem] font-bold tracking-[-0.015em]">
                     {p.title}
                   </h3>
-                  <p className="area-context mt-1.5 text-[0.92rem] text-ink-2 lg:mt-0">
-                    {p.context}
-                  </p>
-                  <p className="area-desc mt-3.5 max-w-[68ch] lg:mt-0">
-                    {p.description}
-                  </p>
-                  <p className="area-tech mt-3.5 text-[0.92rem] font-medium text-ink-2 lg:mt-0">
+                  <p className="mt-1.5 text-[0.86rem] text-ink-3">{p.context}</p>
+                  <p className="mt-3 text-ink-2">{p.description}</p>
+                  <p className="mt-3.5 text-[0.86rem] font-medium text-ink-2">
                     {p.tech}
                   </p>
                   {p.links.length > 0 ? (
-                    <div className="area-links mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.95rem] font-medium lg:mt-0">
+                    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.92rem] font-semibold">
                       {p.links.map((l, i) => (
                         <Fragment key={l.href}>
                           {i > 0 && (
@@ -137,7 +115,6 @@ export default function Home() {
                             href={l.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="u-link"
                           >
                             {l.label} ↗
                           </a>
@@ -145,7 +122,7 @@ export default function Home() {
                       ))}
                     </div>
                   ) : (
-                    <p className="area-links mt-4 text-[0.95rem] text-ink-3 lg:mt-0">
+                    <p className="mt-4 text-[0.92rem] text-ink-3">
                       {p.internalNote}
                     </p>
                   )}
@@ -157,17 +134,16 @@ export default function Home() {
           {/* About */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel id="about">About</SectionLabel>
-            <div className="mt-4 max-w-[68ch] space-y-4">
+            <div className="mt-5 max-w-measure space-y-4">
               <p>
-                I&rsquo;m a fullstack developer based in Surabaya. I graduated in
-                Informatics from iSTTS in July 2026 with a 3.52 GPA.
+                I&rsquo;m a fullstack developer based in Surabaya, an Informatics
+                graduate from iSTTS with a 3.52 GPA. I work across the stack —
+                NestJS, FastAPI, Laravel and Express on the server, React, Vue and
+                Flutter on the client.
               </p>
               <p>
-                I work across the stack: NestJS, FastAPI, Laravel and Express on
-                the server, React, Vue and Flutter on the client. My thesis was
-                the largest thing I&rsquo;ve built, and it went through 34 test
-                scenarios and a usability study with 276 people before it
-                shipped.
+                My thesis, the student information system, went through 34 test
+                scenarios and a usability study with 276 people before it shipped.
               </p>
             </div>
           </section>
@@ -175,21 +151,21 @@ export default function Home() {
           {/* Experience */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel>Experience</SectionLabel>
-            <div className="exp-grid mt-4">
-              <h3 className="area-role font-display text-[1.15rem] font-semibold">
-                IT Intern — Fullstack Developer and IT Support
+            <div className="mt-5 max-w-measure">
+              <h3 className="font-display text-[1.2rem] font-bold">
+                IT Intern — Fullstack Developer &amp; IT Support
               </h3>
-              <p className="area-company mt-1 text-ink-2 lg:mt-0">
+              <p className="mt-1 text-ink-2">
                 Four Points by Sheraton Tunjungan Plaza, PT Pakuwon Jati ·
                 Surabaya
               </p>
-              <p className="area-dates mt-1 text-[0.92rem] text-ink-3 lg:mt-0">
+              <p className="mt-1 text-[0.86rem] text-ink-3">
                 August 2025 – January 2026
               </p>
-              <p className="area-desc mt-3.5 max-w-[68ch] lg:mt-0">
-                Built the two hotel systems listed above. Also handled on-site IT
-                support for hotel guests and staff, and ran requirement and
-                progress reviews with the IT Manager.
+              <p className="mt-3.5">
+                Built the two hotel systems above. Also ran on-site IT support for
+                guests and staff, and requirement and progress reviews with the IT
+                Manager.
               </p>
             </div>
           </section>
@@ -197,15 +173,13 @@ export default function Home() {
           {/* Skills */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel>Skills</SectionLabel>
-            <dl className="mt-4">
+            <dl className="mt-5">
               {SKILLS.map(([label, items]) => (
                 <div
                   key={label}
-                  className="grid gap-y-1 border-t border-line py-4 md:grid-cols-[248px_minmax(0,1fr)] md:gap-x-12"
+                  className="grid gap-y-1 border-t border-line py-4 sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-x-10"
                 >
-                  <dt className="font-display text-[0.98rem] font-semibold">
-                    {label}
-                  </dt>
+                  <dt className="font-display text-[1rem] font-bold">{label}</dt>
                   <dd className="text-ink-2">{items}</dd>
                 </div>
               ))}
@@ -215,15 +189,13 @@ export default function Home() {
           {/* Education & certifications */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel>Education &amp; certifications</SectionLabel>
-            <ul className="mt-4">
+            <ul className="mt-5">
               {CREDENTIALS.map(([name, detail]) => (
                 <li
                   key={name}
-                  className="grid gap-y-1 border-t border-line py-4 lg:grid-cols-[248px_minmax(0,1fr)] lg:gap-x-12"
+                  className="grid gap-y-1 border-t border-line py-4 sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-x-10"
                 >
-                  <p className="font-display text-[1.05rem] font-semibold">
-                    {name}
-                  </p>
+                  <p className="font-display text-[1.05rem] font-bold">{name}</p>
                   <p className="text-ink-2">{detail}</p>
                 </li>
               ))}
@@ -233,9 +205,9 @@ export default function Home() {
           {/* Contact */}
           <section className="mt-16 sm:mt-20">
             <SectionLabel id="contact">Contact</SectionLabel>
-            <div className="mt-4 max-w-[68ch]">
+            <div className="mt-5 max-w-measure">
               <p>Open to fullstack roles. Email is the best way to reach me.</p>
-              <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-medium">
+              <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-semibold">
                 <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
                 <span aria-hidden="true" className="text-line-2">
                   ·
