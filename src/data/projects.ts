@@ -15,26 +15,26 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: "iSTTS Student Information System",
-    context: "University thesis · 2025–2026 · Live",
+    context: "Thesis · 2025–2026",
     description:
-      "Rebuilt from a Laravel monolith into a Flutter app on a NestJS API — 284 endpoints, used from the web and a phone.",
+      "Replaces the university's old Laravel system. A Flutter client on a NestJS API, 284 endpoints, Keycloak single sign-on. Students and staff use it on the web and on Android.",
     tech: "Flutter · NestJS · MySQL · Keycloak",
     links: [{ label: "sim.istts.ac.id", href: "https://sim.istts.ac.id" }],
   },
   {
     title: "TV Promotion CMS",
-    context: "Four Points by Sheraton · Internship, 2025 · Internal",
+    context: "Four Points by Sheraton · 2025",
     description:
-      "In-house replacement for a vendor system, driving 20–30 promotion screens across three hotels.",
+      "In-house replacement for a paid vendor product. Staff schedule what appears on the promotion screens in the lobby and restaurants: 20 to 30 screens across three hotels.",
     tech: "FastAPI · Flutter",
     links: [],
     internalNote: "Internal system, no public link",
   },
   {
     title: "Employee Canteen Barcode System",
-    context: "Four Points by Sheraton · Internship, 2025 · Internal",
+    context: "Four Points by Sheraton · 2025",
     description:
-      "Barcode meal recording added to the staff canteen at three hotels, replacing paper tickets. HR exports a recap in one step.",
+      "Staff scan a barcode instead of handing in a paper meal ticket. HR exports the monthly recap from the same screen. In use at three hotels.",
     tech: "PHP · MySQL",
     links: [],
     internalNote: "Internal system, no public link",
@@ -43,7 +43,7 @@ export const projects: Project[] = [
     title: "My Coral",
     context: "Coursework · 2025",
     description:
-      "An Android app for coral-reef conservation: buy a coral seedling and register it for planting.",
+      "Android app for a coral-reef conservation programme. You buy a seedling and register it for planting.",
     tech: "Kotlin · Android",
     links: [
       {
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     title: "Macanan AI",
     context: "Coursework · 2024–2025",
     description:
-      "A web version of the Indonesian board game Macanan, with a computer opponent that plays a full game.",
+      "Web version of the Indonesian board game Macanan, with a computer opponent that plays a full game.",
     tech: "React · JavaScript",
     links: [
       {

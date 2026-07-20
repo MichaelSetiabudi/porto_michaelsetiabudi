@@ -84,11 +84,13 @@
 }
 
 @layer components {
+  /* Full-width shell: the page uses the screen, it is not a narrow centred
+     column. Line length is constrained per text block, not by the container. */
   .wrap {
     width: 100%;
-    max-width: 1120px;
+    max-width: 1680px;
     margin-inline: auto;
-    padding-inline: clamp(22px, 5vw, 48px);
+    padding-inline: clamp(20px, 4.5vw, 76px);
     position: relative;
     z-index: 1;
     overflow-x: clip; /* contain the ambient glow so it never causes h-scroll */
@@ -132,16 +134,98 @@
     color: var(--accent-bright);
   }
 
-  /* Project card with a themed lift-on-hover */
-  .proj-card {
-    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
-      border-color 0.3s ease, box-shadow 0.3s ease;
+  /* Work index row — an editorial list, not a card. The row spans the full
+     width and only the hairline above it separates one entry from the next. */
+  .row {
+    position: relative;
+    border-block-start: 1px solid var(--line);
+    transition: background-color 0.35s ease;
   }
-  .proj-card:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-    box-shadow: 0 20px 46px -24px var(--glow),
-      0 8px 20px -14px rgba(0, 0, 0, 0.2);
+  .row::before {
+    content: "";
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline-start: 0;
+    height: 1px;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .row:hover::before,
+  .row:focus-within::before {
+    width: 100%;
+  }
+  .row:hover,
+  .row:focus-within {
+    background-color: color-mix(in srgb, var(--accent) 5%, transparent);
+  }
+  .row-title {
+    transition: color 0.25s ease;
+  }
+  .row:hover .row-title,
+  .row:focus-within .row-title {
+    color: var(--accent-bright);
+  }
+  .row-num {
+    font-variant-numeric: tabular-nums;
+    transition: color 0.25s ease;
+  }
+  .row:hover .row-num {
+    color: var(--accent);
+  }
+
+  /* Skill tag */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 0.32rem 0.78rem;
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    white-space: nowrap;
+    transition: border-color 0.25s ease, color 0.25s ease,
+      transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+      background-color 0.25s ease;
+  }
+  .chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    color: var(--ink);
+    background-color: color-mix(in srgb, var(--accent) 9%, transparent);
+  }
+
+  /* Oversized link with a rule that sweeps to accent on hover */
+  .sweep {
+    position: relative;
+    display: inline-block;
+    transition: color 0.25s ease;
+  }
+  .sweep::after,
+  .sweep::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: -0.12em;
+    height: 2px;
+  }
+  .sweep::after {
+    width: 100%;
+    background: var(--line-2);
+    z-index: 0;
+  }
+  .sweep::before {
+    width: 0;
+    background: var(--accent);
+    z-index: 1;
+    transition: width 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .sweep:hover::before,
+  .sweep:focus-visible::before {
+    width: 100%;
+  }
+  .sweep:hover {
+    color: var(--accent-bright);
   }
 
   /* Available status dot */

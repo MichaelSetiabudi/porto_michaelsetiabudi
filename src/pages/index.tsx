@@ -5,94 +5,183 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { projects, moreProjects, CONTACT } from "@/data/projects";
 
-function SectionLabel({ id, children }: { id?: string; children: ReactNode }) {
+/* Every section is a two-column band: a sticky label on the left, content on
+   the right. That gives the page a spine and lets the content use the full
+   screen width instead of stacking in one narrow centred column. */
+function Section({
+  id,
+  label,
+  children,
+  className = "",
+}: {
+  id?: string;
+  label: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <h2
-      id={id}
-      className="flex scroll-mt-8 items-center gap-2.5 font-display text-[0.8rem] font-bold uppercase tracking-[0.14em] text-ink-3"
+    <section
+      className={`grid gap-x-12 gap-y-6 border-t border-line pt-8 lg:grid-cols-[minmax(160px,210px)_minmax(0,1fr)] lg:gap-x-16 ${className}`}
     >
-      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
-      {children}
-    </h2>
+      <h2
+        id={id}
+        className="reveal flex scroll-mt-6 items-center gap-2.5 self-start font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-ink-3 lg:sticky lg:top-8"
+      >
+        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+        {label}
+      </h2>
+      <div>{children}</div>
+    </section>
   );
 }
 
-const SKILLS: [string, string][] = [
-  ["Languages", "PHP, JavaScript, TypeScript, Dart, Kotlin, C#, SQL"],
-  ["Backend", "NestJS, FastAPI, Laravel, Express.js"],
-  ["Frontend & mobile", "React.js, Vue.js, Flutter, Tailwind CSS"],
-  ["Databases", "MySQL, MongoDB"],
-  ["Tools", "Git, REST APIs, Keycloak SSO, Firebase Cloud Messaging, AWS"],
+const SKILLS: [string, string[]][] = [
+  ["Languages", ["PHP", "JavaScript", "TypeScript", "Dart", "Kotlin", "C#", "SQL"]],
+  ["Backend", ["NestJS", "FastAPI", "Laravel", "Express.js"]],
+  ["Frontend & mobile", ["React.js", "Vue.js", "Flutter", "Tailwind CSS"]],
+  ["Databases", ["MySQL", "MongoDB"]],
+  [
+    "Tools",
+    ["Git", "REST APIs", "Keycloak SSO", "Firebase Cloud Messaging", "AWS"],
+  ],
 ];
 
-const CREDENTIALS: [string, string][] = [
-  [
-    "Bachelor of Informatics",
-    "Institut Sains dan Teknologi Terpadu Surabaya · June 2022 – July 2026 · GPA 3.52 / 4.00",
-  ],
-  [
-    "HackerRank Skills Certification",
-    "SQL (Basic, Intermediate, Advanced), REST API (Intermediate), Frontend Developer (React)",
-  ],
-  ["AWS Academy Cloud Architecting", "Certificate of completion, 60 hours"],
+// Short factual figures, shown as a row under the About narrative.
+const FACTS: [string, string][] = [
+  ["Based in", "Surabaya, Indonesia"],
+  ["Degree", "Informatics, iSTTS"],
+  ["GPA", "3.52 / 4.00"],
+  ["Graduating", "2026"],
 ];
+
+// Dated entries only.
+const BACKGROUND: {
+  period: string;
+  title: string;
+  org: string;
+  note: string;
+  link?: { label: string; href: string };
+}[] = [
+  {
+    period: "Aug 2025 – Jan 2026",
+    title: "IT Intern — Fullstack Developer & IT Support",
+    org: "Four Points by Sheraton Tunjungan Plaza, PT Pakuwon Jati · Surabaya",
+    note: "Built the TV promotion CMS and the canteen barcode system listed above. Also handled day-to-day IT support for guests and staff, and reviewed requirements and progress with the IT Manager.",
+  },
+  {
+    period: "2022 – 2026",
+    title: "Bachelor of Informatics",
+    org: "Institut Sains dan Teknologi Terpadu Surabaya",
+    note: "GPA 3.52 out of 4.00. My thesis is the student information system now running at sim.istts.ac.id.",
+  },
+  {
+    period: "2025",
+    title: "Community service — Thanksgiving for TK Pelangi Kristus",
+    org: "Institut Sains dan Teknologi Terpadu Surabaya",
+    note: "A campus community service programme: a Thanksgiving event for the children of TK Pelangi Kristus.",
+    link: {
+      label: "Certificate",
+      href: "https://drive.google.com/drive/folders/1v4cp2o1gjV_daKgDAEc2dY-p0tNSe5xP?usp=sharing",
+    },
+  },
+];
+
+// Only the certifications that back the fullstack claim. The rest of the
+// folder (Dicoding, CodeSignal and others) is reachable through the link.
+const CERTIFICATIONS: { issuer: string; items: string[] }[] = [
+  {
+    issuer: "HackerRank",
+    items: [
+      "SQL (Basic)",
+      "SQL (Intermediate)",
+      "SQL (Advanced)",
+      "REST API (Intermediate)",
+      "Frontend Developer (React)",
+    ],
+  },
+  {
+    issuer: "Simplilearn",
+    items: ["Introduction to MongoDB", "SQL Injection for Beginners"],
+  },
+];
+
+const CERT_FOLDER =
+  "https://drive.google.com/drive/folders/141O-UNPU5ln-Ds2pPgWjW4zAcPdJNKTM?usp=sharing";
 
 export default function Home() {
   return (
     <>
       <Seo
         title="Michael Setiabudi — Fullstack Developer"
-        description="Fullstack developer in Surabaya building web and mobile apps, backend to interface. Informatics graduate from iSTTS, open to fullstack roles."
+        description="Fullstack developer in Surabaya. Web and mobile applications, from the database to the interface. Informatics graduate of iSTTS."
       />
       <Header />
 
       <main>
         <div className="wrap">
-          {/* Hero */}
-          <section className="relative pt-6 sm:pt-10">
+          {/* ---------- Hero ---------- */}
+          <section className="relative pb-16 pt-4 sm:pb-20 sm:pt-8">
             <div className="glow" aria-hidden="true" />
-            <div className="flex flex-col-reverse gap-9 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
-              <div className="max-w-[36rem]">
-                <p className="rise d1 mb-6 inline-flex items-center gap-2.5 rounded-full border border-line-2 px-3.5 py-1.5 text-[0.82rem] font-medium text-ink-2">
+            <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+              <div className="max-w-[46rem] flex-1">
+                <p className="rise d1 mb-7 inline-flex items-center gap-2.5 rounded-full border border-line-2 px-3.5 py-1.5 text-[0.82rem] font-medium text-ink-2">
                   <span className="live-dot" aria-hidden="true" />
                   Open to fullstack roles
                 </p>
-                <h1 className="rise d2 font-display text-[clamp(2.7rem,6.4vw,4.5rem)] font-extrabold leading-[1.02] tracking-[-0.03em]">
-                  Michael Setiabudi
+                <h1 className="rise d2 font-display text-[clamp(2.6rem,7vw,6.4rem)] font-extrabold leading-[0.96] tracking-[-0.035em]">
+                  Michael
+                  <br />
+                  Setiabudi
                 </h1>
-                <p className="rise d3 mt-5 max-w-[24ch] font-display text-[clamp(1.2rem,2.1vw,1.6rem)] font-semibold leading-[1.18] text-ink">
-                  Fullstack developer — <span className="text-accent">web and mobile</span>, backend to interface.
+                <p className="rise d3 mt-6 max-w-[30ch] font-display text-[clamp(1.15rem,2vw,1.65rem)] font-semibold leading-[1.2]">
+                  Fullstack developer —{" "}
+                  <span className="text-accent">web and mobile</span>.
                 </p>
-                <p className="rise d4 mt-5 max-w-[46ch] text-ink-2">
-                  Informatics graduate from iSTTS in Surabaya. I&rsquo;ve shipped a
-                  university student portal, internal tools for a hotel group, and
-                  a handful of personal projects.
+                <p className="rise d4 mt-5 max-w-[54ch] text-ink-2">
+                  Informatics graduate of iSTTS, based in Surabaya. I build the
+                  database, the API and the interface. Most recently a student
+                  information system for my university and two internal systems
+                  for a hotel group.
                 </p>
-                <div className="rise d5 mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[0.95rem] font-semibold">
-                  <a className="ul" href={CONTACT.github} target="_blank" rel="noopener noreferrer">
+                <div className="rise d5 mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[0.95rem] font-semibold">
+                  <a
+                    className="ul"
+                    href={CONTACT.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     GitHub
                   </a>
-                  <a className="ul" href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="ul"
+                    href={CONTACT.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     LinkedIn
                   </a>
-                  <a className="ul" href={`mailto:${CONTACT.email}`}>Email</a>
-                  <a className="ul" href={CONTACT.cv}>Download CV</a>
+                  <a className="ul" href={`mailto:${CONTACT.email}`}>
+                    Email
+                  </a>
+                  <a className="ul" href={CONTACT.cv}>
+                    Download CV
+                  </a>
                 </div>
               </div>
 
-              <div className="rise d1 relative shrink-0 self-center sm:self-center">
+              <div className="rise d1 relative shrink-0 self-start lg:self-end">
                 <span
                   aria-hidden="true"
-                  className="absolute -bottom-3 -left-3 h-full w-full rounded-2xl"
-                  style={{ border: "1.5px solid var(--accent)", opacity: 0.45 }}
+                  className="absolute -bottom-3.5 -left-3.5 h-full w-full rounded-2xl"
+                  style={{ border: "1.5px solid var(--accent)", opacity: 0.4 }}
                 />
-                <div className="relative h-[210px] w-[172px] overflow-hidden rounded-2xl border border-line bg-surface sm:h-[262px] sm:w-[212px]">
+                <div className="relative h-[262px] w-[212px] overflow-hidden rounded-2xl border border-line bg-surface sm:h-[330px] sm:w-[266px] lg:h-[386px] lg:w-[312px] xl:h-[452px] xl:w-[366px]">
                   <Image
                     src="/ms_pic.jpeg"
                     alt="Michael Setiabudi"
                     fill
-                    sizes="212px"
-                    className="object-cover object-[center_12%]"
+                    sizes="(max-width: 640px) 212px, (max-width: 1024px) 266px, (max-width: 1280px) 312px, 366px"
+                    className="object-cover object-[center_10%]"
                     priority
                   />
                 </div>
@@ -100,186 +189,325 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Work */}
-          <section className="mt-20 sm:mt-24">
-            <div className="reveal">
-              <SectionLabel id="work">Selected work</SectionLabel>
-            </div>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {/* ---------- Selected work ---------- */}
+          <Section id="work" label="Selected work">
+            <ul>
               {projects.map((p, i) => (
-                <article
-                  key={p.title}
-                  className="proj-card reveal flex flex-col rounded-2xl border border-line bg-surface p-6 sm:p-7"
-                  style={{ transitionDelay: `${(i % 2) * 70}ms` }}
-                >
-                  <h3 className="font-display text-[1.4rem] font-bold tracking-[-0.015em]">
-                    {p.title}
-                  </h3>
-                  <p className="mt-1.5 text-[0.85rem] font-medium text-ink-3">
-                    {p.context}
-                  </p>
-                  <p className="mt-3 text-ink-2">{p.description}</p>
-                  <p className="mt-4 text-[0.85rem] font-medium text-ink-2">
-                    {p.tech}
-                  </p>
-                  <div className="mt-auto pt-5">
-                    {p.links.length > 0 ? (
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.92rem] font-semibold">
-                        {p.links.map((l, j) => (
-                          <Fragment key={l.href}>
-                            {j > 0 && (
-                              <span aria-hidden="true" className="text-line-2">
-                                ·
-                              </span>
-                            )}
-                            <a className="ul" href={l.href} target="_blank" rel="noopener noreferrer">
-                              {l.label} ↗
-                            </a>
-                          </Fragment>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-[0.9rem] text-ink-3">{p.internalNote}</p>
-                    )}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          {/* More projects */}
-          <section className="mt-16 sm:mt-20">
-            <div className="reveal">
-              <SectionLabel>More projects</SectionLabel>
-            </div>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {moreProjects.map((m, i) => (
-                <a
-                  key={m.href}
-                  href={m.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="proj-card reveal group flex items-center justify-between gap-3 rounded-xl border border-line bg-surface px-5 py-4"
-                  style={{ transitionDelay: `${(i % 4) * 60}ms` }}
-                >
-                  <span>
-                    <span className="block font-display font-bold text-ink">
-                      {m.title}
-                    </span>
-                    <span className="text-[0.82rem] text-ink-3">{m.tech}</span>
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="text-ink-3 transition-colors group-hover:text-accent"
-                  >
-                    ↗
-                  </span>
-                </a>
-              ))}
-            </div>
-            <p className="reveal mt-5 text-sm">
-              <a className="ul font-semibold" href={CONTACT.github} target="_blank" rel="noopener noreferrer">
-                See everything on GitHub →
-              </a>
-            </p>
-          </section>
-
-          {/* About */}
-          <section className="reveal mt-16 sm:mt-20">
-            <SectionLabel id="about">About</SectionLabel>
-            <div className="mt-5 max-w-measure space-y-4">
-              <p>
-                I&rsquo;m a fullstack developer based in Surabaya, an Informatics
-                graduate from iSTTS with a 3.52 GPA. I work across the stack —
-                NestJS, FastAPI, Laravel and Express on the server, React, Vue and
-                Flutter on the client.
-              </p>
-              <p>
-                My thesis, the student information system, went through 34 test
-                scenarios and a usability study with 276 people before it shipped.
-              </p>
-            </div>
-          </section>
-
-          {/* Experience */}
-          <section className="reveal mt-16 sm:mt-20">
-            <SectionLabel>Experience</SectionLabel>
-            <div className="mt-5 max-w-measure">
-              <h3 className="font-display text-[1.2rem] font-bold">
-                IT Intern — Fullstack Developer &amp; IT Support
-              </h3>
-              <p className="mt-1 text-ink-2">
-                Four Points by Sheraton Tunjungan Plaza, PT Pakuwon Jati ·
-                Surabaya
-              </p>
-              <p className="mt-1 text-[0.86rem] text-ink-3">
-                August 2025 – January 2026
-              </p>
-              <p className="mt-3.5">
-                Built the two hotel systems above. Also ran on-site IT support for
-                guests and staff, and requirement and progress reviews with the IT
-                Manager.
-              </p>
-            </div>
-          </section>
-
-          {/* Skills */}
-          <section className="reveal mt-16 sm:mt-20">
-            <SectionLabel>Skills</SectionLabel>
-            <dl className="mt-5">
-              {SKILLS.map(([label, items]) => (
-                <div
-                  key={label}
-                  className="grid gap-y-1 border-t border-line py-4 sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-x-10"
-                >
-                  <dt className="font-display text-[1rem] font-bold">{label}</dt>
-                  <dd className="text-ink-2">{items}</dd>
-                </div>
-              ))}
-            </dl>
-          </section>
-
-          {/* Education & certifications */}
-          <section className="reveal mt-16 sm:mt-20">
-            <SectionLabel>Education &amp; certifications</SectionLabel>
-            <ul className="mt-5">
-              {CREDENTIALS.map(([name, detail]) => (
                 <li
-                  key={name}
-                  className="grid gap-y-1 border-t border-line py-4 sm:grid-cols-[220px_minmax(0,1fr)] sm:gap-x-10"
+                  key={p.title}
+                  className="row reveal group -mx-3 px-3 sm:-mx-5 sm:px-5"
                 >
-                  <p className="font-display text-[1.05rem] font-bold">{name}</p>
-                  <p className="text-ink-2">{detail}</p>
+                  <div className="grid gap-x-10 gap-y-3 py-7 sm:py-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+                    <div className="flex gap-4">
+                      <span className="row-num mt-2 shrink-0 font-display text-[0.78rem] font-bold text-ink-3">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h3 className="row-title font-display text-[clamp(1.35rem,2.4vw,1.95rem)] font-bold leading-[1.12] tracking-[-0.02em]">
+                          {p.title}
+                        </h3>
+                        <p className="mt-2 text-[0.84rem] font-medium text-ink-3">
+                          {p.context}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="max-w-[58ch] lg:pt-1">
+                      <p className="text-ink-2">{p.description}</p>
+                      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.86rem]">
+                        <span className="font-medium text-ink-3">{p.tech}</span>
+                        {p.links.length > 0 ? (
+                          <>
+                            <span aria-hidden="true" className="text-line-2">
+                              |
+                            </span>
+                            {p.links.map((l, j) => (
+                              <Fragment key={l.href}>
+                                {j > 0 && (
+                                  <span aria-hidden="true" className="text-line-2">
+                                    ·
+                                  </span>
+                                )}
+                                <a
+                                  className="ul font-semibold"
+                                  href={l.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {l.label} ↗
+                                </a>
+                              </Fragment>
+                            ))}
+                          </>
+                        ) : (
+                          <>
+                            <span aria-hidden="true" className="text-line-2">
+                              |
+                            </span>
+                            <span className="text-ink-3">{p.internalNote}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>
-          </section>
 
-          {/* Contact */}
-          <section className="reveal mt-16 sm:mt-20">
-            <SectionLabel id="contact">Contact</SectionLabel>
-            <div className="mt-5 max-w-measure">
-              <p>Open to fullstack roles. Email is the best way to reach me.</p>
-              <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-semibold">
-                <a className="ul" href={`mailto:${CONTACT.email}`}>
-                  {CONTACT.email}
-                </a>
-                <span aria-hidden="true" className="text-line-2">
-                  ·
-                </span>
-                <a className="ul" href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-                <span aria-hidden="true" className="text-line-2">
-                  ·
-                </span>
-                <a className="ul" href={CONTACT.github} target="_blank" rel="noopener noreferrer">
-                  GitHub
+            {/* Public repositories, as a plain list under the same heading */}
+            <div className="reveal mt-10 border-t border-line pt-6">
+              <p className="text-[0.78rem] font-bold uppercase tracking-[0.16em] text-ink-3">
+                Also on GitHub
+              </p>
+              <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2.5">
+                {moreProjects.map((m) => (
+                  <li key={m.href} className="text-[0.95rem]">
+                    <a
+                      className="ul font-semibold"
+                      href={m.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {m.title}
+                    </a>
+                    <span className="ml-2 text-[0.82rem] text-ink-3">
+                      {m.tech}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 text-[0.92rem]">
+                <a
+                  className="ul font-semibold"
+                  href={CONTACT.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  All repositories →
                 </a>
               </p>
             </div>
-          </section>
+          </Section>
+
+          {/* ---------- About: narrative, then the plain figures ---------- */}
+          <Section id="about" label="About" className="mt-20 sm:mt-24">
+            <div className="reveal max-w-[60ch] space-y-5">
+              <p className="font-display text-[clamp(1.25rem,2.3vw,1.85rem)] font-semibold leading-[1.3] tracking-[-0.015em]">
+                I am a fullstack developer in Surabaya. I build the database, the
+                API and the interface.
+              </p>
+              <p className="text-ink-2">
+                On the server I work in NestJS, FastAPI, Laravel and Express; on
+                the client in React, Vue and Flutter, with MySQL and MongoDB
+                behind them.
+              </p>
+              <p className="text-ink-2">
+                The student information system was my thesis. Before release it
+                went through 34 test scenarios and a usability study with 276
+                respondents.
+              </p>
+            </div>
+
+            <dl className="reveal mt-12 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
+              {FACTS.map(([label, value]) => (
+                <div key={label} className="border-t border-line pt-4">
+                  <dt className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-ink-3">
+                    {label}
+                  </dt>
+                  <dd className="mt-2 font-display text-[1.05rem] font-bold leading-snug">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Section>
+
+          {/* ---------- Background: dated entries, then credentials ---------- */}
+          <Section label="Background" className="mt-20 sm:mt-24">
+            <ul>
+              {BACKGROUND.map((b) => (
+                <li key={b.title} className="reveal border-t border-line">
+                  <div className="grid gap-x-10 gap-y-3 py-7 lg:grid-cols-[minmax(0,180px)_minmax(0,1fr)_minmax(0,1.1fr)]">
+                    <p className="row-num text-[0.82rem] font-medium text-ink-3 lg:pt-2">
+                      {b.period}
+                    </p>
+                    <div>
+                      <h3 className="font-display text-[clamp(1.1rem,1.7vw,1.35rem)] font-bold leading-snug tracking-[-0.015em]">
+                        {b.title}
+                      </h3>
+                      <p className="mt-1.5 max-w-[42ch] text-[0.9rem] text-ink-3">
+                        {b.org}
+                      </p>
+                    </div>
+                    <div className="max-w-[56ch] lg:pt-1">
+                      <p className="text-ink-2">{b.note}</p>
+                      {b.link && (
+                        <p className="mt-3 text-[0.88rem]">
+                          <a
+                            className="ul font-semibold"
+                            href={b.link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {b.link.label} ↗
+                          </a>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          {/* ---------- Skills: one row per category, technologies as tags ---------- */}
+          <Section label="Skills" className="mt-20 sm:mt-24">
+            <dl>
+              {SKILLS.map(([label, items]) => (
+                <div
+                  key={label}
+                  className="reveal grid gap-x-10 gap-y-3.5 border-t border-line py-6 sm:grid-cols-[minmax(120px,158px)_minmax(0,1fr)]"
+                >
+                  <dt className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-ink-3 sm:pt-2">
+                    {label}
+                  </dt>
+                  <dd className="flex flex-wrap gap-2">
+                    {items.map((item) => (
+                      <span key={item} className="chip">
+                        {item}
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Section>
+
+          {/* ---------- Certifications: assessed credentials, per issuer ---------- */}
+          <Section label="Certifications" className="mt-20 sm:mt-24">
+            <dl>
+              {CERTIFICATIONS.map(({ issuer, items }) => (
+                <div
+                  key={issuer}
+                  className="reveal grid gap-x-10 gap-y-4 border-t border-line py-7 sm:grid-cols-[minmax(120px,158px)_minmax(0,1fr)]"
+                >
+                  <dt className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-ink-3 sm:pt-1">
+                    {issuer}
+                  </dt>
+                  <dd className="flex flex-wrap gap-x-8 gap-y-4">
+                    {items.map((item) => (
+                      <span
+                        key={item}
+                        className="border-l border-line-2 pl-4 font-display text-[0.98rem] font-bold leading-snug"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="reveal mt-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-t border-line pt-6">
+              <p className="max-w-[62ch] text-[0.92rem] text-ink-2">
+                Further certificates — Dicoding, CodeSignal and others — are in
+                the same folder.
+              </p>
+              <a
+                className="ul text-[0.95rem] font-semibold"
+                href={CERT_FOLDER}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View all certificates ↗
+              </a>
+            </div>
+          </Section>
         </div>
+
+        {/* ---------- Contact: full-bleed closing band ---------- */}
+        {/* overflow-clip keeps the ambient glow inside the band — without it the
+            glow extends past the footer and adds phantom scroll height. */}
+        <section
+          id="contact"
+          className="mt-24 scroll-mt-0 overflow-clip border-t border-line bg-surface sm:mt-28"
+        >
+          <div className="wrap relative pb-14 pt-20 sm:pb-16 sm:pt-24 lg:pt-28">
+            <div
+              className="glow"
+              aria-hidden="true"
+              style={{
+                insetBlockStart: "auto",
+                insetBlockEnd: "-220px",
+                insetInlineEnd: "auto",
+                insetInlineStart: "-180px",
+              }}
+            />
+
+            <div className="reveal flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+              <h2 className="flex items-center gap-2.5 font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-ink-3">
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full bg-accent"
+                />
+                Contact
+              </h2>
+              <p className="inline-flex items-center gap-2.5 text-[0.82rem] font-medium text-ink-2">
+                <span className="live-dot" aria-hidden="true" />
+                Open to fullstack roles · Surabaya, Indonesia
+              </p>
+            </div>
+
+            <p className="reveal mt-10 max-w-[16ch] font-display text-[clamp(2.1rem,6vw,4.6rem)] font-extrabold leading-[1.0] tracking-[-0.035em] sm:mt-12">
+              Looking for a{" "}
+              <span className="text-accent">fullstack&nbsp;role</span>.
+            </p>
+
+            <p className="reveal mt-8 max-w-[52ch] text-ink-2">
+              Email is the best way to reach me — I read everything and reply.
+            </p>
+
+            <a
+              className="sweep reveal mt-10 font-display text-[clamp(1.25rem,3.9vw,3rem)] font-bold tracking-[-0.025em] text-ink [overflow-wrap:anywhere] sm:mt-12"
+              href={`mailto:${CONTACT.email}`}
+            >
+              {CONTACT.email}
+            </a>
+
+            <ul className="reveal mt-12 grid gap-x-10 sm:mt-16 sm:grid-cols-3">
+              {[
+                { label: "LinkedIn", detail: "michael-setiabudi", href: CONTACT.linkedin, external: true },
+                { label: "GitHub", detail: "MichaelSetiabudi", href: CONTACT.github, external: true },
+                { label: "Curriculum vitae", detail: "PDF, one page", href: CONTACT.cv, external: false },
+              ].map((c) => (
+                <li key={c.label} className="row">
+                  <a
+                    className="group flex items-center justify-between gap-4 py-5 pr-1"
+                    href={c.href}
+                    {...(c.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    <span>
+                      <span className="row-title block font-display font-bold">
+                        {c.label}
+                      </span>
+                      <span className="text-[0.86rem] text-ink-3">
+                        {c.detail}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="text-ink-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
       </main>
 
       <Footer />
