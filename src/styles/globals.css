@@ -2,51 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ------------------------------------------------------------------ *\
-   Design tokens — warm neutrals + near-black ink + one wine accent.
-   Light and dark tuned separately. Accent is used sparingly (links,
-   small emphasis) — never as decoration.
-\* ------------------------------------------------------------------ */
+/* ================================================================== *\
+   "Ink & Gold" — a refined editorial system.
+   Light: warm paper. Dark: deep cool ink with a warm gold accent and an
+   ambient glow, so the dark theme has depth instead of a flat charcoal.
+   Accent (gold) is the single signature colour.
+\* ================================================================== */
 
 :root {
-  --page: #f7f5f0;
-  --surface: #fffdf9;
-  --ink: #1a1917;
-  --ink-2: #575249;
-  --ink-3: #726a5c;
-  --line: #e4e0d6;
-  --line-2: #d6d1c4;
-  --accent: #8c2d3d;
-  --accent-hover: #711f2e;
+  --page: #f5f2ea;
+  --surface: #fffdf7;
+  --raised: #ffffff;
+  --ink: #191510;
+  --ink-2: #5b5241;
+  --ink-3: #746b56;
+  --line: #e7e0d0;
+  --line-2: #d8cfba;
+  --accent: #935d0c;
+  --accent-bright: #b9791a;
+  --glow: rgba(185, 121, 26, 0.13);
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --page: #181611;
-  --surface: #211e18;
-  --ink: #ece7dd;
-  --ink-2: #a69d8e;
-  --ink-3: #948c81;
-  --line: #302b22;
-  --line-2: #3f392e;
-  --accent: #e28d9a;
-  --accent-hover: #eda3ae;
+  --page: #0f0e13;
+  --surface: #16151c;
+  --raised: #1c1b23;
+  --ink: #f0ebe0;
+  --ink-2: #ada593;
+  --ink-3: #8b8370;
+  --line: #262431;
+  --line-2: #37343f;
+  --accent: #e9ab42;
+  --accent-bright: #f3bd5c;
+  --glow: rgba(233, 171, 66, 0.16);
   color-scheme: dark;
 }
 
-/* No-JS / pre-hydration fallback: honour OS preference until the inline
-   theme script (in _document) stamps an explicit data-theme. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --page: #181611;
-    --surface: #211e18;
-    --ink: #ece7dd;
-    --ink-2: #a69d8e;
-    --ink-3: #948c81;
-    --line: #302b22;
-    --line-2: #3f392e;
-    --accent: #e28d9a;
-    --accent-hover: #eda3ae;
+    --page: #0f0e13;
+    --surface: #16151c;
+    --raised: #1c1b23;
+    --ink: #f0ebe0;
+    --ink-2: #ada593;
+    --ink-3: #8b8370;
+    --line: #262431;
+    --line-2: #37343f;
+    --accent: #e9ab42;
+    --accent-bright: #f3bd5c;
+    --glow: rgba(233, 171, 66, 0.16);
     color-scheme: dark;
   }
 }
@@ -65,7 +70,7 @@
     line-height: 1.6;
   }
   ::selection {
-    background: color-mix(in srgb, var(--accent) 24%, transparent);
+    background: color-mix(in srgb, var(--accent) 26%, transparent);
   }
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -76,29 +81,156 @@
     color: var(--accent);
     text-decoration: none;
   }
-  a:hover {
-    color: var(--accent-hover);
-  }
 }
 
 @layer components {
   .wrap {
     width: 100%;
-    max-width: 1080px;
+    max-width: 1120px;
     margin-inline: auto;
-    padding-inline: clamp(22px, 5vw, 44px);
+    padding-inline: clamp(22px, 5vw, 48px);
+    position: relative;
+    z-index: 1;
+    overflow-x: clip; /* contain the ambient glow so it never causes h-scroll */
   }
+
+  /* Ambient glow behind the hero — depth for the dark theme */
+  .glow {
+    position: absolute;
+    inset-block-start: -180px;
+    inset-inline-end: -120px;
+    width: min(760px, 90vw);
+    height: 620px;
+    background: radial-gradient(50% 50% at 50% 50%, var(--glow), transparent 72%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Fine grain overlay for texture */
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.4;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Animated underline that grows on hover/focus */
+  .ul {
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+      color 0.2s ease;
+  }
+  .ul:hover,
+  .ul:focus-visible {
+    background-size: 100% 1.5px;
+    color: var(--accent-bright);
+  }
+
+  /* Project card with a themed lift-on-hover */
+  .proj-card {
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .proj-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+    box-shadow: 0 20px 46px -24px var(--glow),
+      0 8px 20px -14px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Available status dot */
+  .live-dot {
+    position: relative;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+/* ---- Motion ---- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Page-load stagger (pure CSS; content ends visible even without JS) */
+.rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.d1 {
+  animation-delay: 0.05s;
+}
+.d2 {
+  animation-delay: 0.12s;
+}
+.d3 {
+  animation-delay: 0.19s;
+}
+.d4 {
+  animation-delay: 0.26s;
+}
+.d5 {
+  animation-delay: 0.33s;
+}
+
+/* Scroll reveals — only hidden once JS is present (progressive enhancement) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.js .reveal.in {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-delay: 0ms !important;
-    transition-duration: 0.001ms !important;
+  .rise,
+  .js .reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .live-dot::after {
+    animation: none !important;
   }
 }

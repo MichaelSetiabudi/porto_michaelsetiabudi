@@ -71,6 +71,36 @@ export const projects: Project[] = [
   },
 ];
 
+export interface MiniProject {
+  title: string;
+  tech: string;
+  href: string;
+}
+
+// More public repositories — shows breadth beyond the featured work.
+export const moreProjects: MiniProject[] = [
+  {
+    title: "Booking Lapangan Futsal",
+    tech: "Laravel",
+    href: "https://github.com/MichaelSetiabudi/BookingLapanganFutsal",
+  },
+  {
+    title: "Personal CRM",
+    tech: "Laravel",
+    href: "https://github.com/MichaelSetiabudi/MichaelSetiabudi_crm",
+  },
+  {
+    title: "Gamerhub",
+    tech: "JavaScript",
+    href: "https://github.com/MichaelSetiabudi/Gamerhub",
+  },
+  {
+    title: "Quick Count",
+    tech: "Laravel",
+    href: "https://github.com/MichaelSetiabudi/quick_count",
+  },
+];
+
 export const CONTACT = {
   email: "michaelsetiabudi@gmail.com",
   github: "https://github.com/MichaelSetiabudi",

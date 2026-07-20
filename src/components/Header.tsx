@@ -17,13 +17,13 @@ export default function Header() {
           className="hidden gap-6 text-[15px] text-ink-2 sm:flex"
           aria-label="Sections"
         >
-          <a href="#work" className="transition-colors hover:text-ink">
+          <a href="#work" className="ul">
             Work
           </a>
-          <a href="#about" className="transition-colors hover:text-ink">
+          <a href="#about" className="ul">
             About
           </a>
-          <a href="#contact" className="transition-colors hover:text-ink">
+          <a href="#contact" className="ul">
             Contact
           </a>
         </nav>

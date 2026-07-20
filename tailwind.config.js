@@ -19,7 +19,7 @@ module.exports = {
         line: "var(--line)",
         "line-2": "var(--line-2)",
         accent: "var(--accent)",
-        "accent-hover": "var(--accent-hover)",
+        "accent-bright": "var(--accent-bright)",
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
