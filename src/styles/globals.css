@@ -228,6 +228,47 @@
     color: var(--accent-bright);
   }
 
+  /* Download action — a document tab. The clipped corner reads as a paper
+     dog-ear, and the arrow drops on hover to signal "download". */
+  .dl {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.05rem 1.25rem;
+    border: 1px solid var(--line-2);
+    background: color-mix(in srgb, var(--ink) 3%, transparent);
+    /* top-right dog-ear */
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+    transition: border-color 0.3s ease, background-color 0.3s ease,
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .dl:hover,
+  .dl:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+  .dl-lang {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .dl-arrow {
+    display: inline-block;
+    color: var(--ink-3);
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+      color 0.3s ease;
+  }
+  .dl:hover .dl-arrow,
+  .dl:focus-visible .dl-arrow {
+    transform: translateY(4px);
+    color: var(--accent);
+  }
+
   /* Available status dot */
   .live-dot {
     position: relative;

@@ -163,9 +163,18 @@ export default function Home() {
                   <a className="ul" href={`mailto:${CONTACT.email}`}>
                     Email
                   </a>
-                  <a className="ul" href={CONTACT.cv}>
-                    Download CV
-                  </a>
+                  <span className="inline-flex items-center gap-2 text-ink-2">
+                    <span className="font-medium">CV</span>
+                    <a className="ul" href={CONTACT.cv.id} download>
+                      ID
+                    </a>
+                    <span aria-hidden="true" className="text-line-2">
+                      /
+                    </span>
+                    <a className="ul" href={CONTACT.cv.en} download>
+                      EN
+                    </a>
+                  </span>
                 </div>
               </div>
 
@@ -474,38 +483,76 @@ export default function Home() {
               {CONTACT.email}
             </a>
 
-            <ul className="reveal mt-12 grid gap-x-10 sm:mt-16 sm:grid-cols-3">
-              {[
-                { label: "LinkedIn", detail: "michael-setiabudi", href: CONTACT.linkedin, external: true },
-                { label: "GitHub", detail: "MichaelSetiabudi", href: CONTACT.github, external: true },
-                { label: "Curriculum vitae", detail: "PDF, one page", href: CONTACT.cv, external: false },
-              ].map((c) => (
-                <li key={c.label} className="row">
-                  <a
-                    className="group flex items-center justify-between gap-4 py-5 pr-1"
-                    href={c.href}
-                    {...(c.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
+            <div className="reveal mt-14 grid gap-x-20 gap-y-12 border-t border-line pt-10 sm:mt-16 lg:grid-cols-[1fr_auto]">
+              {/* Social — secondary links, kept as quiet text rows */}
+              <div>
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ink-3">
+                  Find me
+                </p>
+                <ul className="mt-4 max-w-md">
+                  {[
+                    { label: "LinkedIn", handle: "michael-setiabudi", href: CONTACT.linkedin },
+                    { label: "GitHub", handle: "MichaelSetiabudi", href: CONTACT.github },
+                  ].map((s) => (
+                    <li key={s.label} className="row">
+                      <a
+                        className="group flex items-baseline justify-between gap-6 py-4"
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span className="row-title font-display text-[1.15rem] font-bold">
+                          {s.label}
+                        </span>
+                        <span className="flex items-baseline gap-3 text-[0.9rem] text-ink-3">
+                          {s.handle}
+                          <span
+                            aria-hidden="true"
+                            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                          >
+                            ↗
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* CV — the primary action. Two languages, one document. */}
+              <div className="lg:min-w-[340px]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ink-3">
+                  Grab my CV
+                </p>
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <a className="dl" href={CONTACT.cv.id} download>
                     <span>
-                      <span className="row-title block font-display font-bold">
-                        {c.label}
-                      </span>
-                      <span className="text-[0.86rem] text-ink-3">
-                        {c.detail}
+                      <span className="dl-lang block">Indonesia</span>
+                      <span className="mt-1 block text-[0.74rem] uppercase tracking-[0.12em] text-ink-3">
+                        PDF
                       </span>
                     </span>
-                    <span
-                      aria-hidden="true"
-                      className="text-ink-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-                    >
-                      ↗
+                    <span className="dl-arrow" aria-hidden="true">
+                      ↓
                     </span>
                   </a>
-                </li>
-              ))}
-            </ul>
+                  <a className="dl" href={CONTACT.cv.en} download>
+                    <span>
+                      <span className="dl-lang block">English</span>
+                      <span className="mt-1 block text-[0.74rem] uppercase tracking-[0.12em] text-ink-3">
+                        PDF
+                      </span>
+                    </span>
+                    <span className="dl-arrow" aria-hidden="true">
+                      ↓
+                    </span>
+                  </a>
+                </div>
+                <p className="mt-3 text-[0.82rem] text-ink-3">
+                  Same résumé in two languages.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
       </main>

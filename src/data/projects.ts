@@ -105,5 +105,9 @@ export const CONTACT = {
   email: "michaelsetiabudi@gmail.com",
   github: "https://github.com/MichaelSetiabudi",
   linkedin: "https://www.linkedin.com/in/michael-setiabudi-032090297/",
-  cv: "/Michael-Setiabudi-CV.pdf",
+  // Two CV versions — Indonesian and English.
+  cv: {
+    id: "/Michael-Setiabudi-CV-ID.pdf",
+    en: "/Michael-Setiabudi-CV-EN.pdf",
+  },
 };
