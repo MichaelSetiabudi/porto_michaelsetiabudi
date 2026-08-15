@@ -17,7 +17,7 @@ export const projects: Project[] = [
     title: "iSTTS Student Information System",
     context: "Thesis · 2025–2026",
     description:
-      "Replaces the university's old Laravel system. A Flutter client on a NestJS API, 284 endpoints, Keycloak single sign-on. Students and staff use it on the web and on Android.",
+      "Replaces the university's old Laravel system. A Flutter client on a NestJS API with Keycloak single sign-on. Students and staff use it on the web and on Android.",
     tech: "Flutter · NestJS · MySQL · Keycloak",
     links: [{ label: "sim.istts.ac.id", href: "https://sim.istts.ac.id" }],
   },

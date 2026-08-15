@@ -72,7 +72,7 @@ const BACKGROUND: {
     period: "2022 – 2026",
     title: "Bachelor of Informatics",
     org: "Institut Sains dan Teknologi Terpadu Surabaya",
-    note: "GPA 3.52 out of 4.00. My thesis is the student information system now running at sim.istts.ac.id.",
+    note: "GPA 3.54 out of 4.00. My thesis is the student information system now running at sim.istts.ac.id.",
   },
   {
     period: "2025",
@@ -311,9 +311,8 @@ export default function Home() {
                 behind them.
               </p>
               <p className="text-ink-2">
-                The student information system was my thesis. Before release it
-                went through 34 test scenarios and a usability study with 276
-                respondents.
+                The student information system was my thesis. It is now in
+                production at the university.
               </p>
             </div>
 
