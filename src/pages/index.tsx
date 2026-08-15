@@ -50,7 +50,7 @@ const SKILLS: [string, string[]][] = [
 const FACTS: [string, string][] = [
   ["Based in", "Surabaya, Indonesia"],
   ["Degree", "Informatics, iSTTS"],
-  ["GPA", "3.52 / 4.00"],
+  ["GPA", "3.54 / 4.00"],
   ["Graduating", "2026"],
 ];
 
