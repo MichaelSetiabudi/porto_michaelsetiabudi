@@ -178,18 +178,18 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="rise d1 relative shrink-0 self-start lg:self-end">
+              <div className="rise d1 relative shrink-0 self-center lg:self-end">
                 <span
                   aria-hidden="true"
-                  className="absolute -bottom-3.5 -left-3.5 h-full w-full rounded-2xl"
+                  className="absolute -bottom-3 -left-3 h-full w-full rounded-2xl sm:-bottom-3.5 sm:-left-3.5"
                   style={{ border: "1.5px solid var(--accent)", opacity: 0.4 }}
                 />
-                <div className="relative h-[262px] w-[212px] overflow-hidden rounded-2xl border border-line bg-surface sm:h-[330px] sm:w-[266px] lg:h-[386px] lg:w-[312px] xl:h-[452px] xl:w-[366px]">
+                <div className="relative h-[300px] w-[240px] overflow-hidden rounded-2xl border border-line bg-surface sm:h-[330px] sm:w-[266px] lg:h-[386px] lg:w-[312px] xl:h-[452px] xl:w-[366px]">
                   <Image
                     src="/ms_pic.jpeg"
                     alt="Michael Setiabudi"
                     fill
-                    sizes="(max-width: 640px) 212px, (max-width: 1024px) 266px, (max-width: 1280px) 312px, 366px"
+                    sizes="(max-width: 640px) 240px, (max-width: 1024px) 266px, (max-width: 1280px) 312px, 366px"
                     className="object-cover object-[center_10%]"
                     priority
                   />

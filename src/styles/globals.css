@@ -9,49 +9,52 @@
    Accent (gold) is the single signature colour.
 \* ================================================================== */
 
+/* Light: warm ivory paper with deep teal-ink text and an ochre/amber accent. */
 :root {
-  --page: #f5f2ea;
-  --surface: #fffdf7;
+  --page: #f4f2ec;
+  --surface: #fbfaf5;
   --raised: #ffffff;
-  --ink: #191510;
-  --ink-2: #5b5241;
-  --ink-3: #746b56;
-  --line: #e7e0d0;
-  --line-2: #d8cfba;
-  --accent: #935d0c;
-  --accent-bright: #b9791a;
-  --glow: rgba(185, 121, 26, 0.13);
+  --ink: #13211f;
+  --ink-2: #47544f;
+  --ink-3: #67716a;
+  --line: #e3e0d5;
+  --line-2: #d3cfc0;
+  --accent: #8f5305;
+  --accent-bright: #9e5c0b;
+  --glow: rgba(143, 83, 5, 0.09);
   color-scheme: light;
 }
 
+/* Dark: a deep teal-ink world (not flat charcoal) with a bright amber accent,
+   so the two themes read as genuinely different places. */
 :root[data-theme="dark"] {
-  --page: #0f0e13;
-  --surface: #16151c;
-  --raised: #1c1b23;
-  --ink: #f0ebe0;
-  --ink-2: #ada593;
-  --ink-3: #8b8370;
-  --line: #262431;
-  --line-2: #37343f;
-  --accent: #e9ab42;
-  --accent-bright: #f3bd5c;
-  --glow: rgba(233, 171, 66, 0.16);
+  --page: #0b1a18;
+  --surface: #10201e;
+  --raised: #162927;
+  --ink: #eef1ea;
+  --ink-2: #9fb0a8;
+  --ink-3: #849489;
+  --line: #1e302d;
+  --line-2: #2c403c;
+  --accent: #f1b44b;
+  --accent-bright: #f7c463;
+  --glow: rgba(241, 180, 75, 0.15);
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --page: #0f0e13;
-    --surface: #16151c;
-    --raised: #1c1b23;
-    --ink: #f0ebe0;
-    --ink-2: #ada593;
-    --ink-3: #8b8370;
-    --line: #262431;
-    --line-2: #37343f;
-    --accent: #e9ab42;
-    --accent-bright: #f3bd5c;
-    --glow: rgba(233, 171, 66, 0.16);
+    --page: #0b1a18;
+    --surface: #10201e;
+    --raised: #162927;
+    --ink: #eef1ea;
+    --ink-2: #9fb0a8;
+    --ink-3: #849489;
+    --line: #1e302d;
+    --line-2: #2c403c;
+    --accent: #f1b44b;
+    --accent-bright: #f7c463;
+    --glow: rgba(241, 180, 75, 0.15);
     color-scheme: dark;
   }
 }

@@ -11,12 +11,12 @@ export default function Document() {
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta
           name="theme-color"
-          content="#f5f2ea"
+          content="#f4f2ec"
           media="(prefers-color-scheme: light)"
         />
         <meta
           name="theme-color"
-          content="#0f0e13"
+          content="#0b1a18"
           media="(prefers-color-scheme: dark)"
         />
       </Head>
