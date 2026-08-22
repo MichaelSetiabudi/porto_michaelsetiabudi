@@ -1,8 +1,11 @@
-import { Fragment, ReactNode } from "react";
+import { CSSProperties, Fragment, ReactNode } from "react";
 import Image from "next/image";
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Marquee from "@/components/Marquee";
+import SplitText from "@/components/SplitText";
+import CountUp from "@/components/CountUp";
 import { projects, moreProjects, CONTACT } from "@/data/projects";
 
 /* Every section is a two-column band: a sticky label on the left, content on
@@ -21,19 +24,22 @@ function Section({
 }) {
   return (
     <section
-      className={`grid gap-x-12 gap-y-6 border-t border-line pt-8 lg:grid-cols-[minmax(160px,210px)_minmax(0,1fr)] lg:gap-x-16 ${className}`}
+      className={`band grid gap-x-12 gap-y-6 border-t border-line pt-8 lg:grid-cols-[minmax(160px,210px)_minmax(0,1fr)] lg:gap-x-16 ${className}`}
     >
       <h2
         id={id}
-        className="reveal flex scroll-mt-6 items-center gap-2.5 self-start font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-ink-3 lg:sticky lg:top-8"
+        className="reveal flex scroll-mt-28 items-center gap-2.5 self-start font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-ink-3 lg:sticky lg:top-28"
       >
-        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+        <span aria-hidden="true" className="tick" />
         {label}
       </h2>
       <div>{children}</div>
     </section>
   );
 }
+
+const PORTRAIT_SIZES =
+  "(max-width: 640px) 244px, (max-width: 1024px) 282px, (max-width: 1280px) 336px, 392px";
 
 const SKILLS: [string, string[]][] = [
   ["Languages", ["PHP", "JavaScript", "TypeScript", "Dart", "Kotlin", "C#", "SQL"]],
@@ -46,12 +52,21 @@ const SKILLS: [string, string[]][] = [
   ],
 ];
 
-// Short factual figures, shown as a row under the About narrative.
-const FACTS: [string, string][] = [
-  ["Based in", "Surabaya, Indonesia"],
-  ["Degree", "Informatics, iSTTS"],
-  ["GPA", "3.54 / 4.00"],
-  ["Graduating", "2026"],
+// Short factual figures, shown as a row under the About narrative. The two
+// numeric ones count up when they arrive; the year counts from 2022, the start
+// of the degree, so the run is the span rather than an arbitrary ramp.
+const FACTS: { label: string; value: ReactNode }[] = [
+  { label: "Based in", value: "Surabaya, Indonesia" },
+  { label: "Degree", value: "Informatics, iSTTS" },
+  {
+    label: "GPA",
+    value: (
+      <>
+        <CountUp from={0} to={3.54} decimals={2} /> / 4.00
+      </>
+    ),
+  },
+  { label: "Graduating", value: <CountUp from={2022} to={2026} /> },
 ];
 
 // Dated entries only.
@@ -121,17 +136,21 @@ export default function Home() {
         <div className="wrap">
           {/* ---------- Hero ---------- */}
           <section className="relative pb-16 pt-4 sm:pb-20 sm:pt-8">
-            <div className="glow" aria-hidden="true" />
             <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
               <div className="max-w-[46rem] flex-1">
                 <p className="rise d1 mb-7 inline-flex items-center gap-2.5 rounded-full border border-line-2 px-3.5 py-1.5 text-[0.82rem] font-medium text-ink-2">
                   <span className="live-dot" aria-hidden="true" />
                   Open to fullstack roles
                 </p>
-                <h1 className="rise d2 font-display text-[clamp(2.6rem,7vw,6.4rem)] font-extrabold leading-[0.96] tracking-[-0.035em]">
-                  Michael
-                  <br />
-                  Setiabudi
+                {/* Every glyph swings up out of its own line, so the name
+                    typesets itself rather than sliding in as a slab. The
+                    readable copy is the sr-only span. */}
+                <h1 className="font-display text-[clamp(2.6rem,7vw,6.4rem)] font-extrabold leading-[0.96] tracking-[-0.035em]">
+                  <span className="sr-only">Michael Setiabudi</span>
+                  <span aria-hidden="true">
+                    <SplitText text="Michael" start={0} />
+                    <SplitText text="Setiabudi" start={7} />
+                  </span>
                 </h1>
                 <p className="rise d3 mt-6 max-w-[30ch] font-display text-[clamp(1.15rem,2vw,1.65rem)] font-semibold leading-[1.2]">
                   Fullstack developer —{" "}
@@ -178,29 +197,41 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="rise d1 relative shrink-0 self-center lg:self-end">
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-3 -left-3 h-full w-full rounded-2xl sm:-bottom-3.5 sm:-left-3.5"
-                  style={{ border: "1.5px solid var(--accent)", opacity: 0.4 }}
-                />
-                <div className="relative h-[300px] w-[240px] overflow-hidden rounded-2xl border border-line bg-surface sm:h-[330px] sm:w-[266px] lg:h-[386px] lg:w-[312px] xl:h-[452px] xl:w-[366px]">
+              {/* An alpha cutout, graded once for paper and once for the dark
+                  page. No frame and nothing painted behind it — the figure
+                  stands on the page itself in both themes. */}
+              <div className="portrait-frame shrink-0 self-center lg:self-end">
+                <div className="portrait">
                   <Image
-                    src="/ms_pic.jpeg"
+                    src="/ms_pic_cutout.png"
                     alt="Michael Setiabudi"
                     fill
-                    sizes="(max-width: 640px) 240px, (max-width: 1024px) 266px, (max-width: 1280px) 312px, 366px"
-                    className="object-cover object-[center_10%]"
+                    sizes={PORTRAIT_SIZES}
+                    className="portrait-img portrait-light object-contain object-bottom"
                     priority
+                  />
+                  <Image
+                    src="/ms_pic_cutout_dark.png"
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes={PORTRAIT_SIZES}
+                    className="portrait-img portrait-dark object-contain object-bottom"
                   />
                 </div>
               </div>
             </div>
           </section>
+        </div>
 
+        {/* Full-bleed so the strip runs edge to edge and reads as a band
+            rather than another column of content. */}
+        <Marquee />
+
+        <div className="wrap">
           {/* ---------- Selected work ---------- */}
-          <Section id="work" label="Selected work">
-            <ul>
+          <Section id="work" label="Selected work" className="mt-16 sm:mt-20">
+            <ul data-stagger>
               {projects.map((p, i) => (
                 <li
                   key={p.title}
@@ -221,7 +252,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="max-w-[58ch] lg:pt-1">
+                    <div className="row-body max-w-[58ch] lg:pt-1">
                       <p className="text-ink-2">{p.description}</p>
                       <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.86rem]">
                         <span className="font-medium text-ink-3">{p.tech}</span>
@@ -316,9 +347,12 @@ export default function Home() {
               </p>
             </div>
 
-            <dl className="reveal mt-12 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
-              {FACTS.map(([label, value]) => (
-                <div key={label} className="border-t border-line pt-4">
+            <dl
+              data-stagger
+              className="mt-12 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-4"
+            >
+              {FACTS.map(({ label, value }) => (
+                <div key={label} className="reveal border-t border-line pt-4">
                   <dt className="text-[0.72rem] font-bold uppercase tracking-[0.16em] text-ink-3">
                     {label}
                   </dt>
@@ -332,7 +366,7 @@ export default function Home() {
 
           {/* ---------- Background: dated entries, then credentials ---------- */}
           <Section label="Background" className="mt-20 sm:mt-24">
-            <ul>
+            <ul data-stagger>
               {BACKGROUND.map((b) => (
                 <li key={b.title} className="reveal border-t border-line">
                   <div className="grid gap-x-10 gap-y-3 py-7 lg:grid-cols-[minmax(0,180px)_minmax(0,1fr)_minmax(0,1.1fr)]">
@@ -370,7 +404,7 @@ export default function Home() {
 
           {/* ---------- Skills: one row per category, technologies as tags ---------- */}
           <Section label="Skills" className="mt-20 sm:mt-24">
-            <dl>
+            <dl data-stagger>
               {SKILLS.map(([label, items]) => (
                 <div
                   key={label}
@@ -393,7 +427,7 @@ export default function Home() {
 
           {/* ---------- Certifications: assessed credentials, per issuer ---------- */}
           <Section label="Certifications" className="mt-20 sm:mt-24">
-            <dl>
+            <dl data-stagger>
               {CERTIFICATIONS.map(({ issuer, items }) => (
                 <div
                   key={issuer}
@@ -434,30 +468,14 @@ export default function Home() {
         </div>
 
         {/* ---------- Contact: full-bleed closing band ---------- */}
-        {/* overflow-clip keeps the ambient glow inside the band — without it the
-            glow extends past the footer and adds phantom scroll height. */}
         <section
           id="contact"
-          className="mt-24 scroll-mt-0 overflow-clip border-t border-line bg-surface sm:mt-28"
+          className="band mt-24 scroll-mt-0 border-t border-line bg-surface sm:mt-28"
         >
           <div className="wrap relative pb-14 pt-20 sm:pb-16 sm:pt-24 lg:pt-28">
-            <div
-              className="glow"
-              aria-hidden="true"
-              style={{
-                insetBlockStart: "auto",
-                insetBlockEnd: "-220px",
-                insetInlineEnd: "auto",
-                insetInlineStart: "-180px",
-              }}
-            />
-
             <div className="reveal flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
               <h2 className="flex items-center gap-2.5 font-display text-[0.78rem] font-bold uppercase tracking-[0.16em] text-ink-3">
-                <span
-                  aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full bg-accent"
-                />
+                <span aria-hidden="true" className="tick" />
                 Contact
               </h2>
               <p className="inline-flex items-center gap-2.5 text-[0.82rem] font-medium text-ink-2">
@@ -466,9 +484,20 @@ export default function Home() {
               </p>
             </div>
 
-            <p className="reveal mt-10 max-w-[16ch] font-display text-[clamp(2.1rem,6vw,4.6rem)] font-extrabold leading-[1.0] tracking-[-0.035em] sm:mt-12">
-              Looking for a{" "}
-              <span className="text-accent">fullstack&nbsp;role</span>.
+            {/* The second big typographic moment on the page, so it gets the
+                same treatment as the name — driven by scroll, not by load. */}
+            <p className="mt-10 max-w-[16ch] font-display text-[clamp(2.1rem,6vw,4.6rem)] font-extrabold leading-[1.0] tracking-[-0.035em] sm:mt-12">
+              <span className="sr-only">Looking for a fullstack role.</span>
+              <span aria-hidden="true">
+                <SplitText text="Looking for a" by="word" scroll start={0} />
+                <SplitText
+                  text="fullstack role."
+                  by="word"
+                  scroll
+                  start={3}
+                  className="text-accent"
+                />
+              </span>
             </p>
 
             <p className="reveal mt-8 max-w-[52ch] text-ink-2">
@@ -524,7 +553,7 @@ export default function Home() {
                   Grab my CV
                 </p>
                 <div className="mt-4 grid grid-cols-2 gap-3">
-                  <a className="dl" href={CONTACT.cv.id} download>
+                  <a className="dl" data-magnetic="0.22" href={CONTACT.cv.id} download>
                     <span>
                       <span className="dl-lang block">Indonesia</span>
                       <span className="mt-1 block text-[0.74rem] uppercase tracking-[0.12em] text-ink-3">
@@ -535,7 +564,7 @@ export default function Home() {
                       ↓
                     </span>
                   </a>
-                  <a className="dl" href={CONTACT.cv.en} download>
+                  <a className="dl" data-magnetic="0.22" href={CONTACT.cv.en} download>
                     <span>
                       <span className="dl-lang block">English</span>
                       <span className="mt-1 block text-[0.74rem] uppercase tracking-[0.12em] text-ink-3">

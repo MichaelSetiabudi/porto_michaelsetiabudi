@@ -3,7 +3,27 @@
     "allow": [
       "Bash(npm run build:*)",
       "Bash(npx next build)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(cat)",
+      "Bash(python /tmp/c3.py)",
+      "Bash(python /tmp/c4.py)",
+      "Bash(grep -iE \"^sharp$|^jimp$|^pngjs$|^jpeg-js$\")",
+      "Bash(python -m pip install --quiet pillow)",
+      "Bash(python -c \"import PIL; print\\('pillow ok', PIL.__version__\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)",
+      "Bash(python -m pip install --quiet numpy)",
+      "Bash(python -c \"import numpy; print\\('numpy', numpy.__version__\\)\")",
+      "Read(//c/Program Files \\\\\\(x86\\\\\\)/Microsoft/Edge/Application/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(curl -s -o /dev/null -w \"port3000 -> %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(URL=http://localhost:3000/ node shot.js)",
+      "Bash(node check.js)",
+      "Bash(npx eslint *)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(python -m pip install --quiet scipy)"
     ],
     "deny": [],
     "ask": []

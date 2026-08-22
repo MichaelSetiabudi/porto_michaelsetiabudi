@@ -13,6 +13,7 @@ module.exports = {
       colors: {
         page: "var(--page)",
         surface: "var(--surface)",
+        raised: "var(--raised)",
         ink: "var(--ink)",
         "ink-2": "var(--ink-2)",
         "ink-3": "var(--ink-3)",
